@@ -3,224 +3,490 @@
     "rule_id": "const_001",
     "description": "Hard hat missing — worker in active work zone without head protection",
     "severity": "high",
-    "visual_signals": ["person", "no_helmet", "hard_hat_missing", "bare_head", "construction_zone"],
+    "visual_signals": ["person in construction area with uncovered head", "bare head near overhead hazards or active work", "worker without hard hat among helmeted crew"],
     "category": "ppe"
   },
   {
     "rule_id": "const_002",
     "description": "Hi-vis vest missing — worker near mobile equipment or roadway without high-visibility garment",
     "severity": "medium",
-    "visual_signals": ["person", "no_vest", "high_vis_missing", "dark_clothing", "equipment_area"],
+    "visual_signals": ["person in dark clothing near heavy equipment travel path", "worker without reflective vest in active traffic area", "individual lacking fluorescent garment in equipment zone"],
     "category": "ppe"
   },
   {
     "rule_id": "const_003",
     "description": "Safety glasses missing — worker performing grinding, cutting, or drilling without eye protection",
     "severity": "high",
-    "visual_signals": ["person", "no_goggles", "no_safety_glasses", "sparks", "grinder", "cutting_wheel"],
+    "visual_signals": ["person operating grinder with no safety glasses or goggles", "sparks directed at unprotected face during cutting", "worker drilling overhead without eye protection visible"],
     "category": "ppe"
   },
   {
     "rule_id": "const_004",
     "description": "Gloves missing — worker handling sharp materials, chemicals, or rough surfaces without hand protection",
     "severity": "medium",
-    "visual_signals": ["person", "bare_hands", "no_gloves", "rebar", "sheet_metal", "chemical_container"],
+    "visual_signals": ["bare hands gripping rebar or sheet metal edges", "worker handling chemical container without gloves", "ungloved hands manipulating rough lumber or concrete forms"],
     "category": "ppe"
   },
   {
     "rule_id": "const_005",
     "description": "Steel-toe boots missing — worker in active area wearing sneakers, sandals, or non-protective footwear",
     "severity": "medium",
-    "visual_signals": ["person", "sneakers", "sandals", "open_toe", "non_safety_footwear", "feet"],
+    "visual_signals": ["sneakers or athletic shoes visible on worker in construction zone", "open-toe sandals worn on active job site", "non-safety footwear lacking toe cap or ankle support"],
     "category": "ppe"
   },
   {
     "rule_id": "const_006",
     "description": "Unguarded leading edge — open perimeter edge at elevation without guardrail or warning line",
     "severity": "critical",
-    "visual_signals": ["roof_edge", "floor_edge", "slab_edge", "no_guardrail", "open_side", "elevation"],
+    "visual_signals": ["roof or floor slab edge with no guardrail or safety cable", "open building perimeter at height with no barrier visible", "worker near unprotected edge of elevated deck or platform"],
     "category": "fall_protection"
   },
   {
     "rule_id": "const_007",
     "description": "Missing guardrail at floor opening — hole or opening in floor/deck without standard railing or cover",
     "severity": "critical",
-    "visual_signals": ["floor_opening", "hole", "uncovered_opening", "missing_barrier", "deck_hole"],
+    "visual_signals": ["uncovered hole in floor deck with no barrier", "floor opening missing plywood cover or guardrail", "stairway or shaft opening without protective railing"],
     "category": "fall_protection"
   },
   {
     "rule_id": "const_008",
     "description": "Worker at height without harness — person working above 6 feet with no fall arrest system visible",
     "severity": "critical",
-    "visual_signals": ["person", "height", "no_harness", "elevated_work", "roof", "beam", "steel_structure"],
+    "visual_signals": ["person on elevated steel beam without harness or lanyard", "worker on roof edge with no fall arrest equipment visible", "individual climbing structure above 6 feet lacking body harness"],
     "category": "fall_protection"
   },
   {
     "rule_id": "const_009",
     "description": "Harness not clipped in — worker wearing harness but lanyard is not connected to anchor point",
     "severity": "critical",
-    "visual_signals": ["harness", "lanyard_dangling", "unclipped", "no_anchor", "disconnected_lanyard"],
+    "visual_signals": ["harness worn with lanyard dangling unconnected at side", "snap hook hanging free while worker is at height", "retractable lifeline not attached to D-ring on harness"],
     "category": "fall_protection"
   },
   {
     "rule_id": "const_010",
     "description": "Improper ladder use — ladder unsecured, wrong angle, damaged, or worker overreaching from ladder",
     "severity": "high",
-    "visual_signals": ["ladder", "unstable", "wrong_angle", "overreach", "unsecured_ladder", "damaged_rung"],
+    "visual_signals": ["ladder placed at steep angle without proper 4-to-1 ratio", "worker leaning far to one side from ladder", "ladder top not extending 3 feet above landing with no securing"],
     "category": "fall_protection"
   },
   {
     "rule_id": "const_011",
     "description": "Missing scaffold guardrail/toprail — scaffold platform above 10 feet lacking top rail on open side",
     "severity": "critical",
-    "visual_signals": ["scaffold", "no_toprail", "missing_guardrail", "open_platform", "scaffold_edge"],
+    "visual_signals": ["scaffold platform edge without horizontal top rail", "open side of scaffold at height with no railing", "worker standing on scaffold deck with unguarded drop-off"],
     "category": "scaffolding"
   },
   {
     "rule_id": "const_012",
     "description": "Missing scaffold midrail — scaffold guardrail system lacks required mid-rail between toprail and deck",
     "severity": "high",
-    "visual_signals": ["scaffold", "no_midrail", "gap_in_railing", "incomplete_guardrail"],
+    "visual_signals": ["scaffold guardrail with large gap between top rail and platform", "single rail at top with no mid-height rail on scaffold", "incomplete guardrail system missing intermediate horizontal member"],
     "category": "scaffolding"
   },
   {
     "rule_id": "const_013",
     "description": "Scaffold missing cross-bracing — scaffold frame lacks diagonal bracing needed for structural stability",
     "severity": "critical",
-    "visual_signals": ["scaffold", "no_bracing", "missing_cross_brace", "unstable_frame", "swaying_scaffold"],
+    "visual_signals": ["scaffold frame without diagonal cross members", "scaffold bays with only vertical and horizontal members and no X-brace", "swaying or visibly unstable scaffold lacking lateral bracing"],
     "category": "scaffolding"
   },
   {
     "rule_id": "const_014",
     "description": "Scaffold on unstable base — scaffold legs placed on soft ground, uneven surface, or without base plates and mudsills",
     "severity": "critical",
-    "visual_signals": ["scaffold", "mud", "soft_ground", "no_base_plate", "uneven_surface", "sinking_leg"],
+    "visual_signals": ["scaffold leg sinking into soft ground or mud", "scaffold frame sitting on uneven terrain without leveling", "scaffold base lacking metal base plates or wooden mudsills"],
     "category": "scaffolding"
   },
   {
     "rule_id": "const_015",
     "description": "Scaffold planks with gaps — working platform has gaps greater than 1 inch between planks or between plank and uprights",
     "severity": "high",
-    "visual_signals": ["scaffold", "plank_gap", "missing_plank", "incomplete_deck", "visible_gap"],
+    "visual_signals": ["visible daylight gap between scaffold planks", "space between plank end and scaffold upright exceeding one inch", "incomplete scaffold decking with missing plank sections"],
     "category": "scaffolding"
   },
   {
     "rule_id": "const_016",
     "description": "Unprotected trench edges — excavation/trench deeper than 4 feet without shoring, sloping, or shielding",
     "severity": "critical",
-    "visual_signals": ["trench", "vertical_walls", "no_shoring", "no_sloping", "deep_excavation", "cave_in_risk"],
+    "visual_signals": ["vertical-walled trench deeper than 4 feet with no shoring", "deep excavation with straight unsupported soil walls", "workers in trench without trench box or sloped walls visible"],
     "category": "excavation"
   },
   {
     "rule_id": "const_017",
     "description": "No barricade around excavation — open excavation lacking guardrails, fencing, or barrier to prevent falls",
     "severity": "high",
-    "visual_signals": ["excavation", "open_edge", "no_barrier", "no_fence", "unmarked_hole"],
+    "visual_signals": ["open excavation edge with no fencing or caution tape", "unmarked trench edge accessible to foot traffic", "excavation perimeter without physical barrier or warning line"],
     "category": "excavation"
   },
   {
     "rule_id": "const_018",
     "description": "Spoil pile too close to trench — excavated soil placed within 2 feet of trench edge creating surcharge load",
     "severity": "high",
-    "visual_signals": ["spoil_pile", "dirt_mound", "trench_edge", "close_pile", "overburden"],
+    "visual_signals": ["mound of excavated dirt piled right at trench edge", "soil pile encroaching within 2 feet of excavation lip", "spoil material overhanging or slumping back into trench"],
     "category": "excavation"
   },
   {
     "rule_id": "const_019",
     "description": "Missing ladder for trench egress — trench over 4 feet deep without ladder or ramp within 25 feet of workers",
     "severity": "high",
-    "visual_signals": ["trench", "no_ladder", "no_ramp", "deep_trench", "workers_in_trench"],
+    "visual_signals": ["workers standing in deep trench with no ladder in view", "trench longer than 50 feet with no visible egress point", "excavation over 4 feet deep lacking ramp or stairway access"],
     "category": "excavation"
   },
   {
     "rule_id": "const_020",
     "description": "Exposed wiring — live electrical conductors or wiring without insulation, covers, or junction boxes",
     "severity": "high",
-    "visual_signals": ["exposed_wire", "bare_conductor", "open_junction_box", "uninsulated_wire", "live_wire"],
+    "visual_signals": ["bare copper wire ends protruding from open junction box", "uninsulated conductors hanging from temporary panel", "live wires exposed without wire nuts or covers in place"],
     "category": "electrical"
   },
   {
     "rule_id": "const_021",
     "description": "Damaged extension cord — cord with cut insulation, exposed copper, missing ground prong, or taped splices",
     "severity": "high",
-    "visual_signals": ["damaged_cord", "frayed_wire", "taped_cord", "missing_ground_prong", "cut_insulation"],
+    "visual_signals": ["extension cord with visible inner wires through cut jacket", "electrical tape splice on cord in use on job site", "plug end of cord missing third ground prong"],
     "category": "electrical"
   },
   {
     "rule_id": "const_022",
     "description": "Missing GFCI protection — portable tools or temporary wiring without ground-fault circuit interrupter",
     "severity": "high",
-    "visual_signals": ["outlet", "no_gfci", "extension_cord", "temporary_power", "wet_area_electrical"],
+    "visual_signals": ["tool plugged into non-GFCI outlet on job site", "temporary power panel with standard outlets lacking GFCI", "extension cord in wet area connected to unprotected receptacle"],
     "category": "electrical"
   },
   {
     "rule_id": "const_023",
     "description": "Crane load without tag lines — suspended load being moved without tag/guide ropes to control swing",
     "severity": "high",
-    "visual_signals": ["crane", "suspended_load", "no_tag_line", "swinging_load", "rigging"],
+    "visual_signals": ["crane-suspended load swinging freely with no rope guiding it", "rigged load in air with no tag line attached to control rotation", "load being hoisted over work area without guide ropes visible"],
     "category": "equipment"
   },
   {
     "rule_id": "const_024",
     "description": "Equipment operating without spotter — heavy machinery reversing or operating in blind spots with no signal person",
     "severity": "high",
-    "visual_signals": ["excavator", "backhoe", "truck", "reversing", "blind_spot", "no_spotter"],
+    "visual_signals": ["excavator or backhoe reversing with no spotter visible", "dump truck backing up near workers without signal person", "large equipment maneuvering in congested area with no banksman"],
     "category": "equipment"
   },
   {
     "rule_id": "const_025",
     "description": "Debris on walkways — construction debris, scrap, tools, or hoses creating tripping hazards in travel paths",
     "severity": "medium",
-    "visual_signals": ["walkway", "debris", "scrap_wood", "hose", "cable", "tripping_hazard"],
+    "visual_signals": ["scrap lumber and nails scattered across walkway", "air hoses and power cords strewn across pedestrian path", "loose debris and tools cluttering designated travel route"],
     "category": "housekeeping"
   },
   {
     "rule_id": "const_026",
     "description": "Improperly stacked materials — lumber, pipes, or supplies stacked without chocking, too high, or leaning",
     "severity": "medium",
-    "visual_signals": ["stacked_materials", "leaning_pile", "unstable_stack", "no_chocking", "lumber_pile"],
+    "visual_signals": ["tall stack of lumber leaning without support or chocks", "pipes piled high without blocking to prevent rolling", "material stack tilting or unstable on uneven ground"],
     "category": "housekeeping"
   },
   {
     "rule_id": "const_027",
     "description": "Protruding nails — boards or formwork with exposed nails or screws in walkways or work areas",
     "severity": "medium",
-    "visual_signals": ["protruding_nail", "exposed_screw", "nail_board", "puncture_hazard", "formwork_debris"],
+    "visual_signals": ["nails sticking up from discarded boards on ground", "formwork debris with exposed sharp screw points upward", "strip of wood with protruding nails in pedestrian walkway"],
     "category": "housekeeping"
   },
   {
     "rule_id": "const_028",
     "description": "Fire extinguisher missing or obstructed — required extinguisher absent from hot work area or access path blocked",
     "severity": "high",
-    "visual_signals": ["no_extinguisher", "blocked_extinguisher", "hot_work_area", "welding", "torch"],
+    "visual_signals": ["empty fire extinguisher bracket near welding operations", "extinguisher buried behind materials with no clear access", "hot work area with no fire extinguisher within 50 feet visible"],
     "category": "fire_safety"
   },
   {
     "rule_id": "const_029",
     "description": "Hot work without fire watch — welding, cutting, or grinding performed with no fire watch personnel or blanket",
     "severity": "high",
-    "visual_signals": ["welding", "cutting_torch", "sparks", "no_fire_watch", "fire_blanket_missing"],
+    "visual_signals": ["welder working alone with sparks falling and no fire watch person", "cutting torch in use near combustibles without dedicated watch", "grinding sparks showering area with no attendant monitoring ignition"],
     "category": "fire_safety"
   },
   {
     "rule_id": "const_030",
     "description": "Compressed gas cylinders unsecured — oxygen, acetylene, or propane cylinders stored upright without chains or racks",
     "severity": "high",
-    "visual_signals": ["gas_cylinder", "unchained_cylinder", "loose_cylinder", "no_rack", "valve_cap_missing"],
+    "visual_signals": ["gas cylinders standing upright without chain or strap securing them", "acetylene and oxygen bottles side by side with no rack or chain", "cylinder with missing valve cap standing free without restraint"],
     "category": "fire_safety"
   },
   {
     "rule_id": "const_031",
     "description": "Missing safety signage — hazard area lacks required warning, danger, or caution signs",
     "severity": "medium",
-    "visual_signals": ["no_sign", "missing_warning", "unmarked_hazard", "no_caution_tape"],
+    "visual_signals": ["hazardous work area with no warning or danger sign posted", "entrance to excavation or confined space without signage", "electrical panel or high-voltage area lacking required placards"],
     "category": "signage"
   },
   {
     "rule_id": "const_032",
     "description": "Unbarricaded hazard zone — active hazard area without cones, tape, fencing, or physical barriers to restrict entry",
     "severity": "high",
-    "visual_signals": ["open_hazard", "no_barricade", "no_caution_tape", "no_cones", "unrestricted_access"],
+    "visual_signals": ["open hazard area with no caution tape or cones", "active overhead work zone without ground-level barricades", "hazardous operation in progress with unrestricted public access"],
     "category": "signage"
+  },
+  {
+    "rule_id": "const_033",
+    "description": "Confined space entry without permit or signage — worker entering confined space with no permit posted or danger sign displayed per 1926 Subpart AA",
+    "severity": "critical",
+    "visual_signals": ["worker climbing into manhole or tank with no permit sign visible", "confined space entry point lacking danger entry permit required sign", "open confined space hatch with no posted entry permit on display"],
+    "category": "confined_space"
+  },
+  {
+    "rule_id": "const_034",
+    "description": "Confined space missing attendant — no dedicated standby person visible at confined space entry point while entrant is inside",
+    "severity": "critical",
+    "visual_signals": ["open confined space hatch with no attendant stationed outside", "manhole entry in progress with no person monitoring from exterior", "confined space opening unattended while equipment indicates worker inside"],
+    "category": "confined_space"
+  },
+  {
+    "rule_id": "const_035",
+    "description": "Confined space lacking ventilation — no forced-air blower or ventilation duct visible at confined space entry during work",
+    "severity": "critical",
+    "visual_signals": ["confined space opening with no ventilation blower or duct present", "worker entering tank without portable fan or air supply visible", "manhole entry without flexible ventilation hose running inside"],
+    "category": "confined_space"
+  },
+  {
+    "rule_id": "const_036",
+    "description": "Confined space missing retrieval equipment — no rescue tripod, davit arm, or retrieval winch set up at entry point",
+    "severity": "high",
+    "visual_signals": ["confined space entry with no tripod or davit visible nearby", "manhole opening without rescue retrieval system staged at surface", "vertical entry point lacking winch or retrieval line for rescue"],
+    "category": "confined_space"
+  },
+  {
+    "rule_id": "const_037",
+    "description": "Steel erection — connector without required double lanyard or personal fall arrest while making connections at height per 1926 Subpart R",
+    "severity": "critical",
+    "visual_signals": ["ironworker on column or beam with only single lanyard and no tie-off", "steel connector walking beam without visible double-hook lanyard", "worker bolting steel connection at height without retractable lifeline attached"],
+    "category": "steel_erection"
+  },
+  {
+    "rule_id": "const_038",
+    "description": "Steel column not secured — erected steel column standing without minimum four anchor bolts tightened or temporary guying in place",
+    "severity": "critical",
+    "visual_signals": ["steel column standing on base plate with loose or missing anchor bolts", "newly erected column with no guy cables or temporary bracing visible", "column visibly leaning or unsupported after crane release"],
+    "category": "steel_erection"
+  },
+  {
+    "rule_id": "const_039",
+    "description": "Metal decking bundles unsecured — steel deck bundles placed on structural members without being secured against displacement by wind or load",
+    "severity": "high",
+    "visual_signals": ["bundle of metal decking sitting loose on steel beams", "stacked decking sheets on open structural frame without tie-down", "unsecured metal deck bundle near open edge at elevation"],
+    "category": "steel_erection"
+  },
+  {
+    "rule_id": "const_040",
+    "description": "Demolition without engineering survey — structural demolition underway with no posted engineering survey or demolition plan visible",
+    "severity": "critical",
+    "visual_signals": ["active demolition of structural elements with no posted plan", "building being dismantled floor by floor without visible survey notice", "wrecking operations on structure with no engineering assessment posted"],
+    "category": "demolition"
+  },
+  {
+    "rule_id": "const_041",
+    "description": "Damaged floor during demolition — workers on demolition floor with holes, weakened sections, or compromised structural integrity per 1926 Subpart T",
+    "severity": "critical",
+    "visual_signals": ["workers standing on partially demolished floor with visible holes", "weakened or sagging floor slab in building being demolished", "demolition level with broken concrete and exposed rebar creating fall risk"],
+    "category": "demolition"
+  },
+  {
+    "rule_id": "const_042",
+    "description": "Missing debris chute — demolition debris being thrown or dropped from elevation without enclosed chute when drop exceeds 20 feet",
+    "severity": "high",
+    "visual_signals": ["debris falling freely from upper floor of building under demolition", "workers tossing demolition rubble over edge without chute", "material dropping from elevation with no enclosed debris chute visible"],
+    "category": "demolition"
+  },
+  {
+    "rule_id": "const_043",
+    "description": "Concrete formwork inadequate — forms visibly bowing, leaking, or lacking sufficient bracing and shoring to support wet concrete load per 1926 Subpart Q",
+    "severity": "critical",
+    "visual_signals": ["formwork panels bowing outward under concrete pressure", "wet concrete leaking through gaps between form panels", "insufficient shoring props visible under elevated concrete deck forms"],
+    "category": "concrete_masonry"
+  },
+  {
+    "rule_id": "const_044",
+    "description": "Impalement hazard on rebar — exposed vertical rebar without protective caps or mushroom guards creating impalement risk",
+    "severity": "critical",
+    "visual_signals": ["vertical rebar projecting upward without plastic safety caps", "exposed rebar stakes near walkways lacking impalement protection", "uncapped rebar stubs protruding from concrete slab or footing"],
+    "category": "concrete_masonry"
+  },
+  {
+    "rule_id": "const_045",
+    "description": "Post-tensioning hazard — workers behind or near stressed post-tension cables or jacking equipment without barriers",
+    "severity": "critical",
+    "visual_signals": ["workers near active post-tension jacking operations without exclusion zone", "stressed PT cables without warning barriers at anchorage end", "post-tensioning strand tails protruding without guarding or warning tape"],
+    "category": "concrete_masonry"
+  },
+  {
+    "rule_id": "const_046",
+    "description": "Masonry wall unbraced — freestanding masonry wall over 8 feet without lateral bracing or shoring to prevent wind or impact collapse",
+    "severity": "critical",
+    "visual_signals": ["tall block wall standing without visible lateral bracing", "freshly laid masonry wall with no temporary supports or bracing", "unsupported masonry partition leaning or showing instability"],
+    "category": "concrete_masonry"
+  },
+  {
+    "rule_id": "const_047",
+    "description": "Welding without flash screen — arc welding in open area without welding curtain or screen to protect passersby from UV flash per 1926 Subpart J",
+    "severity": "high",
+    "visual_signals": ["arc welding in progress in open area with no welding screen", "bright welding flash visible without curtain shielding other workers", "welder operating near pedestrian path without flash protection barrier"],
+    "category": "welding_cutting"
+  },
+  {
+    "rule_id": "const_048",
+    "description": "Cylinder storage violation — oxygen and fuel gas cylinders stored together within 20 feet without fire-rated barrier per 1926.350",
+    "severity": "high",
+    "visual_signals": ["oxygen and acetylene cylinders stored side by side without barrier", "mixed gas cylinders in storage area lacking 20-foot separation or wall", "fuel and oxidizer bottles grouped together without fire-rated partition"],
+    "category": "welding_cutting"
+  },
+  {
+    "rule_id": "const_049",
+    "description": "Welder missing proper PPE — person welding without proper shade lens, welding gloves, or leather apron/sleeves",
+    "severity": "high",
+    "visual_signals": ["welder holding torch without welding helmet or face shield", "person arc welding in short sleeves without leather protection", "worker grinding weld with no face shield or safety glasses"],
+    "category": "welding_cutting"
+  },
+  {
+    "rule_id": "const_050",
+    "description": "Missing GHS label — chemical container on site without Globally Harmonized System label showing pictograms, signal word, and hazard statements per 1926.59",
+    "severity": "high",
+    "visual_signals": ["unlabeled chemical jug or pail on construction site", "spray bottle or container without GHS-compliant label visible", "chemical drum lacking pictogram diamonds or hazard information"],
+    "category": "hazard_communication"
+  },
+  {
+    "rule_id": "const_051",
+    "description": "SDS station missing or inaccessible — no safety data sheet binder or station available in area where hazardous chemicals are in use",
+    "severity": "medium",
+    "visual_signals": ["chemical storage area with no SDS binder or station visible", "hazardous materials in use with no safety data sheet access point", "empty or missing SDS holder in chemical storage trailer"],
+    "category": "hazard_communication"
+  },
+  {
+    "rule_id": "const_052",
+    "description": "Silica dust exposure — dry cutting, grinding, or drilling concrete/masonry without wet methods or dust vacuum attachment per 1926.1153",
+    "severity": "critical",
+    "visual_signals": ["worker dry-cutting concrete with visible dust cloud and no water", "masonry saw operating without water spray creating heavy dust", "grinding concrete surface with no vacuum dust collector attached"],
+    "category": "silica_exposure"
+  },
+  {
+    "rule_id": "const_053",
+    "description": "Missing respiratory protection for silica — worker in visible silica dust without N95 or higher respirator per 1926.1153",
+    "severity": "critical",
+    "visual_signals": ["worker in concrete dust cloud with no respirator on face", "person near masonry cutting with mouth and nose uncovered", "dust-generating activity with nearby workers lacking respiratory protection"],
+    "category": "silica_exposure"
+  },
+  {
+    "rule_id": "const_054",
+    "description": "Hearing protection missing near heavy equipment — worker without earplugs or earmuffs within 15 feet of pile driver, jackhammer, or similar high-noise equipment per 1926.52",
+    "severity": "medium",
+    "visual_signals": ["worker near operating jackhammer with no ear protection visible", "person standing close to pile driving operation without earmuffs", "crew working adjacent to loud compressor with no hearing protection"],
+    "category": "noise_exposure"
+  },
+  {
+    "rule_id": "const_055",
+    "description": "Missing flagger in active roadway work zone — construction work encroaching on traffic lane without certified flagger or automated signal per 1926.200",
+    "severity": "critical",
+    "visual_signals": ["construction activity in roadway lane with no flagger present", "open lane adjacent to work zone without traffic control person", "workers near live traffic without flagger or stop-slow paddle"],
+    "category": "traffic_control"
+  },
+  {
+    "rule_id": "const_056",
+    "description": "Inadequate work zone barricades — construction work zone near traffic without proper channeling devices, barrels, or concrete barriers",
+    "severity": "high",
+    "visual_signals": ["work zone adjacent to traffic with only cones and no barriers", "construction area near road lacking channelizing barrels or barricades", "workers exposed to traffic with insufficient physical separation"],
+    "category": "traffic_control"
+  },
+  {
+    "rule_id": "const_057",
+    "description": "Missing or inadequate work zone signage — construction zone without advance warning signs, speed reduction signs, or regulatory work zone signs",
+    "severity": "high",
+    "visual_signals": ["road construction area without orange diamond warning signs", "work zone lacking speed reduction or lane closure advance signs", "construction entrance without flagging or approach warning signage"],
+    "category": "traffic_control"
+  },
+  {
+    "rule_id": "const_058",
+    "description": "Fire extinguisher missing inspection tag or expired — extinguisher on site with no monthly inspection tag or last inspection over 12 months ago per 1926 Subpart F",
+    "severity": "medium",
+    "visual_signals": ["fire extinguisher with no inspection tag attached", "extinguisher tag showing last check date over one year ago", "pressure gauge on extinguisher in red discharged zone"],
+    "category": "fire_protection"
+  },
+  {
+    "rule_id": "const_059",
+    "description": "Flammable liquid storage violation — gasoline, solvents, or flammable liquids stored outside approved safety cans or flammable storage cabinets",
+    "severity": "high",
+    "visual_signals": ["gasoline in unapproved open container on job site", "flammable solvents stored in plastic jugs outside rated cabinet", "multiple flammable liquid containers outside of yellow storage cabinet"],
+    "category": "fire_protection"
+  },
+  {
+    "rule_id": "const_060",
+    "description": "Temporary heater too close to combustibles — salamander heater or propane heater placed within 10 feet of combustible materials or tarpaulins",
+    "severity": "high",
+    "visual_signals": ["portable heater positioned near stacked lumber or cardboard", "propane torpedo heater aimed at plastic sheeting or tarp", "temporary heating device adjacent to combustible construction materials"],
+    "category": "fire_protection"
+  },
+  {
+    "rule_id": "const_061",
+    "description": "Material stored too close to edge — construction materials stacked near unprotected floor edge or excavation creating fall or collapse hazard",
+    "severity": "high",
+    "visual_signals": ["pallets of materials stacked within 6 feet of open floor edge", "heavy materials stored near excavation edge without setback", "stacked supplies near building perimeter at elevation without barrier"],
+    "category": "material_storage"
+  },
+  {
+    "rule_id": "const_062",
+    "description": "Unsecured material on elevated surface — loose materials, tools, or equipment on elevated platform without toe board or containment to prevent falling objects",
+    "severity": "high",
+    "visual_signals": ["loose tools and material at scaffold edge without toe board", "unsecured items on elevated platform near open side", "construction materials on roof edge without containment barrier"],
+    "category": "material_storage"
+  },
+  {
+    "rule_id": "const_063",
+    "description": "Brick or block stacked too high — masonry units stacked over 6 feet high without tapering or interlocking creating collapse hazard",
+    "severity": "medium",
+    "visual_signals": ["tall stack of concrete blocks exceeding 6 feet without step-back", "bricks piled high in straight column without tapering", "masonry material stack leaning or showing instability"],
+    "category": "material_storage"
+  },
+  {
+    "rule_id": "const_064",
+    "description": "Damaged power tool cord — portable power tool with frayed, cut, or damaged cord insulation creating shock hazard",
+    "severity": "high",
+    "visual_signals": ["power tool cord with visible inner wire through damaged jacket", "circular saw cord with electrical tape repairs", "drill cord with crushed or flattened section exposing conductors"],
+    "category": "tools_equipment"
+  },
+  {
+    "rule_id": "const_065",
+    "description": "Grinder guard missing — angle grinder or bench grinder in use without adjustable tongue guard or wheel guard per 1926.303",
+    "severity": "high",
+    "visual_signals": ["angle grinder being operated with wheel guard removed", "bench grinder with no tongue guard or tool rest", "grinder disc fully exposed without safety guard in place"],
+    "category": "tools_equipment"
+  },
+  {
+    "rule_id": "const_066",
+    "description": "Powder-actuated tool used by uncertified operator — powder-actuated tool in use without operator certification card visible or posted per 1926.302",
+    "severity": "high",
+    "visual_signals": ["worker firing powder-actuated tool without certification visible", "Hilti or Ramset gun in use near unprotected workers", "powder-actuated tool stored loaded without carrying case"],
+    "category": "tools_equipment"
+  },
+  {
+    "rule_id": "const_067",
+    "description": "Circular saw missing blade guard — portable circular saw with lower blade guard retracted, removed, or non-functional",
+    "severity": "high",
+    "visual_signals": ["circular saw with lower guard pinned back exposing full blade", "worker cutting with saw blade guard removed or jammed open", "saw resting on surface with blade exposed and no guard return"],
+    "category": "tools_equipment"
+  },
+  {
+    "rule_id": "const_068",
+    "description": "Insufficient portable toilets — construction site lacking minimum required portable sanitation facilities per 1926.51",
+    "severity": "medium",
+    "visual_signals": ["large crew on site with only one or no portable toilet visible", "portable toilet tipped over or visibly out of service", "construction site with no sanitation facilities in view"],
+    "category": "sanitation"
+  },
+  {
+    "rule_id": "const_069",
+    "description": "Missing handwash station — no hand washing facilities available near portable toilets or food consumption areas per 1926.51",
+    "severity": "medium",
+    "visual_signals": ["portable toilet area with no handwash station nearby", "workers eating in break area with no hand washing facility", "job site lacking portable hand washing unit or water container"],
+    "category": "sanitation"
+  },
+  {
+    "rule_id": "const_070",
+    "description": "No potable drinking water — construction site without accessible clean drinking water supply or containers for workers per 1926.51",
+    "severity": "medium",
+    "visual_signals": ["work area with no water cooler or drinking water container visible", "workers in hot conditions with no hydration station in view", "job site lacking marked potable water dispenser"],
+    "category": "sanitation"
   }
 ]

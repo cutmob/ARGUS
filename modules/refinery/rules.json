@@ -3,168 +3,441 @@
     "rule_id": "ref_001",
     "description": "Liquid pooling beneath pipe flanges, valves, or fittings indicating active leak",
     "severity": "critical",
-    "visual_signals": ["liquid puddle beneath flange connection", "dripping from valve body or packing gland", "wet spot forming under pipe fitting"],
+    "visual_signals": ["liquid puddle forming beneath pipe flange connection", "dripping fluid from valve body packing gland or bonnet", "wet spot spreading under pipe fitting or union joint"],
     "category": "leak_detection"
   },
   {
     "rule_id": "ref_002",
     "description": "Staining or discoloration from weeping leak on pipe exterior or equipment surface",
     "severity": "high",
-    "visual_signals": ["dark streak running down from flange bolt", "discolored trail below valve stem", "dried residue pattern indicating slow seepage"],
+    "visual_signals": ["dark streak running down from leaking flange bolt", "discolored residue trail below valve stem packing", "dried crystalline or oily deposit pattern indicating slow seepage"],
     "category": "leak_detection"
   },
   {
     "rule_id": "ref_003",
     "description": "Hydrocarbon sheen visible on water surfaces in drainage ditches, sumps, or containment areas",
     "severity": "critical",
-    "visual_signals": ["rainbow oil sheen on standing water", "iridescent film on drainage ditch surface", "oily discoloration on water in sump or catch basin"],
+    "visual_signals": ["rainbow oil sheen on standing water in ditch or sump", "iridescent film floating on drainage channel surface", "oily discoloration on water in catch basin or containment"],
     "category": "leak_detection"
   },
   {
     "rule_id": "ref_004",
     "description": "Visible steam or vapor release from unintended source such as leaking gasket, cracked weld, or open vent",
     "severity": "critical",
-    "visual_signals": ["steam plume from pipe joint or flange", "vapor cloud at unexpected location", "wispy emission from equipment casing or weld seam"],
+    "visual_signals": ["steam plume escaping from pipe joint or flange gasket", "vapor cloud at unexpected location on process equipment", "wispy emission from equipment casing crack or weld seam"],
     "category": "leak_detection"
   },
   {
     "rule_id": "ref_005",
     "description": "External pipe corrosion with visible rust, pitting, or wall thinning on uninsulated piping",
     "severity": "high",
-    "visual_signals": ["orange-brown rust patches on pipe exterior", "pitting visible on bare pipe surface", "flaking corroded metal on pipe run"],
+    "visual_signals": ["orange-brown rust patches on bare pipe exterior surface", "pitting craters visible on uninsulated pipe wall", "flaking corroded scale on exposed pipe run"],
     "category": "corrosion"
   },
   {
     "rule_id": "ref_006",
     "description": "Corrosion under insulation (CUI) indicators — damaged insulation jacketing with rust weeping or staining at seams",
     "severity": "critical",
-    "visual_signals": ["rust-colored staining bleeding through insulation jacket", "damaged or torn aluminum cladding with rust visible beneath", "brown weeping at insulation jacket seams or termination points"],
+    "visual_signals": ["rust-colored staining bleeding through insulation jacket seam", "torn aluminum cladding with visible corrosion product beneath", "brown weeping at insulation termination points or band clamps"],
     "category": "corrosion"
   },
   {
     "rule_id": "ref_007",
     "description": "Missing insulation cladding sections exposing pipe insulation material to weather and moisture ingress",
     "severity": "high",
-    "visual_signals": ["bare insulation material visible where jacketing is absent", "section of pipe with metal cladding torn away", "gap in insulation covering exposing mineral wool or calcium silicate"],
+    "visual_signals": ["bare insulation material exposed where metal jacketing is absent", "section of pipe with aluminum cladding torn away revealing underlayer", "gap in insulation covering exposing mineral wool or calcium silicate"],
     "category": "corrosion"
   },
   {
     "rule_id": "ref_008",
     "description": "Structural steel corrosion on pipe supports, platforms, or building frames compromising load capacity",
     "severity": "high",
-    "visual_signals": ["heavy rust on structural I-beam or column", "corrosion flaking on pipe support bracket", "section loss visible on steel grating support members"],
+    "visual_signals": ["heavy rust and section loss on structural I-beam or column", "corrosion flaking on pipe support bracket or shoe", "pitting and thickness loss visible on steel grating support members"],
     "category": "corrosion"
   },
   {
     "rule_id": "ref_009",
     "description": "Vessel or tank showing visible deformation such as bulging, denting, or shell distortion",
     "severity": "critical",
-    "visual_signals": ["bulge or outward deformation on vessel shell", "dent or impact damage on tank wall", "visible waviness or distortion on pressure vessel surface"],
+    "visual_signals": ["outward bulge or deformation on pressure vessel shell", "dent or impact damage visible on storage tank wall", "waviness or distortion on vessel surface indicating overpressure"],
     "category": "corrosion"
   },
   {
     "rule_id": "ref_010",
     "description": "Scaffolding missing toe boards or guardrails creating fall and dropped-object hazards",
     "severity": "critical",
-    "visual_signals": ["scaffold platform edge without toe board", "missing mid-rail or top-rail on scaffold level", "open side of scaffold without guardrail system"],
+    "visual_signals": ["scaffold platform edge without toe board allowing tool drop", "missing mid-rail or top-rail on scaffold at elevation", "open side of scaffold without complete guardrail system"],
     "category": "scaffolding"
   },
   {
     "rule_id": "ref_011",
     "description": "Scaffolding erected without current inspection tag or color-coded tag indicating it has not been certified for use",
     "severity": "high",
-    "visual_signals": ["scaffold with no inspection tag visible", "red or out-of-date tag on scaffold access point", "scaffold missing color-coded competent person tag"],
+    "visual_signals": ["scaffold with no inspection tag visible at access point", "red or expired-color tag on scaffold indicating not certified", "scaffold access ladder without competent-person certification tag"],
     "category": "scaffolding"
   },
   {
     "rule_id": "ref_012",
     "description": "Damaged or missing platform grating on walkways, mezzanines, or elevated structures",
     "severity": "critical",
-    "visual_signals": ["section of grating missing from walkway", "bent or broken grating panel on platform", "hole in floor grating creating fall-through hazard"],
+    "visual_signals": ["section of steel grating missing from elevated walkway", "bent or broken grating panel creating fall-through opening", "hole in floor grating on platform exposing level below"],
     "category": "scaffolding"
   },
   {
     "rule_id": "ref_013",
     "description": "Fixed ladder missing handrails, safety cage, or climb-assist system where required",
     "severity": "high",
-    "visual_signals": ["vertical ladder without side rails extending above landing", "fixed ladder missing safety cage above 24 feet", "ladder rungs without grab bars at top platform"],
+    "visual_signals": ["vertical fixed ladder without side rails extending above landing", "fixed ladder above 24 feet without safety cage or fall arrest", "ladder rungs at top without grab bars for safe transition to platform"],
     "category": "scaffolding"
   },
   {
     "rule_id": "ref_014",
     "description": "Worker in process area without hard hat",
     "severity": "high",
-    "visual_signals": ["person walking in plant area with uncovered head", "worker near overhead piping without hard hat", "individual in process unit not wearing head protection"],
+    "visual_signals": ["person walking in refinery unit with uncovered head", "worker near overhead piping without hard hat visible", "individual in process area among helmeted crew without head protection"],
     "category": "ppe"
   },
   {
     "rule_id": "ref_015",
     "description": "Worker in process area without safety glasses or required eye protection",
     "severity": "high",
-    "visual_signals": ["person in plant area without safety glasses", "worker near chemical handling without eye protection", "individual in process zone with no visible eyewear"],
+    "visual_signals": ["person in plant area without safety glasses on face", "worker near chemical handling without eye protection visible", "individual in process zone with no safety eyewear"],
     "category": "ppe"
   },
   {
     "rule_id": "ref_016",
     "description": "Worker in process area without flame-resistant (FR) coveralls or clothing",
     "severity": "high",
-    "visual_signals": ["person wearing non-FR street clothes in process area", "worker in t-shirt or synthetic fabric near hydrocarbons", "individual without FR coveralls in operating unit"],
+    "visual_signals": ["person wearing non-FR street clothes or synthetic fabric in unit", "worker in t-shirt near hydrocarbon process equipment", "individual without FR coveralls in operating unit area"],
     "category": "ppe"
   },
   {
     "rule_id": "ref_017",
     "description": "Worker at height without fall protection harness and tie-off where required above 6 feet",
     "severity": "critical",
-    "visual_signals": ["person on elevated platform without visible harness", "worker climbing structure with no lanyard attached", "individual at height with harness unbuckled or lanyard not connected"],
+    "visual_signals": ["person on elevated platform or structure without visible harness", "worker climbing tower or column with no lanyard attached", "individual at height with harness unbuckled or lanyard hanging free"],
     "category": "ppe"
   },
   {
     "rule_id": "ref_018",
     "description": "Fire extinguisher missing from designated location in process area",
     "severity": "critical",
-    "visual_signals": ["empty fire extinguisher cabinet or bracket", "extinguisher sign present but no unit mounted", "fire extinguisher station with missing unit"],
+    "visual_signals": ["empty fire extinguisher cabinet or wall bracket in process unit", "extinguisher sign posted with no unit present at location", "fire extinguisher station with vacant mounting position"],
     "category": "emergency"
   },
   {
     "rule_id": "ref_019",
     "description": "Emergency shower or eyewash station access obstructed by equipment, materials, or vegetation",
     "severity": "high",
-    "visual_signals": ["items stacked in front of emergency shower", "equipment blocking path to eyewash station", "vegetation overgrowth around safety shower access area"],
+    "visual_signals": ["equipment or materials stacked blocking path to emergency shower", "vegetation overgrowth obscuring emergency eyewash station", "pallets or drums placed within clear zone of safety shower"],
     "category": "emergency"
   },
   {
     "rule_id": "ref_020",
     "description": "Wind sock missing, torn, or non-functional preventing wind direction assessment for toxic release response",
     "severity": "medium",
-    "visual_signals": ["empty wind sock pole with no sock attached", "shredded or torn wind sock fabric", "wind sock hanging limp and tangled indicating damage"],
+    "visual_signals": ["empty wind sock pole with no sock or tattered remnant", "shredded wind sock fabric hanging from mast", "wind sock tangled around pole and non-functional"],
     "category": "emergency"
   },
   {
     "rule_id": "ref_021",
     "description": "Safety signage missing, illegible, or damaged at hazardous area classification boundaries or process equipment",
     "severity": "medium",
-    "visual_signals": ["faded or unreadable hazard sign", "sign post with no sign attached", "damaged classification placard at area boundary"],
+    "visual_signals": ["faded or unreadable hazard sign at area classification boundary", "sign post with no placard attached at unit entrance", "damaged area classification sign with missing information"],
     "category": "signage"
   },
   {
     "rule_id": "ref_022",
     "description": "Secondary containment structure showing cracks, deterioration, or compromised integrity",
     "severity": "high",
-    "visual_signals": ["visible crack in concrete containment wall or berm", "spalling concrete in secondary containment dike", "gap or hole in containment liner"],
+    "visual_signals": ["visible crack running through concrete containment dike wall", "spalling and exposed rebar in secondary containment berm", "gap or hole in containment liner allowing potential seepage"],
     "category": "containment"
   },
   {
     "rule_id": "ref_023",
     "description": "Secondary containment drain valve found in open position allowing uncontrolled release of accumulated liquids",
     "severity": "critical",
-    "visual_signals": ["drain valve handle in open position on containment wall", "liquid draining from containment through open valve", "unlocked and open valve at base of dike or berm"],
+    "visual_signals": ["drain valve handle in open position on containment wall", "liquid actively draining from containment through open valve", "unlocked drain valve at base of dike in open position"],
     "category": "containment"
   },
   {
     "rule_id": "ref_024",
     "description": "Oily rags, debris, or combustible waste materials left on walkways or near process equipment",
     "severity": "medium",
-    "visual_signals": ["oily rags on grating or walkway surface", "debris and waste scattered on platform", "combustible materials left near hot equipment or ignition sources"],
+    "visual_signals": ["oily rags left on grating or platform walkway surface", "debris and waste scattered on process unit platform", "combustible materials left near hot equipment or ignition sources"],
     "category": "housekeeping"
+  },
+  {
+    "rule_id": "ref_025",
+    "description": "P&ID or process flow diagram not posted or accessible at process unit — process safety information not available to operators per 29 CFR 1910.119",
+    "severity": "medium",
+    "visual_signals": ["process unit control area without posted P&ID diagram", "operator station lacking visible process flow diagram on wall", "empty document holder where P&ID or process drawing should be posted"],
+    "category": "process_safety"
+  },
+  {
+    "rule_id": "ref_026",
+    "description": "Operating procedures not accessible — standard operating procedures binder or station missing or empty at operator post per PSM requirements",
+    "severity": "medium",
+    "visual_signals": ["empty procedure binder holder at unit operator station", "operating procedure cabinet open with no documents inside", "control room desk without visible SOP manual or procedure access"],
+    "category": "process_safety"
+  },
+  {
+    "rule_id": "ref_027",
+    "description": "Hot work permit not posted — welding, cutting, or grinding in process area without visible hot work permit posted at work location",
+    "severity": "critical",
+    "visual_signals": ["welding or cutting in progress in process area with no permit posted", "hot work activity near process equipment without visible permit board", "grinding sparks near piping with no hot work authorization sign"],
+    "category": "hot_work"
+  },
+  {
+    "rule_id": "ref_028",
+    "description": "Hot work fire watch missing — welding or cutting in refinery without dedicated fire watch person present within line of sight",
+    "severity": "critical",
+    "visual_signals": ["welder working alone in process area with no fire watch attendant", "cutting torch in use near equipment with no second person watching", "hot work in progress with no person standing by with extinguisher"],
+    "category": "hot_work"
+  },
+  {
+    "rule_id": "ref_029",
+    "description": "Hot work fire blanket not deployed — welding or cutting near cable trays, insulation, or combustibles without fire-resistant blanket protection",
+    "severity": "high",
+    "visual_signals": ["sparks falling on cable tray below welding with no fire blanket", "torch cutting near insulated piping without protective blanket draped", "grinding near combustible material without fire blanket shielding"],
+    "category": "hot_work"
+  },
+  {
+    "rule_id": "ref_030",
+    "description": "Confined space entry without visible permit and danger signage — entry into vessel, tank, or enclosed space without posted permit per 1910.146",
+    "severity": "critical",
+    "visual_signals": ["manway or vessel entry open with no confined space permit posted", "worker entering tank through manhole without danger sign visible", "confined space entry in progress with no permit board at opening"],
+    "category": "confined_space"
+  },
+  {
+    "rule_id": "ref_031",
+    "description": "Confined space atmospheric testing equipment absent — no gas detector or four-gas monitor visible at confined space entry point",
+    "severity": "critical",
+    "visual_signals": ["confined space entry with no gas monitor or detector at opening", "vessel entry in progress with no atmospheric testing instrument visible", "manway opening without portable gas detector stationed nearby"],
+    "category": "confined_space"
+  },
+  {
+    "rule_id": "ref_032",
+    "description": "Confined space rescue tripod missing — vertical confined space entry without rescue tripod, davit, or mechanical retrieval system set up",
+    "severity": "critical",
+    "visual_signals": ["vertical vessel entry without rescue tripod set up over opening", "manhole entry in progress with no davit arm or retrieval winch", "confined space opening without rescue equipment staged at surface"],
+    "category": "confined_space"
+  },
+  {
+    "rule_id": "ref_033",
+    "description": "Confined space attendant not present — no dedicated standby person visible at confined space entry while workers are inside",
+    "severity": "critical",
+    "visual_signals": ["open confined space entry point with no attendant stationed outside", "vessel manway open with signs of entry but no watch person present", "confined space hole cover removed with no person monitoring at opening"],
+    "category": "confined_space"
+  },
+  {
+    "rule_id": "ref_034",
+    "description": "Floating roof tank seal deterioration — visible gaps, tears, or displacement in floating roof rim seal allowing vapor escape",
+    "severity": "critical",
+    "visual_signals": ["visible gap between floating roof rim and tank shell wall", "torn or displaced seal fabric on floating roof edge", "vapor shimmer rising from gap in floating roof seal area"],
+    "category": "tank_farm"
+  },
+  {
+    "rule_id": "ref_035",
+    "description": "Tank foam system deficiency — foam chamber or piping on storage tank showing corrosion, damage, or missing components",
+    "severity": "high",
+    "visual_signals": ["corroded foam chamber mounted on tank shell with deterioration", "foam line piping disconnected or missing section on tank", "damaged foam pourpoint or deflector on rim of storage tank"],
+    "category": "tank_farm"
+  },
+  {
+    "rule_id": "ref_036",
+    "description": "Tank vent or pressure-vacuum valve deficiency — tank roof vent showing corrosion, bird screen damage, or frozen-open condition",
+    "severity": "high",
+    "visual_signals": ["corroded pressure-vacuum vent valve on tank roof", "tank vent with damaged or missing bird screen mesh", "vent valve on storage tank stuck in open position visible from ground"],
+    "category": "tank_farm"
+  },
+  {
+    "rule_id": "ref_037",
+    "description": "Flare pilot flame not visible — flare tip without visible pilot flame or ignition indication during operation",
+    "severity": "critical",
+    "visual_signals": ["flare stack tip without visible flame during unit operation", "flare header in service with no pilot or main flame at tip", "dark flare stack top with no combustion visible during daytime"],
+    "category": "flare_system"
+  },
+  {
+    "rule_id": "ref_038",
+    "description": "Flare stack structural deterioration — flare stack, derrick, or support structure showing corrosion, guy wire damage, or structural distress",
+    "severity": "high",
+    "visual_signals": ["heavy corrosion on flare stack structural members", "flare stack guy wire frayed or showing broken strands", "flare derrick member with visible section loss from corrosion"],
+    "category": "flare_system"
+  },
+  {
+    "rule_id": "ref_039",
+    "description": "Flare exclusion zone not marked — area around flare stack base without radiation hazard or exclusion zone boundary markers",
+    "severity": "medium",
+    "visual_signals": ["flare stack base area without exclusion zone fencing or signs", "no radiation hazard warning signs near flare at ground level", "flare stack perimeter without boundary markers or keep-out signage"],
+    "category": "flare_system"
+  },
+  {
+    "rule_id": "ref_040",
+    "description": "Pressure relief valve discharge piping issue — PRV discharge pipe missing, undersized, or oriented to endanger personnel areas",
+    "severity": "critical",
+    "visual_signals": ["pressure relief valve without discharge pipe directing release safely", "PRV tail pipe aimed at walkway or personnel area", "undersized or corroded discharge piping on pressure relief device"],
+    "category": "pressure_relief"
+  },
+  {
+    "rule_id": "ref_041",
+    "description": "Pressure relief valve missing test tag — PRV without current test tag or nameplate showing last test date and set pressure",
+    "severity": "high",
+    "visual_signals": ["pressure relief valve without metal test tag attached", "PRV with missing or illegible nameplate on body", "relief valve lacking tag showing test date and set pressure"],
+    "category": "pressure_relief"
+  },
+  {
+    "rule_id": "ref_042",
+    "description": "Pressure relief valve body corrosion — visible corrosion, paint loss, or deterioration on PRV body or bonnet",
+    "severity": "high",
+    "visual_signals": ["rust and corrosion on pressure relief valve body casting", "paint flaking off PRV bonnet exposing corroded metal", "heavy corrosion buildup around relief valve inlet flange"],
+    "category": "pressure_relief"
+  },
+  {
+    "rule_id": "ref_043",
+    "description": "Pump coupling guard missing — rotating pump or compressor shaft coupling exposed without protective guard installed",
+    "severity": "critical",
+    "visual_signals": ["pump motor and pump shaft coupling spinning without guard cover", "exposed rotating coupling between motor and pump without shield", "coupling guard removed and not reinstalled on operating pump"],
+    "category": "rotating_equipment"
+  },
+  {
+    "rule_id": "ref_044",
+    "description": "Compressor belt guard missing — V-belt or drive belt on compressor or fan rotating without protective guard enclosure",
+    "severity": "critical",
+    "visual_signals": ["compressor drive belt spinning without mesh or solid guard", "exposed V-belt and sheave on operating equipment", "belt guard removed from compressor with rotating parts exposed"],
+    "category": "rotating_equipment"
+  },
+  {
+    "rule_id": "ref_045",
+    "description": "Fan shroud or guard missing — cooling fan, fin-fan cooler, or air handling equipment operating without protective shroud or guard",
+    "severity": "high",
+    "visual_signals": ["rotating fan blades visible without protective shroud installed", "fin-fan cooler operating with fan guard removed or damaged", "air handler fan accessible without screening or guard barrier"],
+    "category": "rotating_equipment"
+  },
+  {
+    "rule_id": "ref_046",
+    "description": "Pressure gauge unreadable or damaged — process pressure gauge with fogged lens, broken pointer, or scale too faded to read",
+    "severity": "medium",
+    "visual_signals": ["pressure gauge with moisture-fogged glass lens obscuring reading", "gauge with broken or bent pointer needle", "pressure gauge dial with faded scale markings unreadable"],
+    "category": "instrumentation"
+  },
+  {
+    "rule_id": "ref_047",
+    "description": "Level glass damaged or obscured — sight glass or level gauge on vessel showing cracks, discoloration, or blockage preventing reading",
+    "severity": "high",
+    "visual_signals": ["sight glass on vessel with cracked or clouded glass tube", "level gauge with stained or opaque glass preventing level reading", "broken level indicator glass with leaking process fluid"],
+    "category": "instrumentation"
+  },
+  {
+    "rule_id": "ref_048",
+    "description": "Control valve position indicator missing or misaligned — control valve without position indicator or indicator not matching actual valve position",
+    "severity": "medium",
+    "visual_signals": ["control valve actuator without position indicator arrow or scale", "valve position indicator pointing at conflicting direction from stem", "missing indicator plate on control valve actuator top"],
+    "category": "instrumentation"
+  },
+  {
+    "rule_id": "ref_049",
+    "description": "Improper electrical fixture in classified hazardous area — non-explosion-proof light, junction box, or equipment in Class I Division area",
+    "severity": "critical",
+    "visual_signals": ["standard light fixture mounted in area with hazardous classification sign", "non-explosion-proof junction box in Zone 1 or Division 1 area", "regular electrical outlet or switch in classified hazardous location"],
+    "category": "electrical_classification"
+  },
+  {
+    "rule_id": "ref_050",
+    "description": "Conduit seal missing in classified area — electrical conduit penetrating classified area boundary without required explosion-proof seal fitting",
+    "severity": "critical",
+    "visual_signals": ["conduit passing through wall into hazardous area without seal fitting", "unsealed conduit run between classified and unclassified zones", "missing EYS or EYD seal fitting on conduit in hazardous area"],
+    "category": "electrical_classification"
+  },
+  {
+    "rule_id": "ref_051",
+    "description": "Junction box open or damaged in hazardous area — junction box in classified location with missing cover, broken housing, or unsealed entries",
+    "severity": "critical",
+    "visual_signals": ["open junction box cover in hazardous classified area", "explosion-proof junction box with cracked housing", "conduit entries into junction box without proper fittings in hazardous zone"],
+    "category": "electrical_classification"
+  },
+  {
+    "rule_id": "ref_052",
+    "description": "Turnaround temporary equipment not properly secured — temporary hoses, blinds, or equipment staged during turnaround without proper tagging and securing",
+    "severity": "high",
+    "visual_signals": ["temporary hose connections in process area without identification tags", "loose temporary equipment staged near operating units without securing", "unmarked temporary blinds or blanks installed in piping without tags"],
+    "category": "turnaround_safety"
+  },
+  {
+    "rule_id": "ref_053",
+    "description": "Hose management violation — temporary hoses crossing walkways, unsecured, or creating trip hazards during turnaround or maintenance",
+    "severity": "high",
+    "visual_signals": ["temporary hose stretched across walkway without ramp or bridge", "multiple hoses tangled on platform grating creating trip hazard", "unsecured water or steam hose laying across pedestrian path"],
+    "category": "turnaround_safety"
+  },
+  {
+    "rule_id": "ref_054",
+    "description": "SIMOPS conflict — simultaneous operations creating incompatible hazards such as hot work adjacent to confined space entry or crane lifts over live equipment",
+    "severity": "critical",
+    "visual_signals": ["welding activity occurring adjacent to open confined space entry", "crane lifting load directly over operating process equipment", "hot work and breaking containment activities in close proximity"],
+    "category": "turnaround_safety"
+  },
+  {
+    "rule_id": "ref_055",
+    "description": "Above-ground pipe support deterioration — pipe support shoe, saddle, or trunnion showing corrosion, displacement, or structural failure",
+    "severity": "high",
+    "visual_signals": ["corroded pipe support shoe with pipe sitting on deteriorated steel", "pipe displaced from support saddle or guide", "pipe support trunnion with visible cracking or weld failure"],
+    "category": "pipeline_integrity"
+  },
+  {
+    "rule_id": "ref_056",
+    "description": "Expansion joint deterioration — bellows or slip-type expansion joint showing corrosion, leaking, or outer cover damage",
+    "severity": "critical",
+    "visual_signals": ["bellows expansion joint with visible corrosion on convolutions", "expansion joint with torn or missing outer protective cover", "leaking at expansion joint bellows with staining on exterior"],
+    "category": "pipeline_integrity"
+  },
+  {
+    "rule_id": "ref_057",
+    "description": "Cathodic protection test station damaged or inaccessible — CP test station post damaged, buried, or lacking readable identification",
+    "severity": "medium",
+    "visual_signals": ["cathodic protection test station post knocked over or damaged", "CP test post buried in vegetation and inaccessible for readings", "test station with corroded terminals or missing identification label"],
+    "category": "pipeline_integrity"
+  },
+  {
+    "rule_id": "ref_058",
+    "description": "Cooling tower drift eliminator deterioration — drift eliminators sagging, missing sections, or showing UV degradation",
+    "severity": "medium",
+    "visual_signals": ["cooling tower drift eliminator panels sagging or displaced", "missing sections of drift eliminator allowing visible water escape", "UV-degraded and brittle drift eliminator material on tower"],
+    "category": "cooling_tower"
+  },
+  {
+    "rule_id": "ref_059",
+    "description": "Cooling tower basin contamination — visible algae growth, sediment buildup, or debris accumulation in cooling tower basin",
+    "severity": "medium",
+    "visual_signals": ["green algae growth visible in cooling tower collection basin", "heavy sediment and sludge buildup on basin floor", "debris and foreign material floating in cooling tower basin water"],
+    "category": "cooling_tower"
+  },
+  {
+    "rule_id": "ref_060",
+    "description": "Cooling tower structural member deterioration — wooden, fiberglass, or concrete structural members showing rot, delamination, or cracking",
+    "severity": "high",
+    "visual_signals": ["wooden cooling tower structural member showing rot or decay", "fiberglass tower member with delamination or fiber exposure", "concrete cooling tower column with cracking and exposed rebar"],
+    "category": "cooling_tower"
+  },
+  {
+    "rule_id": "ref_061",
+    "description": "Waste drum storage violation — drums stored without proper labeling, containment, or exceeding accumulation time limits",
+    "severity": "high",
+    "visual_signals": ["waste drums in storage area without labels or markings", "drums stored on bare ground without secondary containment pallet", "accumulation area with drums lacking hazardous waste labels and dates"],
+    "category": "waste_management"
+  },
+  {
+    "rule_id": "ref_062",
+    "description": "Waste drum containment inadequate — drum storage area without secondary containment sufficient for largest container volume",
+    "severity": "high",
+    "visual_signals": ["multiple waste drums stored on ground without containment berm", "drum storage area with cracked or leaking containment structure", "drums outside designated containment area on unprotected surface"],
+    "category": "waste_management"
+  },
+  {
+    "rule_id": "ref_063",
+    "description": "Waste drum integrity compromised — storage drums showing corrosion, dents, leaking, or damaged closures",
+    "severity": "critical",
+    "visual_signals": ["corroded waste drum with rust holes or thinning walls", "dented drum with compromised structural integrity", "drum with leaking bung or lid allowing content to escape"],
+    "category": "waste_management"
   }
 ]

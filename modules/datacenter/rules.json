@@ -137,6 +137,181 @@
     "description": "Exit signage not illuminated or emergency lighting non-functional in data hall",
     "severity": "high",
     "visual_signals": ["dark or unlit exit sign above door", "exit sign with burned-out lamp", "emergency light heads not illuminated during test"],
+    "category": "egress"
+  },
+  {
+    "rule_id": "dc_021",
+    "description": "UPS battery modules with expired replacement date labels indicating batteries beyond recommended service life",
+    "severity": "high",
+    "visual_signals": ["battery label showing manufacture or install date beyond replacement interval", "expired battery replacement sticker on UPS module front", "battery string with date tag showing overdue replacement date"],
+    "category": "power"
+  },
+  {
+    "rule_id": "dc_022",
+    "description": "UPS battery cabinet showing signs of electrolyte leakage, staining, or unusual odor indicators around battery enclosure",
+    "severity": "critical",
+    "visual_signals": ["wet stain or crystalline residue on floor beneath battery cabinet", "discolored drip trail running down battery rack frame", "corrosion ring forming around battery cell vent cap"],
+    "category": "power"
+  },
+  {
+    "rule_id": "dc_023",
+    "description": "Generator room fuel day tank or main fuel storage showing leaks, corrosion, or missing secondary containment per NFPA 110",
+    "severity": "critical",
+    "visual_signals": ["fuel stain or wet spot beneath generator day tank", "visible rust or corrosion on fuel storage tank exterior", "generator fuel tank without secondary containment berm or pan beneath it"],
+    "category": "generator"
+  },
+  {
+    "rule_id": "dc_024",
+    "description": "Generator exhaust system showing corrosion, leaking joints, or improper routing that could allow exhaust to enter occupied spaces",
+    "severity": "critical",
+    "visual_signals": ["rust or corrosion holes visible in generator exhaust piping", "black soot stains around generator exhaust pipe joints indicating leak", "generator exhaust termination point near building air intake or window"],
+    "category": "generator"
+  },
+  {
+    "rule_id": "dc_025",
+    "description": "Generator room lacking visible maintenance and testing logs or logs showing missed weekly or monthly test intervals per NFPA 110",
+    "severity": "high",
+    "visual_signals": ["empty clipboard or log holder on generator room wall", "generator test log sheet with gaps in weekly entries", "generator room with no visible testing documentation posted"],
+    "category": "generator"
+  },
+  {
+    "rule_id": "dc_026",
+    "description": "Generator spill containment area showing accumulated fuel, oil, or coolant indicating deferred maintenance or active leak",
+    "severity": "high",
+    "visual_signals": ["oil pooling in generator containment pan beneath engine", "fuel sheen visible in generator room floor drain or containment", "coolant puddle or stain near generator radiator or hose connection"],
+    "category": "generator"
+  },
+  {
+    "rule_id": "dc_027",
+    "description": "Structured cabling with visible bend radius violations, kinks, or physical damage to fiber optic or copper cables in pathway",
+    "severity": "medium",
+    "visual_signals": ["fiber optic cable sharply bent around cable tray edge exceeding bend radius", "kinked or crushed cable visible in cable management arm", "cable jacket abraded or cut where it passes through grommet or conduit edge"],
+    "category": "cabling"
+  },
+  {
+    "rule_id": "dc_028",
+    "description": "Unlabeled or mislabeled patch cords and structured cables preventing accurate documentation and slowing troubleshooting",
+    "severity": "low",
+    "visual_signals": ["patch cords between racks with no visible labels on either end", "cable label flags faded and illegible at patch panel termination", "fiber optic patch cord missing identification label at connector"],
+    "category": "cabling"
+  },
+  {
+    "rule_id": "dc_029",
+    "description": "Containment system integrity compromised by missing blanking panels above racks, unsealed cable cutouts, or damaged containment curtains allowing bypass airflow",
+    "severity": "high",
+    "visual_signals": ["gap above rack top where containment panel is missing allowing air bypass", "unsealed cable cutout in containment wall with visible hot air mixing", "torn or sagging containment curtain strip between rack rows"],
+    "category": "cooling"
+  },
+  {
+    "rule_id": "dc_030",
+    "description": "Environmental monitoring sensor missing, improperly placed, or showing fault condition for humidity, temperature, or water leak detection",
+    "severity": "high",
+    "visual_signals": ["empty sensor mounting bracket on wall or rack with trailing disconnected cable", "water leak detection cable coiled up on shelf instead of deployed along floor", "environmental sensor display showing fault or offline status indicator"],
+    "category": "environmental"
+  },
+  {
+    "rule_id": "dc_031",
+    "description": "VESDA or aspirating smoke detection system showing alert, fault, or disabled status on its display panel",
+    "severity": "critical",
+    "visual_signals": ["VESDA panel displaying amber alert or red fire indicator", "aspirating smoke detector panel with fault LED illuminated", "VESDA unit with disabled or isolate status shown on display"],
+    "category": "fire"
+  },
+  {
+    "rule_id": "dc_032",
+    "description": "Physical security control compromised by tailgating indicators, propped mantrap doors, or visible camera coverage gaps in data center",
+    "severity": "high",
+    "visual_signals": ["mantrap inner door propped open with wedge or object", "security camera with obstructed lens or pointed at ceiling instead of access point", "badge reader at data hall entrance showing fault light or powered off"],
     "category": "security"
+  },
+  {
+    "rule_id": "dc_033",
+    "description": "PDU or busway showing signs of overloaded circuits, thermal discoloration, or loose connections indicating electrical risk",
+    "severity": "critical",
+    "visual_signals": ["discoloration or heat marks on PDU breaker panel or bus connection", "PDU load display showing circuit utilization above safe threshold percentage", "loose or partially unseated power connector at PDU outlet or whip connection"],
+    "category": "power"
+  },
+  {
+    "rule_id": "dc_034",
+    "description": "Grounding or bonding conductor exposed, disconnected, or showing corrosion at connection points compromising equipment grounding system",
+    "severity": "high",
+    "visual_signals": ["green grounding conductor hanging disconnected from rack bonding lug", "corrosion visible at grounding busbar connection point", "missing bonding jumper between adjacent rack frames where bonding lug is present"],
+    "category": "power"
+  },
+  {
+    "rule_id": "dc_035",
+    "description": "Clean agent fire suppression system cylinder showing low pressure, physical damage, or abort switch in non-standard position",
+    "severity": "critical",
+    "visual_signals": ["clean agent cylinder pressure gauge needle below green normal range", "dent or corrosion visible on clean agent suppression cylinder body", "fire suppression abort switch in the activated or non-normal position"],
+    "category": "fire"
+  },
+  {
+    "rule_id": "dc_036",
+    "description": "Equipment mounted in rack without proper cage nuts, screws, or rail mounting hardware creating risk of equipment falling",
+    "severity": "high",
+    "visual_signals": ["server sitting on rack rails without visible front mounting screws", "equipment balanced on shelf ears without being secured to rack posts", "missing cage nuts at rack mounting positions with equipment resting unsecured"],
+    "category": "rack_mounting"
+  },
+  {
+    "rule_id": "dc_037",
+    "description": "Rack elevation diagram not posted on or near rack, or cable documentation labels not matching physical connections",
+    "severity": "low",
+    "visual_signals": ["rack interior door with empty document holder and no elevation diagram", "rack front with no equipment identification labels or asset tags visible", "cable labels at patch panel not matching the label at the far end of the same cable"],
+    "category": "documentation"
+  },
+  {
+    "rule_id": "dc_038",
+    "description": "Emergency power-off procedures, shutdown sequence, or emergency contact information not posted in visible location within data hall",
+    "severity": "medium",
+    "visual_signals": ["data hall wall near entrance with no emergency procedure signage posted", "EPO button area without accompanying shutdown procedure placard", "empty or outdated emergency contact sheet at data center entrance"],
+    "category": "egress"
+  },
+  {
+    "rule_id": "dc_039",
+    "description": "Emergency flashlights missing from designated locations or non-functional for use during power outage or lighting failure in data center",
+    "severity": "medium",
+    "visual_signals": ["empty flashlight mounting bracket at data hall entrance or exit", "flashlight in holder with visible corrosion indicating dead batteries", "missing emergency flashlight from wall-mounted clip near data center entry"],
+    "category": "egress"
+  },
+  {
+    "rule_id": "dc_040",
+    "description": "Liquid cooling system showing leak indicators, missing drip trays, loose hose connections, or low glycol level in reservoir",
+    "severity": "critical",
+    "visual_signals": ["water or coolant drip stain on floor beneath liquid-cooled rack or CDU", "rear-door heat exchanger hose connection with visible moisture at fitting", "liquid cooling distribution unit glycol reservoir showing level below minimum mark"],
+    "category": "cooling"
+  },
+  {
+    "rule_id": "dc_041",
+    "description": "Liquid cooling drip containment tray missing, improperly positioned, or full of accumulated liquid beneath cooling connections",
+    "severity": "high",
+    "visual_signals": ["liquid cooling hose connection point above raised floor with no drip tray beneath", "drip pan under CDU filled with standing coolant liquid", "missing containment tray at quick-disconnect coolant fitting location"],
+    "category": "cooling"
+  },
+  {
+    "rule_id": "dc_042",
+    "description": "Server rack not anchored to raised floor or concrete slab with proper seismic bracing hardware per local seismic zone requirements",
+    "severity": "high",
+    "visual_signals": ["rack base with empty bolt holes and no floor anchoring hardware visible", "server rack visibly leaning or not plumb due to missing anchor bolts", "rack without visible seismic bracing brackets at top or base attachment points"],
+    "category": "seismic"
+  },
+  {
+    "rule_id": "dc_043",
+    "description": "Overhead cable tray or ladder rack lacking seismic bracing or lateral support in seismic zone installation",
+    "severity": "medium",
+    "visual_signals": ["cable tray suspended from ceiling with no diagonal seismic brace wires", "overhead ladder rack with visible sway or sag between support points", "cable tray support rod without lateral bracing in long unsupported span"],
+    "category": "seismic"
+  },
+  {
+    "rule_id": "dc_044",
+    "description": "Water or liquid stain visible on raised floor, ceiling, or near equipment indicating active or previous leak requiring investigation",
+    "severity": "high",
+    "visual_signals": ["water stain ring visible on raised floor tile surface", "ceiling tile above data hall showing brown water damage discoloration", "dried mineral deposit trail on floor from previous water intrusion path"],
+    "category": "environmental"
+  },
+  {
+    "rule_id": "dc_045",
+    "description": "Humidity reading on environmental display showing out-of-range value per ASHRAE recommended envelope creating condensation or ESD risk",
+    "severity": "high",
+    "visual_signals": ["environmental monitor displaying humidity value outside ASHRAE recommended range", "condensation droplets forming on cold surfaces near cooling supply", "humidity sensor readout showing critically low relative humidity value"],
+    "category": "environmental"
   }
 ]

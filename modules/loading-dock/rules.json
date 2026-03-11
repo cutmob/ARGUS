@@ -66,7 +66,147 @@
     "rule_id": "ld_010",
     "description": "Slip hazard from water, oil, snow, or debris accumulation on dock surface or approach ramp",
     "severity": "medium",
-    "visual_signals": ["wet sheen on dock floor", "oil stain near dock edge", "snow or ice tracked onto dock surface", "loose debris in traffic path"],
+    "visual_signals": ["wet sheen on dock floor", "oil stain near dock edge", "loose debris in traffic path"],
     "category": "slip_hazard"
+  },
+  {
+    "rule_id": "ld_011",
+    "description": "Vehicle restraint system not engaged or malfunctioning while trailer is being loaded or unloaded",
+    "severity": "critical",
+    "visual_signals": ["restraint arm in raised or disengaged position with trailer at dock", "red signal light illuminated indicating restraint not locked", "restraint hook not contacting trailer ICC bar"],
+    "category": "vehicle_restraint"
+  },
+  {
+    "rule_id": "ld_012",
+    "description": "Dock communication signal lights missing, non-functional, or showing incorrect status for current dock activity",
+    "severity": "high",
+    "visual_signals": ["no red or green signal light visible at dock position", "both interior and exterior lights showing green simultaneously", "burned-out or dark signal light housing"],
+    "category": "vehicle_restraint"
+  },
+  {
+    "rule_id": "ld_013",
+    "description": "Dock safety signage missing or illegible including capacity ratings, trailer inspection checklists, and operational procedures",
+    "severity": "medium",
+    "visual_signals": ["blank wall where capacity placard should be mounted", "faded or unreadable safety instruction sign at dock face", "missing trailer inspection checklist posting near dock door"],
+    "category": "signage"
+  },
+  {
+    "rule_id": "ld_014",
+    "description": "No-pedestrian zone markings absent or obscured in active dock traffic areas",
+    "severity": "high",
+    "visual_signals": ["no warning signage prohibiting pedestrian access in forklift zones", "faded or worn no-pedestrian floor stencils", "missing keep-clear hatching at dock approaches"],
+    "category": "signage"
+  },
+  {
+    "rule_id": "ld_015",
+    "description": "Edge-of-dock leveler lip is excessively worn, cracked, or has damaged hinges reducing safe load transition",
+    "severity": "high",
+    "visual_signals": ["thin or rounded leveler lip edge from wear", "cracked or broken hinge at leveler lip pivot point", "leveler lip that does not extend fully or sit flat on trailer bed"],
+    "category": "dock_leveler"
+  },
+  {
+    "rule_id": "ld_016",
+    "description": "Pit leveler showing hydraulic fluid leak, damaged control panel, or non-functional lip roller",
+    "severity": "high",
+    "visual_signals": ["hydraulic fluid pooling in leveler pit or on dock floor", "cracked or missing buttons on leveler control panel", "lip roller seized or missing from leveler front edge"],
+    "category": "dock_leveler"
+  },
+  {
+    "rule_id": "ld_017",
+    "description": "Dock seal or shelter is damaged with compressed foam, torn fabric, or gaps allowing weather infiltration",
+    "severity": "medium",
+    "visual_signals": ["compressed or flattened foam pads on dock shelter sides", "ripped or hanging dock seal fabric", "daylight visible around trailer through dock shelter gaps"],
+    "category": "dock_seal"
+  },
+  {
+    "rule_id": "ld_018",
+    "description": "Hazmat placarding on trailer does not match load contents or placards are missing, damaged, or improperly displayed",
+    "severity": "critical",
+    "visual_signals": ["empty placard holder on trailer carrying placarded materials", "faded or illegible hazmat diamond placard", "placard class number not matching shipping documents posted at dock"],
+    "category": "hazmat_compliance"
+  },
+  {
+    "rule_id": "ld_019",
+    "description": "Forklift operating at excessive speed in dock area or failing to sound horn at intersections and blind corners",
+    "severity": "high",
+    "visual_signals": ["forklift moving with load elevated above travel height", "forklift approaching blind intersection without stopping", "blurred motion indicating high speed near dock edge"],
+    "category": "forklift_operations"
+  },
+  {
+    "rule_id": "ld_020",
+    "description": "Forklift operator not wearing seat belt or restraint while operating on dock or loading ramp",
+    "severity": "high",
+    "visual_signals": ["seat belt hanging loose alongside forklift seat", "operator visible without lap belt buckled", "restraint bar in raised position during forklift operation"],
+    "category": "forklift_operations"
+  },
+  {
+    "rule_id": "ld_021",
+    "description": "Trailer floor shows visible rot, holes, delamination, or structural weakness that could collapse under forklift weight",
+    "severity": "critical",
+    "visual_signals": ["broken or splintered trailer floor boards visible from dock", "holes or daylight visible through trailer floor", "delaminated or sagging plywood decking inside trailer"],
+    "category": "trailer_condition"
+  },
+  {
+    "rule_id": "ld_022",
+    "description": "Fire extinguisher missing, expired, or improperly mounted at or near dock positions",
+    "severity": "high",
+    "visual_signals": ["empty fire extinguisher bracket on dock wall", "extinguisher with expired inspection tag or missing pin", "fire extinguisher on floor instead of mounted at accessible height"],
+    "category": "fire_safety"
+  },
+  {
+    "rule_id": "ld_023",
+    "description": "Emergency eye wash station missing, obstructed, or not maintained near dock battery charging areas",
+    "severity": "high",
+    "visual_signals": ["no eye wash station visible in battery charging area near dock", "eye wash station blocked by stored materials or equipment", "dust covers on eye wash nozzles appearing unused or deteriorated"],
+    "category": "emergency_equipment"
+  },
+  {
+    "rule_id": "ld_024",
+    "description": "Dock area housekeeping deficiency with accumulated shrink wrap, banding material, or loose debris creating hazards",
+    "severity": "medium",
+    "visual_signals": ["loose shrink wrap strewn across dock floor", "piles of cut banding straps near dock positions", "scattered pallet fragments and packaging debris in traffic lanes"],
+    "category": "housekeeping"
+  },
+  {
+    "rule_id": "ld_025",
+    "description": "Loading dock drainage system clogged, damaged, or allowing standing water accumulation on dock surface or apron",
+    "severity": "medium",
+    "visual_signals": ["standing water pooled on dock apron or approach ramp", "debris-clogged trench drain grate at dock threshold", "trench drain cover missing or broken exposing open channel"],
+    "category": "drainage"
+  },
+  {
+    "rule_id": "ld_026",
+    "description": "Temperature-controlled dock missing or damaged strip curtains, rapid-close doors, or cold chain transition barriers",
+    "severity": "high",
+    "visual_signals": ["missing or torn strip curtain panels at refrigerated dock opening", "rapid-close door stuck in open position", "frost buildup or fogging at unprotected temperature transition zone"],
+    "category": "temperature_control"
+  },
+  {
+    "rule_id": "ld_027",
+    "description": "Trailer landing gear in poor condition with damaged crank handle, cracked pad, or gear not fully raised while trailer is docked",
+    "severity": "medium",
+    "visual_signals": ["bent or missing landing gear crank handle", "cracked or broken landing gear foot pad", "landing gear legs partially lowered while trailer is at dock"],
+    "category": "trailer_condition"
+  },
+  {
+    "rule_id": "ld_028",
+    "description": "Personnel in dock traffic areas without required PPE including high-visibility vests and steel-toe footwear",
+    "severity": "medium",
+    "visual_signals": ["workers in dock area without high-visibility vest or clothing", "personnel wearing sneakers or open-toe shoes on active dock", "dock workers lacking hard hats in areas with overhead loading activity"],
+    "category": "ppe_compliance"
+  },
+  {
+    "rule_id": "ld_029",
+    "description": "Dock approach ramp surface is deteriorated, uneven, or lacks anti-slip treatment creating forklift and pedestrian hazards",
+    "severity": "high",
+    "visual_signals": ["cracked or spalled concrete on dock approach ramp", "smooth worn surface with no anti-slip texture on ramp", "uneven transition or lip between ramp and dock floor"],
+    "category": "slip_hazard"
+  },
+  {
+    "rule_id": "ld_030",
+    "description": "Trailer not properly centered at dock position with rear wheels off dock approach or trailer angled creating unsafe loading geometry",
+    "severity": "high",
+    "visual_signals": ["trailer backed in at visible angle to dock face", "rear trailer wheels off the edge of dock approach pad", "large uneven gap on one side between trailer and dock seal"],
+    "category": "trailer_securement"
   }
 ]

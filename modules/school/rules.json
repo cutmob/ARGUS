@@ -3,77 +3,301 @@
     "rule_id": "sch_001",
     "description": "Playground equipment with visible cracks, rust holes, or structural deformation",
     "severity": "critical",
-    "visual_signals": ["rust spots on metal frame", "cracked plastic slide surface", "bent support post"],
+    "visual_signals": ["rust spots or holes on metal frame members", "cracked plastic slide surface or platform", "bent or deformed support post or crossbar"],
     "category": "playground_safety"
   },
   {
     "rule_id": "sch_002",
-    "description": "Playground protective surfacing degraded, compacted, or displaced below required depth for fall height",
+    "description": "Playground protective surfacing degraded, compacted, or displaced below required depth for fall height (ASTM F1487)",
     "severity": "critical",
-    "visual_signals": ["bare ground visible under equipment", "rubber mulch scattered thin", "hard-packed surface under swings"],
+    "visual_signals": ["bare ground visible under climbing equipment", "rubber mulch scattered thin exposing hard surface", "hard-packed dirt or compacted surface under swings"],
     "category": "playground_safety"
   },
   {
     "rule_id": "sch_003",
     "description": "Ceiling tiles showing water stains, sagging, or displacement indicating moisture intrusion",
     "severity": "medium",
-    "visual_signals": ["brown ring stain on ceiling tile", "tile bowing downward", "gap in ceiling grid"],
+    "visual_signals": ["brown ring stain on ceiling tile", "tile bowing downward from grid frame", "gap in ceiling grid with tile missing or displaced"],
     "category": "building_integrity"
   },
   {
     "rule_id": "sch_004",
     "description": "Walkway trip hazard from raised concrete joints, cracked pavement, or uneven surfaces",
     "severity": "high",
-    "visual_signals": ["sidewalk slab offset at joint", "cracked asphalt with raised edge", "tree root lifting pavement"],
+    "visual_signals": ["sidewalk slab offset at joint creating step", "cracked asphalt with raised edge along crack", "tree root lifting pavement above flush level"],
     "category": "slip_trip_fall"
   },
   {
     "rule_id": "sch_005",
     "description": "Exterior door propped open with wedge or object defeating lockdown and security protocols",
     "severity": "critical",
-    "visual_signals": ["rock or wedge at door base", "exterior door ajar with no staff present", "door latch taped over"],
+    "visual_signals": ["rock or wedge visible at door base holding it open", "exterior door ajar with no staff member present", "door latch taped over preventing door from locking"],
     "category": "security"
   },
   {
     "rule_id": "sch_006",
-    "description": "Exit sign missing, not illuminated, or obscured along required egress path",
+    "description": "Exit sign missing, not illuminated, or obscured along required egress path (NFPA 101)",
     "severity": "high",
-    "visual_signals": ["dark exit sign above door", "empty mounting bracket", "sign blocked by banner or decoration"],
+    "visual_signals": ["dark exit sign above door with no illumination", "empty exit sign mounting bracket on wall", "exit sign blocked by banner or classroom decoration"],
     "category": "egress"
   },
   {
     "rule_id": "sch_007",
     "description": "Science lab chemicals stored outside approved cabinets or without proper segregation",
     "severity": "high",
-    "visual_signals": ["chemical bottles on open counter", "unlocked cabinet with hazardous labels", "incompatible chemicals stored together"],
+    "visual_signals": ["chemical bottles sitting on open countertop outside cabinet", "unlocked cabinet with hazardous chemical labels visible", "incompatible chemicals stored side by side on same shelf"],
     "category": "chemical_safety"
   },
   {
     "rule_id": "sch_008",
     "description": "Stairwell handrail loose, detached from wall mount, or missing sections",
     "severity": "high",
-    "visual_signals": ["handrail wobbling", "mounting bracket pulled from wall", "gap in railing run"],
+    "visual_signals": ["handrail bracket pulled away from wall", "visible wobble or movement in handrail when touched", "gap in handrail run where section is missing"],
     "category": "slip_trip_fall"
   },
   {
     "rule_id": "sch_009",
     "description": "AED unit inaccessible due to blocked cabinet, missing signage, or location beyond recommended response distance",
     "severity": "high",
-    "visual_signals": ["AED cabinet blocked by furniture", "no AED sign visible in corridor", "cabinet locked without break-glass option"],
+    "visual_signals": ["AED cabinet blocked by furniture or equipment", "no AED location sign visible in corridor", "AED cabinet locked without break-glass panel or key access"],
     "category": "emergency_preparedness"
   },
   {
     "rule_id": "sch_010",
     "description": "Bus loading zone markings faded, missing, or conflicting with pedestrian walkways",
     "severity": "medium",
-    "visual_signals": ["faded yellow curb paint", "missing bus zone sign", "pedestrian path crossing unmarked bus lane"],
+    "visual_signals": ["faded yellow curb paint in bus zone", "missing bus zone sign at loading area", "pedestrian path crossing unmarked bus traffic lane"],
     "category": "traffic_safety"
   },
   {
     "rule_id": "sch_011",
     "description": "Standing water or ice accumulation on walkways creating slip hazard for students and staff",
     "severity": "high",
-    "visual_signals": ["puddle on sidewalk", "ice sheet on walkway", "water pooling near building entrance"],
+    "visual_signals": ["puddle pooling on sidewalk near building entrance", "ice sheet on walkway without salt or sand treatment", "water standing on exterior ramp surface"],
     "category": "slip_trip_fall"
+  },
+  {
+    "rule_id": "sch_012",
+    "description": "WEAPON DETECTED — Visible firearm carried by individual on school campus",
+    "severity": "critical",
+    "visual_signals": ["person holding or carrying a handgun or rifle on school grounds", "firearm visible in waistband holster or slung over shoulder on campus", "gun-shaped object brandished or displayed by individual near students"],
+    "category": "weapon_detection"
+  },
+  {
+    "rule_id": "sch_013",
+    "description": "WEAPON DETECTED — Visible knife or edged weapon carried by individual on school campus",
+    "severity": "critical",
+    "visual_signals": ["person carrying a large knife or blade visible in hand on school grounds", "fixed-blade knife visible in belt sheath on individual at school", "machete or large cutting implement carried by person on campus"],
+    "category": "weapon_detection"
+  },
+  {
+    "rule_id": "sch_014",
+    "description": "WEAPON DETECTED — Blunt weapon or improvised weapon carried by individual on campus",
+    "severity": "critical",
+    "visual_signals": ["person carrying a baseball bat or metal pipe aggressively outside sports context", "individual with club-like object or heavy chain outside maintenance context", "person carrying blunt striking weapon not consistent with school activities"],
+    "category": "weapon_detection"
+  },
+  {
+    "rule_id": "sch_015",
+    "description": "CONCEALED WEAPON INDICATOR — Bulge, printing, or awkward movement suggesting concealed weapon under clothing",
+    "severity": "critical",
+    "visual_signals": ["rectangular or L-shaped bulge visible under shirt at waistband or pocket", "individual walking with stiff gait adjusting waistband repeatedly", "outline of weapon shape printing through thin fabric of clothing"],
+    "category": "weapon_detection"
+  },
+  {
+    "rule_id": "sch_016",
+    "description": "WEAPON DETECTED — Unattended weapon or weapon-like object left on surface or floor",
+    "severity": "critical",
+    "visual_signals": ["firearm left on desk, bench, table, or floor unattended", "knife or edged weapon left unattended on school surface", "weapon-like object abandoned on ground or furniture in school area"],
+    "category": "weapon_detection"
+  },
+  {
+    "rule_id": "sch_017",
+    "description": "TACTICAL GEAR — Individual wearing body armor, tactical vest, or load-bearing equipment on campus out of context",
+    "severity": "critical",
+    "visual_signals": ["person wearing tactical plate carrier or ballistic vest on school grounds", "individual in load-bearing tactical vest with pouches not law enforcement", "body armor visible under or over clothing on person at school"],
+    "category": "weapon_detection"
+  },
+  {
+    "rule_id": "sch_018",
+    "description": "SUSPICIOUS PACKAGE — Unattended bag, backpack, or package in unusual location",
+    "severity": "high",
+    "visual_signals": ["backpack left unattended in hallway or open area with no owner nearby", "duffel bag or large bag abandoned near building entrance or gathering area", "package or container left in unusual location away from normal storage areas"],
+    "category": "weapon_detection"
+  },
+  {
+    "rule_id": "sch_019",
+    "description": "Fire drill compliance deficiency — drill schedules not posted or evacuation route maps missing from classrooms",
+    "severity": "medium",
+    "visual_signals": ["classroom wall without visible evacuation route map", "fire drill schedule posting area empty or showing outdated schedule", "no evacuation assembly point signage visible outside building"],
+    "category": "emergency_preparedness"
+  },
+  {
+    "rule_id": "sch_020",
+    "description": "Classroom door security deficient — lock non-functional, no clear window covering, or barricade device missing",
+    "severity": "high",
+    "visual_signals": ["classroom door lock mechanism visibly broken or missing", "classroom door window without opaque covering for lockdown use", "classroom door without interior lock capability requiring key from hallway only"],
+    "category": "security"
+  },
+  {
+    "rule_id": "sch_021",
+    "description": "Visitor management failure — individuals without visible badges or tailgating through secure entries",
+    "severity": "high",
+    "visual_signals": ["adult in school hallway without visible visitor badge or lanyard", "person following staff member through secure door without badging in", "visitor sign-in area unstaffed with exterior door unlocked to main building"],
+    "category": "security"
+  },
+  {
+    "rule_id": "sch_022",
+    "description": "Security camera non-functional, obstructed, or showing blind spot in coverage area",
+    "severity": "high",
+    "visual_signals": ["security camera with lens obscured by dirt, cobwebs, or object", "camera housing hanging loose or pointed at wall instead of coverage area", "visible gap in camera coverage at entry point or corridor intersection"],
+    "category": "security"
+  },
+  {
+    "rule_id": "sch_023",
+    "description": "Perimeter fencing damaged, incomplete, or gates left unlocked during school hours",
+    "severity": "high",
+    "visual_signals": ["gap or hole in perimeter chain-link fence large enough for person entry", "fence section leaning or knocked down creating uncontrolled access", "perimeter gate standing open and unlocked during school hours"],
+    "category": "security"
+  },
+  {
+    "rule_id": "sch_024",
+    "description": "Cafeteria safety hazard — wet floors unmarked, hot surface accessible to students, or allergen signage missing",
+    "severity": "medium",
+    "visual_signals": ["wet cafeteria floor near serving line without wet floor sign", "hot food serving surface accessible without sneeze guard or barrier", "food serving area without posted allergen warning signs"],
+    "category": "cafeteria_safety"
+  },
+  {
+    "rule_id": "sch_025",
+    "description": "Gymnasium safety hazard — damaged equipment, unsafe floor surface, or missing wall padding",
+    "severity": "high",
+    "visual_signals": ["basketball backboard or hoop mounting hardware loose or cracked", "gym floor with warped or buckling sections creating trip hazard", "bare brick or concrete wall near basketball court without protective padding"],
+    "category": "gymnasium_safety"
+  },
+  {
+    "rule_id": "sch_026",
+    "description": "Science lab missing eyewash station, fume hood non-functional, or chemical storage unlocked (OSHA 1910.1450)",
+    "severity": "high",
+    "visual_signals": ["science lab without visible eyewash station or emergency shower", "fume hood in science classroom with sash stuck or no airflow indicator", "chemical storage cabinet in science room unlocked and accessible to students"],
+    "category": "chemical_safety"
+  },
+  {
+    "rule_id": "sch_027",
+    "description": "Asbestos or lead paint notice missing, ACM in poor condition, or monitoring records not posted in older buildings",
+    "severity": "high",
+    "visual_signals": ["asbestos notification not posted in building known to contain ACM", "pipe insulation with damaged or crumbling fibrous wrapping in older school", "peeling or chipping paint on walls or window frames in pre-1978 building"],
+    "category": "hazmat"
+  },
+  {
+    "rule_id": "sch_028",
+    "description": "ADA accessibility deficiency — ramp in poor condition, inaccessible restrooms, or missing signage",
+    "severity": "medium",
+    "visual_signals": ["wheelchair ramp with cracked surface or missing handrails", "restroom without ADA accessibility sign or hardware", "accessible route blocked by temporary furniture or equipment"],
+    "category": "ada_compliance"
+  },
+  {
+    "rule_id": "sch_029",
+    "description": "Fire extinguisher missing, expired, or improperly placed in school building (NFPA 10)",
+    "severity": "high",
+    "visual_signals": ["empty fire extinguisher wall mount bracket in corridor", "fire extinguisher with expired inspection tag visible", "fire extinguisher on floor or hidden behind furniture instead of mounted"],
+    "category": "fire_safety"
+  },
+  {
+    "rule_id": "sch_030",
+    "description": "Sprinkler head obstructed or clearance below 18 inches not maintained in school building (NFPA 25)",
+    "severity": "critical",
+    "visual_signals": ["stored materials or decorations within 18 inches of sprinkler head", "sprinkler head painted over or covered by ceiling decoration", "items stacked on top of tall shelving unit directly below sprinkler"],
+    "category": "fire_safety"
+  },
+  {
+    "rule_id": "sch_031",
+    "description": "Emergency lighting in corridors and stairwells non-functional or missing (NFPA 101)",
+    "severity": "high",
+    "visual_signals": ["emergency light unit in hallway with no illumination during test", "stairwell emergency light with cracked lens or missing lamp head", "corridor emergency light with visible red fault indicator"],
+    "category": "egress"
+  },
+  {
+    "rule_id": "sch_032",
+    "description": "PA or intercom system showing signs of non-functionality affecting emergency communication",
+    "severity": "high",
+    "visual_signals": ["classroom intercom speaker with dangling wires or broken housing", "PA system speaker in corridor missing or hanging from mount", "intercom call button panel in classroom visibly damaged or disconnected"],
+    "category": "emergency_preparedness"
+  },
+  {
+    "rule_id": "sch_033",
+    "description": "Vehicle barriers or bollards missing or damaged at pedestrian entrances creating anti-ram vulnerability",
+    "severity": "high",
+    "visual_signals": ["main school entrance with wide vehicle approach and no bollards or planters", "bollard at entrance bent or knocked from foundation", "vehicle barrier gap wide enough for car to pass through to building entrance"],
+    "category": "security"
+  },
+  {
+    "rule_id": "sch_034",
+    "description": "Portable classroom or trailer with safety deficiency — missing tie-downs, damaged stairs, or inadequate fire exits",
+    "severity": "high",
+    "visual_signals": ["portable classroom without visible ground anchor or tie-down straps", "portable classroom stairs with broken tread or missing handrail", "portable building with only one exit door and no secondary emergency exit"],
+    "category": "portable_classroom"
+  },
+  {
+    "rule_id": "sch_035",
+    "description": "Portable classroom ramp in poor condition or not ADA compliant",
+    "severity": "medium",
+    "visual_signals": ["portable classroom ramp with warped or rotting deck surface", "ramp to portable without handrails on both sides", "ramp slope visibly steeper than standard ADA grade"],
+    "category": "portable_classroom"
+  },
+  {
+    "rule_id": "sch_036",
+    "description": "Playground entrapment hazard from openings between 3.5 and 9 inches that could trap child head or body (CPSC)",
+    "severity": "critical",
+    "visual_signals": ["gap between playground bars or slats in head entrapment size range", "opening in equipment railing or barrier sized to trap small child", "V-shaped opening at bottom of slide or equipment creating wedge trap"],
+    "category": "playground_safety"
+  },
+  {
+    "rule_id": "sch_037",
+    "description": "School building exterior lighting inadequate creating dark zones at entries, parking, or walkways",
+    "severity": "medium",
+    "visual_signals": ["burned-out exterior light fixture at school building entrance", "dark parking lot area with non-functional pole light", "shadowed walkway between buildings with no operational lighting"],
+    "category": "security"
+  },
+  {
+    "rule_id": "sch_038",
+    "description": "Parking lot and student drop-off zone safety — missing crosswalk markings, speed signs, or traffic control",
+    "severity": "medium",
+    "visual_signals": ["faded or missing crosswalk striping in school parking lot", "school zone speed limit sign missing or obscured by vegetation", "student drop-off area without clear lane markings or traffic flow signs"],
+    "category": "traffic_safety"
+  },
+  {
+    "rule_id": "sch_039",
+    "description": "Fire door in school held open improperly without magnetic hold-open device connected to fire alarm",
+    "severity": "high",
+    "visual_signals": ["fire-rated corridor door propped open with wedge or doorstop", "fire door self-closer disconnected or broken in school hallway", "fire door between corridor sections unable to close and latch properly"],
+    "category": "fire_safety"
+  },
+  {
+    "rule_id": "sch_040",
+    "description": "Classroom or corridor windows with security film absent where required by safety plan",
+    "severity": "medium",
+    "visual_signals": ["ground-floor classroom windows without visible security film application", "corridor window glass without laminate layer visible at edge", "large glass panel at school entrance without ballistic or security film"],
+    "category": "security"
+  },
+  {
+    "rule_id": "sch_041",
+    "description": "Emergency lockdown procedures not posted in classrooms or staff areas",
+    "severity": "medium",
+    "visual_signals": ["classroom without visible lockdown procedure card or poster", "no emergency procedure flip chart near classroom door", "staff area missing posted active threat response instructions"],
+    "category": "emergency_preparedness"
+  },
+  {
+    "rule_id": "sch_042",
+    "description": "Bleacher or stadium seating structural deficiency creating fall or collapse hazard",
+    "severity": "high",
+    "visual_signals": ["gymnasium bleacher with bent or missing support brace", "bleacher seat board cracked or splintered", "bleacher guardrail at top row missing or below required height"],
+    "category": "gymnasium_safety"
+  },
+  {
+    "rule_id": "sch_043",
+    "description": "Electrical outlet or panel in student-accessible area without proper cover or protection",
+    "severity": "medium",
+    "visual_signals": ["electrical outlet in elementary classroom missing cover plate", "electrical panel in hallway with door open or missing cover", "exposed wiring visible from damaged outlet in student area"],
+    "category": "electrical_safety"
   }
 ]

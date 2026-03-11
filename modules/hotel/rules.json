@@ -68,5 +68,180 @@
     "severity": "medium",
     "visual_signals": ["sandwich board sign in accessible ramp path", "planter narrowing accessible doorway", "chair placed in front of accessible entrance"],
     "category": "ada_compliance"
+  },
+  {
+    "rule_id": "htl_011",
+    "description": "Sprinkler heads obstructed by decorations, storage, or painted over reducing activation effectiveness and spray coverage",
+    "severity": "critical",
+    "visual_signals": ["decorative fabric or banner draped over sprinkler head pipe", "sprinkler head visibly painted matching ceiling color obscuring thermal element", "stored items on high shelf within 18 inches of sprinkler deflector"],
+    "category": "sprinkler"
+  },
+  {
+    "rule_id": "htl_012",
+    "description": "Fire department connection (FDC) for sprinkler system inaccessible, obstructed by landscaping, or missing caps and signage",
+    "severity": "critical",
+    "visual_signals": ["overgrown shrubs covering fire department connection on building exterior", "FDC missing protective caps exposing inlet connections", "no identifying sign or faded lettering at fire department connection point"],
+    "category": "sprinkler"
+  },
+  {
+    "rule_id": "htl_013",
+    "description": "Smoke detector in guest room missing, covered, disconnected, or showing tamper indicators",
+    "severity": "critical",
+    "visual_signals": ["guest room ceiling with empty smoke detector bracket and dangling wires", "smoke detector covered with shower cap or plastic bag by occupant", "detector hanging from ceiling by wires with mounting plate detached"],
+    "category": "detection_systems"
+  },
+  {
+    "rule_id": "htl_014",
+    "description": "Carbon monoxide detector missing or non-functional in areas with fuel-burning appliances, attached garages, or as required by local code",
+    "severity": "critical",
+    "visual_signals": ["guest room near parking garage with no CO detector visible on wall or ceiling", "carbon monoxide detector with expired date label or no indicator light", "boiler room corridor lacking CO detection unit on wall"],
+    "category": "detection_systems"
+  },
+  {
+    "rule_id": "htl_015",
+    "description": "Laundry room dryer lint trap area showing heavy lint accumulation creating fire ignition hazard",
+    "severity": "high",
+    "visual_signals": ["thick lint buildup visible around dryer exhaust vent opening", "lint accumulation on floor and surfaces surrounding commercial dryer units", "dryer vent duct connection with lint escaping from loose joint"],
+    "category": "laundry_safety"
+  },
+  {
+    "rule_id": "htl_016",
+    "description": "Laundry room chemical storage improper with incompatible chemicals stored together, unlabeled containers, or missing SDS information",
+    "severity": "high",
+    "visual_signals": ["bleach and ammonia-based products stored side by side on same shelf", "unlabeled spray bottles and chemical containers on laundry room shelf", "chemical storage area without visible SDS binder or information posted"],
+    "category": "laundry_safety"
+  },
+  {
+    "rule_id": "htl_017",
+    "description": "Laundry room commercial equipment lacking proper machine guarding on moving parts or safety interlocks",
+    "severity": "high",
+    "visual_signals": ["commercial ironer or mangle with exposed rollers and no guard", "washing machine with broken door latch allowing opening during spin cycle", "folding machine with missing safety shield over moving components"],
+    "category": "laundry_safety"
+  },
+  {
+    "rule_id": "htl_018",
+    "description": "Elevator cab emergency phone non-functional, inspection certificate expired or missing, or ventilation obstructed",
+    "severity": "high",
+    "visual_signals": ["elevator emergency phone handset off hook or disconnected", "elevator inspection certificate frame empty or showing expired date", "elevator cab ceiling ventilation grille blocked or covered with debris"],
+    "category": "elevator"
+  },
+  {
+    "rule_id": "htl_019",
+    "description": "Parking structure serving hotel with insufficient lighting, damaged barriers, or missing wayfinding signage",
+    "severity": "high",
+    "visual_signals": ["dark zones in hotel parking garage with burned-out light fixtures", "concrete parking barrier cracked with exposed rebar at vehicle edge", "parking level lacking floor number signage at elevator lobby or stairwell"],
+    "category": "parking_structure"
+  },
+  {
+    "rule_id": "htl_020",
+    "description": "Swimming pool fence or barrier non-compliant with missing self-closing gate, gaps allowing child access, or climbable features",
+    "severity": "critical",
+    "visual_signals": ["pool gate propped open or missing self-closing hinge mechanism", "pool fence with horizontal rails creating ladder effect for child climbing", "gap under pool barrier fence large enough for small child to crawl through"],
+    "category": "pool_safety"
+  },
+  {
+    "rule_id": "htl_021",
+    "description": "Swimming pool drain cover missing, damaged, or non-compliant with anti-entrapment requirements",
+    "severity": "critical",
+    "visual_signals": ["pool drain visible at bottom with cracked or broken cover grate", "drain cover missing entirely exposing open suction fitting", "older flat drain cover without domed anti-entrapment design"],
+    "category": "pool_safety"
+  },
+  {
+    "rule_id": "htl_022",
+    "description": "Swimming pool area missing required life safety equipment including life ring, shepherd hook, or rescue tube",
+    "severity": "high",
+    "visual_signals": ["empty hook on pool fence where life ring should hang", "no shepherd hook or reaching pole visible at pool deck perimeter", "rescue equipment storage station empty or locked with no key access"],
+    "category": "pool_safety"
+  },
+  {
+    "rule_id": "htl_023",
+    "description": "Pool chemical storage room with improper ventilation, unlocked access, or incompatible chemicals stored together",
+    "severity": "high",
+    "visual_signals": ["pool chemical storage room door left open and unattended", "chlorine and acid containers stored adjacent on same shelf without separation", "chemical storage room with no visible ventilation fan or exhaust opening"],
+    "category": "pool_safety"
+  },
+  {
+    "rule_id": "htl_024",
+    "description": "Fitness center exercise equipment in poor condition with frayed cables, torn padding, or broken adjustment mechanisms",
+    "severity": "high",
+    "visual_signals": ["weight machine cable showing frayed strands near pulley", "exercise bench with torn vinyl padding exposing foam interior", "treadmill with cracked running belt or damaged emergency stop cord"],
+    "category": "fitness_center"
+  },
+  {
+    "rule_id": "htl_025",
+    "description": "Fitness center lacking emergency call button, first aid kit, or AED within accessible distance",
+    "severity": "high",
+    "visual_signals": ["fitness room walls with no visible emergency call button or phone", "no first aid kit cabinet visible in fitness center area", "fitness center entrance area without AED cabinet or directional signage to nearest AED"],
+    "category": "fitness_center"
+  },
+  {
+    "rule_id": "htl_026",
+    "description": "Conference or banquet room without posted maximum occupancy sign, blocked egress paths, or improper temporary wiring",
+    "severity": "high",
+    "visual_signals": ["conference room entrance lacking posted occupancy limit placard", "banquet tables and chairs arranged blocking access to emergency exit door", "extension cords and power strips daisy-chained across conference room floor for AV equipment"],
+    "category": "assembly_room"
+  },
+  {
+    "rule_id": "htl_027",
+    "description": "Back-of-house corridor used for storage reducing egress width, with insufficient lighting, or blocked exits",
+    "severity": "high",
+    "visual_signals": ["housekeeping supplies and boxes stacked along back corridor reducing walkway width", "back-of-house hallway with burned-out or dim lighting creating dark zones", "employee exit at end of service corridor obstructed by wheeled carts or equipment"],
+    "category": "back_of_house"
+  },
+  {
+    "rule_id": "htl_028",
+    "description": "Roof access door unsecured allowing unauthorized access or lacking fall protection signage and equipment at roof level",
+    "severity": "high",
+    "visual_signals": ["roof access door propped open or lacking lock mechanism", "roof edge without visible parapet wall or guardrail fall protection", "no fall protection warning sign posted at roof access door or hatch"],
+    "category": "roof_access"
+  },
+  {
+    "rule_id": "htl_029",
+    "description": "Housekeeping chemical storage area with missing SDS documentation, unlocked cabinets, or incompatible chemicals improperly stored",
+    "severity": "high",
+    "visual_signals": ["housekeeping closet with unlocked chemical storage and open door", "cleaning chemical shelf with no SDS binder or hazard information posted", "bleach and acid-based cleaners stored together in same housekeeping caddy"],
+    "category": "chemical_storage"
+  },
+  {
+    "rule_id": "htl_030",
+    "description": "Guest room balcony barrier with horizontal climbable elements, insufficient height for child safety, or deteriorated structural condition",
+    "severity": "critical",
+    "visual_signals": ["balcony railing with horizontal bars creating ladder steps for child climbing", "outdoor furniture positioned against balcony railing providing climbing boost", "balcony barrier with visible rust deterioration or loose anchor bolts at base"],
+    "category": "balcony_safety"
+  },
+  {
+    "rule_id": "htl_031",
+    "description": "Valet area or porte-cochere lacking pedestrian safety separation from vehicle traffic, proper barriers, or adequate lighting",
+    "severity": "high",
+    "visual_signals": ["hotel entrance porte-cochere with no bollards separating pedestrian walkway from vehicle lane", "valet staging area with pedestrians walking in active vehicle traffic zone without markings", "dimly lit hotel entrance drive with no dedicated pedestrian path or crosswalk"],
+    "category": "valet_safety"
+  },
+  {
+    "rule_id": "htl_032",
+    "description": "Food service area with improper temperature control, missing handwashing station, or food contact surface sanitation deficiency",
+    "severity": "high",
+    "visual_signals": ["buffet hot holding station with temperature gauge reading below safe zone", "food preparation area with no visible handwashing sink or hand sanitizer station", "cutting board or food prep surface with visible scoring, stains, or residue buildup"],
+    "category": "food_service"
+  },
+  {
+    "rule_id": "htl_033",
+    "description": "Guest room door lacking functional deadbolt, security viewer (peephole), or automatic door closer for fire separation",
+    "severity": "high",
+    "visual_signals": ["guest room door with missing or non-functional peephole viewer", "room door deadbolt mechanism visibly broken or loose in frame", "guest room door not self-closing when released with no door closer hardware visible"],
+    "category": "guest_room_safety"
+  },
+  {
+    "rule_id": "htl_034",
+    "description": "Fire alarm pull station blocked by furniture, artwork, or not visible in guest corridor as required by code",
+    "severity": "critical",
+    "visual_signals": ["decorative table or artwork display placed directly in front of corridor fire pull station", "fire alarm pull station recessed in wall with no identifying signage visible", "guest corridor lacking any visible fire alarm pull station within required travel distance"],
+    "category": "fire_alarm"
+  },
+  {
+    "rule_id": "htl_035",
+    "description": "Hotel kitchen cooking line lacking accessible fire suppression system, with expired inspection tag, or obstructed pull station",
+    "severity": "critical",
+    "visual_signals": ["kitchen fire suppression system nozzles above cooking line with expired inspection tag", "manual pull station for kitchen suppression system blocked by equipment", "grease hood suppression system fusible links showing grease coating reducing effectiveness"],
+    "category": "kitchen_fire"
   }
 ]

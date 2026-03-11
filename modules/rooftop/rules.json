@@ -68,5 +68,145 @@
     "severity": "high",
     "visual_signals": ["fixed ladder without cage above 24 feet", "bent or missing ladder rungs", "no anti-climb plate or locked cover"],
     "category": "ladder_access"
+  },
+  {
+    "rule_id": "rt_011",
+    "description": "Designated rooftop walkway path markings faded, missing, or walkway pavers displaced creating unsafe route conditions",
+    "severity": "medium",
+    "visual_signals": ["faded or missing painted walkway lines on roof surface", "displaced or broken walkway paver sections exposing membrane", "no marked route visible between roof access point and equipment"],
+    "category": "walkway"
+  },
+  {
+    "rule_id": "rt_012",
+    "description": "Walkway surface lacking non-slip treatment or traction pads creating slip hazard in wet conditions",
+    "severity": "medium",
+    "visual_signals": ["smooth walkway surface with no visible traction treatment", "worn or peeling anti-slip coating on designated path", "missing traction strips on walkway pavers near equipment"],
+    "category": "walkway"
+  },
+  {
+    "rule_id": "rt_013",
+    "description": "Skylight lacks required fall protection such as screens, guardrails, or rated covers per OSHA standards",
+    "severity": "critical",
+    "visual_signals": ["unguarded skylight dome flush with roof surface", "skylight without surrounding guardrail or safety screen", "cracked or deteriorated skylight cover that would not support a worker fall"],
+    "category": "skylight_protection"
+  },
+  {
+    "rule_id": "rt_014",
+    "description": "Rooftop solar panel installation obstructing required setback from roof edge or blocking access pathways",
+    "severity": "high",
+    "visual_signals": ["solar panels installed within three feet of roof edge with no setback", "no clear pathway visible between solar panel rows for maintenance access", "solar panel array blocking access to rooftop equipment"],
+    "category": "solar_panel"
+  },
+  {
+    "rule_id": "rt_015",
+    "description": "Solar panel conduit or wiring in poor condition with exposed conductors, damaged raceways, or improper grounding",
+    "severity": "high",
+    "visual_signals": ["cracked or split conduit exposing solar wiring on roof surface", "loose or unsecured solar panel cables lying across roof membrane", "missing or corroded grounding conductor at solar panel mounting frame"],
+    "category": "solar_panel"
+  },
+  {
+    "rule_id": "rt_016",
+    "description": "Cooling tower missing guardrails, has damaged access ladder, or shows no chemical treatment indicators",
+    "severity": "high",
+    "visual_signals": ["cooling tower platform without perimeter guardrails", "bent or corroded cooling tower access ladder rungs", "no chemical treatment feed equipment or test port visible on cooling tower basin"],
+    "category": "cooling_tower"
+  },
+  {
+    "rule_id": "rt_017",
+    "description": "Cooling tower showing signs of biological growth, scale buildup, or drift eliminator damage indicating Legionella risk",
+    "severity": "high",
+    "visual_signals": ["green algae or biofilm visible in cooling tower basin or fill media", "heavy white scale deposits on cooling tower surfaces and nozzles", "broken or missing drift eliminator sections on cooling tower discharge"],
+    "category": "cooling_tower"
+  },
+  {
+    "rule_id": "rt_018",
+    "description": "Satellite dish or antenna mounting hardware deteriorated with loose guy wires, corroded brackets, or missing grounding",
+    "severity": "medium",
+    "visual_signals": ["slack or disconnected guy wire on rooftop antenna mast", "rusted or cracked antenna mounting bracket on parapet", "missing or corroded grounding wire from antenna base to building ground"],
+    "category": "antenna_mounting"
+  },
+  {
+    "rule_id": "rt_019",
+    "description": "Rooftop crane or davit base with missing cover plates, corroded anchor bolts, or absent rated load signage",
+    "severity": "high",
+    "visual_signals": ["open davit socket without protective cover plate exposing recessed base", "visibly corroded or missing anchor bolts at crane base plate", "no rated load capacity sign posted at davit or crane base location"],
+    "category": "crane_davit"
+  },
+  {
+    "rule_id": "rt_020",
+    "description": "Pipe penetration through roof membrane with deteriorated flashing, failed sealant, or missing counter-flashing",
+    "severity": "high",
+    "visual_signals": ["cracked or separated sealant around pipe boot flashing", "rusted or lifted counter-flashing at pipe penetration", "daylight or gap visible between pipe and roof flashing collar"],
+    "category": "penetration_integrity"
+  },
+  {
+    "rule_id": "rt_021",
+    "description": "HVAC refrigerant leak indicators visible at rooftop unit including oil stains at fittings or green-blue corrosion on copper lines",
+    "severity": "high",
+    "visual_signals": ["dark oil stain at refrigerant line fitting or service valve", "green or blue-green corrosion deposits on copper refrigerant tubing", "frost formation on refrigerant line at location inconsistent with normal operation"],
+    "category": "refrigerant_leak"
+  },
+  {
+    "rule_id": "rt_022",
+    "description": "Condensate drain from rooftop HVAC not properly routed causing ponding, membrane damage, or freeze hazard on walkways",
+    "severity": "medium",
+    "visual_signals": ["condensate water discharging directly onto roof membrane creating wet area", "algae or mineral staining trail from HVAC condensate drain across roof surface", "ice formation on walkway from HVAC condensate drain discharge in cold weather"],
+    "category": "condensate_drain"
+  },
+  {
+    "rule_id": "rt_023",
+    "description": "Electrical disconnect for rooftop equipment missing, unlabeled, not accessible, or lacking weatherproof enclosure",
+    "severity": "high",
+    "visual_signals": ["electrical disconnect box with missing cover or door exposing internal components", "no equipment identification label on rooftop electrical disconnect", "disconnect enclosure showing rust-through or water intrusion damage"],
+    "category": "electrical_disconnect"
+  },
+  {
+    "rule_id": "rt_024",
+    "description": "Fall protection warning signage missing from controlled access zones, warning line perimeters, or roof edge danger areas",
+    "severity": "high",
+    "visual_signals": ["warning line stanchions without required danger signs at six-foot intervals", "no controlled access zone signage at unguarded roof edge work area", "faded or missing rooftop fall hazard warning sign at access point"],
+    "category": "fall_protection_signage"
+  },
+  {
+    "rule_id": "rt_025",
+    "description": "Warning line system improperly installed with lines below 34 inches, stanchions too far apart, or lines closer than six feet to edge",
+    "severity": "critical",
+    "visual_signals": ["warning line sagging well below waist height between stanchions", "warning line stanchions spaced more than six feet apart", "warning line positioned less than six feet from unprotected roof edge"],
+    "category": "fall_protection_signage"
+  },
+  {
+    "rule_id": "rt_026",
+    "description": "Helicopter landing pad markings faded, obstruction clearance compromised, or weight limit signage missing where helipad is present",
+    "severity": "high",
+    "visual_signals": ["faded or partially obscured helipad circle and H marking on roof surface", "equipment or materials stored within helipad approach clearance zone", "missing weight limit or wind direction indicator at rooftop helipad"],
+    "category": "helipad"
+  },
+  {
+    "rule_id": "rt_027",
+    "description": "Window washing davit equipment showing corrosion, missing rigging inspection tags, or tieback anchors in poor condition",
+    "severity": "critical",
+    "visual_signals": ["heavy corrosion or rust on window washing davit arm or base", "missing or expired rigging inspection tag on window washing davit", "corroded or loose tieback anchor points used for window washing operations"],
+    "category": "window_washing"
+  },
+  {
+    "rule_id": "rt_028",
+    "description": "Parapet cap flashing loose, rusted, or showing sealant failure allowing water infiltration into wall assembly",
+    "severity": "medium",
+    "visual_signals": ["lifted or displaced metal cap flashing section on parapet top", "rust streaks running down parapet face from deteriorated cap flashing", "open joint or failed sealant bead between cap flashing sections"],
+    "category": "parapet_flashing"
+  },
+  {
+    "rule_id": "rt_029",
+    "description": "Roof ballast gravel displaced exposing underlying membrane to UV damage and wind uplift vulnerability",
+    "severity": "medium",
+    "visual_signals": ["bare membrane patches visible where ballast gravel has been displaced", "gravel piled unevenly with thin coverage areas near roof edge", "exposed membrane showing UV degradation in areas without ballast cover"],
+    "category": "roof_ballast"
+  },
+  {
+    "rule_id": "rt_030",
+    "description": "Roof drain or scupper blocked by debris, covered with ballast, or showing signs of inadequate flow capacity",
+    "severity": "medium",
+    "visual_signals": ["leaves and debris accumulated over roof drain strainer basket", "ballast gravel covering or surrounding roof drain preventing water entry", "water staining pattern indicating overflow at scupper or drain location"],
+    "category": "drainage"
   }
 ]

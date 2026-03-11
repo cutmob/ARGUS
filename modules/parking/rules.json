@@ -68,5 +68,159 @@
     "severity": "high",
     "visual_signals": ["dark emergency light fixture", "emergency light with no test button glow", "missing exit sign above stairwell door"],
     "category": "emergency_lighting"
+  },
+  {
+    "rule_id": "park_011",
+    "description": "Structural concrete showing spalling, delamination, exposed rebar, or efflorescence indicating water intrusion and reinforcement corrosion",
+    "severity": "critical",
+    "visual_signals": ["concrete surface flaking with chunks broken away exposing rusted rebar underneath", "white calcium efflorescence streaks running down concrete beam or column face", "overhead concrete slab with visible delamination cracks and rust staining at rebar lines"],
+    "category": "structural"
+  },
+  {
+    "rule_id": "park_012",
+    "description": "Structural concrete cracking in concerning patterns including map cracking, longitudinal cracks along beams, or widening cracks at column bases",
+    "severity": "critical",
+    "visual_signals": ["interconnected map crack pattern across parking deck slab surface", "longitudinal crack running along the underside of a concrete beam", "widening crack at base of load-bearing column with visible gap"],
+    "category": "structural"
+  },
+  {
+    "rule_id": "park_013",
+    "description": "Expansion joint seals deteriorated, missing, or filled with debris allowing water penetration to lower levels",
+    "severity": "high",
+    "visual_signals": ["expansion joint with cracked and separated rubber seal material", "open expansion joint gap filled with dirt and debris with no seal remaining", "water dripping through expansion joint onto vehicles or surface below"],
+    "category": "expansion_joints"
+  },
+  {
+    "rule_id": "park_014",
+    "description": "Clearance height signage missing, inaccurate, or not illuminated at garage entry points and low-clearance areas",
+    "severity": "high",
+    "visual_signals": ["garage entry lacking posted clearance height sign", "clearance bar hanging with no accompanying height measurement sign", "low-clearance area with pipe or duct hanging below posted height and no updated warning"],
+    "category": "signage"
+  },
+  {
+    "rule_id": "park_015",
+    "description": "ADA accessible parking spaces insufficient in number, missing required signage, lacking proper access aisle width, or with deteriorated ramp condition",
+    "severity": "high",
+    "visual_signals": ["accessible parking sign post missing or too low below required mounting height", "access aisle between accessible spaces with faded or missing hatched markings", "curb ramp at accessible space with cracked surface or missing detectable warning pad"],
+    "category": "ada_parking"
+  },
+  {
+    "rule_id": "park_016",
+    "description": "Van-accessible parking space missing required signage designation or lacking adequate vertical clearance for wheelchair van access",
+    "severity": "high",
+    "visual_signals": ["accessible space without supplemental van-accessible sign below main placard", "van-accessible space with overhead pipe or structure reducing clearance below 98 inches", "access aisle at van space narrower than required 96-inch width with faded markings"],
+    "category": "ada_parking"
+  },
+  {
+    "rule_id": "park_017",
+    "description": "Fire standpipe connections inaccessible, missing protective caps, lacking identification signage, or obstructed by parked vehicles",
+    "severity": "critical",
+    "visual_signals": ["standpipe hose connection valve missing cap with threads exposed and corroded", "no standpipe identification sign on wall near connection point", "vehicle parked directly in front of standpipe connection blocking firefighter access"],
+    "category": "fire_safety"
+  },
+  {
+    "rule_id": "park_018",
+    "description": "Ventilation system in enclosed parking structure non-functional with jet fans inoperative or CO monitoring display showing fault condition",
+    "severity": "critical",
+    "visual_signals": ["ceiling-mounted jet fan with visible damage or disconnected electrical conduit", "CO monitoring display panel showing error code or blank screen", "enclosed parking level with visible haze or exhaust accumulation indicating poor ventilation"],
+    "category": "ventilation"
+  },
+  {
+    "rule_id": "park_019",
+    "description": "Emergency call station or panic button non-functional, vandalized, or missing from required locations in parking structure",
+    "severity": "high",
+    "visual_signals": ["emergency call box with smashed button or torn-out handset", "blue light emergency phone station with light not illuminated", "parking level lacking any visible emergency call station or panic button"],
+    "category": "security"
+  },
+  {
+    "rule_id": "park_020",
+    "description": "Security camera coverage gaps or non-functional cameras at entry points, stairwells, and elevator lobbies in parking structure",
+    "severity": "medium",
+    "visual_signals": ["security camera with dangling wires or tilted off intended viewing angle", "camera housing with cracked dome or lens covered by dirt and spider webs", "stairwell entrance or elevator lobby with no visible camera installation"],
+    "category": "security"
+  },
+  {
+    "rule_id": "park_021",
+    "description": "Convex mirrors missing or damaged at blind corners, ramp curves, and pedestrian crossing intersections",
+    "severity": "medium",
+    "visual_signals": ["blind corner at driving ramp turn with no convex mirror installed", "convex mirror cracked or clouded preventing useful reflection", "empty mounting bracket on wall at curve where mirror was removed"],
+    "category": "security"
+  },
+  {
+    "rule_id": "park_022",
+    "description": "Elevator or stair lobby wayfinding deficient with missing floor level signage, absent color coding, or confusing directional indicators",
+    "severity": "medium",
+    "visual_signals": ["stairwell door lacking floor level number identification on both sides", "elevator lobby without posted you-are-here map or directional signage to exits", "parking level with no color coding or numbering visible on columns or walls"],
+    "category": "wayfinding"
+  },
+  {
+    "rule_id": "park_023",
+    "description": "Anti-terrorism vehicle barriers including bollards and cable barriers missing, damaged, or inadequate at pedestrian gathering areas and building entries",
+    "severity": "high",
+    "visual_signals": ["pedestrian entrance from garage to building lacking protective bollard installation", "bollard at building entry visibly damaged or tilted from impact with no repair", "cable barrier system with slack or disconnected cable between anchor posts"],
+    "category": "vehicle_barrier"
+  },
+  {
+    "rule_id": "park_024",
+    "description": "Wheel stops improperly installed, creating tripping hazard, or missing reflective marking for pedestrian visibility",
+    "severity": "medium",
+    "visual_signals": ["wheel stop shifted out of position from anchors sitting loose in parking space", "wheel stop in pedestrian walkway area creating trip hazard at ankle height", "concrete wheel stop with no reflective yellow paint making it invisible in low light"],
+    "category": "wheel_stops"
+  },
+  {
+    "rule_id": "park_025",
+    "description": "Payment equipment with damaged housing, exposed electrical wiring, or lacking ADA-accessible controls for wheelchair users",
+    "severity": "medium",
+    "visual_signals": ["parking pay station with cracked housing panel exposing internal wiring", "payment kiosk screen and buttons mounted above wheelchair-accessible reach height", "gate arm mechanism with exposed wiring at base from damaged conduit cover"],
+    "category": "payment_equipment"
+  },
+  {
+    "rule_id": "park_026",
+    "description": "Snow and ice management deficient with untreated ramp surfaces, missing salt and sand dispensers, or no heated ramp indicators where required",
+    "severity": "high",
+    "visual_signals": ["ice formation on parking ramp driving surface with no salt or treatment visible", "empty or missing sand and salt dispenser station at ramp entry", "heated ramp system with no indicator signage and visible ice accumulation suggesting failure"],
+    "category": "winter_safety"
+  },
+  {
+    "rule_id": "park_027",
+    "description": "Bicycle parking area with damaged racks, insufficient lighting, or inadequate separation from vehicle traffic lanes",
+    "severity": "low",
+    "visual_signals": ["bicycle rack with bent or broken mounting arms unable to secure bikes", "bike parking area in dark corner with no dedicated light fixture", "bicycle parking located in active driving lane without any physical barrier separation"],
+    "category": "bicycle_parking"
+  },
+  {
+    "rule_id": "park_028",
+    "description": "Electric vehicle charging station area lacking proper cable management, missing safety signage, or without protective bollards preventing vehicle impact damage",
+    "severity": "high",
+    "visual_signals": ["EV charging cables draped across driving lane creating trip and vehicle hazard", "charging station area missing required electrical hazard or operating instruction signage", "EV charger pedestal with no protective bollard between unit and adjacent parking space"],
+    "category": "ev_charging"
+  },
+  {
+    "rule_id": "park_029",
+    "description": "Roof deck drainage deficient with clogged scuppers, blocked overflow drains, or visible ponding indicating failed waterproofing",
+    "severity": "high",
+    "visual_signals": ["roof level scupper drain opening blocked with debris and leaves", "standing water ponding on roof deck surface with visible waterline staining", "overflow drain pipe clogged with sediment and no water flow path visible"],
+    "category": "roof_drainage"
+  },
+  {
+    "rule_id": "park_030",
+    "description": "Stairwell in parking structure with damaged treads, missing handrails, insufficient lighting, or debris creating fall hazard",
+    "severity": "high",
+    "visual_signals": ["stair tread with broken concrete edge or missing non-slip nosing strip", "stairwell section with handrail detached from wall mounting brackets", "parking garage stairwell with debris, litter, and standing water on landing"],
+    "category": "stairwell"
+  },
+  {
+    "rule_id": "park_031",
+    "description": "Garage entry and exit gate arms damaged, malfunctioning, or creating entrapment hazard with no breakaway feature",
+    "severity": "medium",
+    "visual_signals": ["gate arm cracked or splintered from vehicle impact still in service", "gate mechanism cycling erratically opening and closing without vehicle trigger", "gate arm lacking breakaway joint that could trap vehicle or pedestrian"],
+    "category": "access_control"
+  },
+  {
+    "rule_id": "park_032",
+    "description": "Waterproofing membrane failure on parking deck surfaces with visible cracking, bubbling, or delamination of traffic coating",
+    "severity": "high",
+    "visual_signals": ["traffic coating on parking deck peeling and delaminating in large sections", "bubbling or blistering in deck waterproofing membrane surface", "exposed concrete visible through worn-away traffic coating at turning areas and ramps"],
+    "category": "waterproofing"
   }
 ]

@@ -68,5 +68,180 @@
     "severity": "medium",
     "visual_signals": ["water on break room floor with no sign", "mopped hallway without wet floor cone", "spill near water cooler with no caution marker"],
     "category": "slip_hazard"
+  },
+  {
+    "rule_id": "off_011",
+    "description": "Sprinkler head obstructed by stored materials, shelving, or ceiling-hung items within required 18-inch clearance below deflectors",
+    "severity": "critical",
+    "visual_signals": ["boxes stacked to within inches of ceiling sprinkler head", "decorations or banners hanging from sprinkler pipe", "tall shelving unit with items stored above sprinkler deflector level"],
+    "category": "sprinkler"
+  },
+  {
+    "rule_id": "off_012",
+    "description": "Fire-rated door propped open with wedge, doorstop, or disabled self-closing mechanism preventing automatic closure",
+    "severity": "critical",
+    "visual_signals": ["rubber wedge jammed under fire-rated door", "self-closing arm disconnected or held with wire", "fire door tied open with rope or bungee cord"],
+    "category": "fire_door"
+  },
+  {
+    "rule_id": "off_013",
+    "description": "Stairwell used for storage with boxes, equipment, cleaning supplies, or debris blocking egress path",
+    "severity": "critical",
+    "visual_signals": ["cardboard boxes stacked on stairwell landing", "mop bucket and cleaning supplies stored on stairway treads", "office furniture placed against stairwell wall reducing passage width"],
+    "category": "stairwell_egress"
+  },
+  {
+    "rule_id": "off_014",
+    "description": "Elevator inspection certificate expired, missing from cab interior, or not posted in visible location",
+    "severity": "high",
+    "visual_signals": ["empty frame where elevator certificate should be displayed", "inspection certificate with past-due date visible", "elevator cab interior wall with no posted certificate or blank placard"],
+    "category": "elevator"
+  },
+  {
+    "rule_id": "off_015",
+    "description": "Workstation monitor positioned at improper height causing visible neck strain, not at eye level when seated",
+    "severity": "medium",
+    "visual_signals": ["monitor placed flat on desk surface well below eye level", "laptop screen on low surface without riser or stand", "monitor tilted at extreme upward angle on top of stacked books"],
+    "category": "ergonomic"
+  },
+  {
+    "rule_id": "off_016",
+    "description": "Office chair with broken armrest, torn seat fabric, non-functioning height adjustment, or missing casters",
+    "severity": "medium",
+    "visual_signals": ["office chair with cracked or missing armrest", "chair seat cushion visibly torn with exposed foam padding", "chair base with missing or broken caster wheel"],
+    "category": "ergonomic"
+  },
+  {
+    "rule_id": "off_017",
+    "description": "Keyboard and mouse placement causing visible wrist strain with no ergonomic support or improper desk height",
+    "severity": "low",
+    "visual_signals": ["keyboard placed on surface too high forcing raised shoulders", "wrist resting at sharp angle on desk edge without pad", "keyboard and mouse at different heights on mismatched surfaces"],
+    "category": "ergonomic"
+  },
+  {
+    "rule_id": "off_018",
+    "description": "Server room or IT closet showing overheating indicators including propped doors, missing blanking panels, or combustible storage",
+    "severity": "high",
+    "visual_signals": ["server closet door propped open with fan blowing inward", "cardboard boxes stored on floor of server rack room", "server rack with missing blanking panels and visible hot air recirculation"],
+    "category": "server_room"
+  },
+  {
+    "rule_id": "off_019",
+    "description": "Server room lacking proper ventilation or cooling with visible heat damage indicators on equipment",
+    "severity": "high",
+    "visual_signals": ["discolored or warped plastic on server equipment from heat", "portable fan placed in server closet as sole cooling source", "condensation on server room walls indicating HVAC failure"],
+    "category": "server_room"
+  },
+  {
+    "rule_id": "off_020",
+    "description": "Break room microwave with damaged door seal, cracked housing, or scorched interior indicating fire risk",
+    "severity": "medium",
+    "visual_signals": ["microwave door with bent or missing seal gasket", "burn marks or scorch stains inside microwave interior", "cracked microwave housing with visible internal components"],
+    "category": "break_room"
+  },
+  {
+    "rule_id": "off_021",
+    "description": "Break room refrigerator with damaged door gasket, excessive frost buildup, or visible mold growth indicating health hazard",
+    "severity": "medium",
+    "visual_signals": ["refrigerator door seal peeling or cracked allowing gap", "heavy frost or ice buildup inside refrigerator or freezer compartment", "visible mold growth on refrigerator interior surfaces or shelves"],
+    "category": "break_room"
+  },
+  {
+    "rule_id": "off_022",
+    "description": "Break room or kitchen appliance power cords frayed, cracked, pinched behind counters, or showing exposed wiring",
+    "severity": "high",
+    "visual_signals": ["appliance cord with cracked or frayed insulation near plug", "power cord pinched between counter and wall with visible wear", "electrical tape wrapped around damaged section of appliance cord"],
+    "category": "break_room"
+  },
+  {
+    "rule_id": "off_023",
+    "description": "Restroom wet floor without caution signage, missing ADA-compliant grab bars, or empty soap dispensers creating hygiene risk",
+    "severity": "medium",
+    "visual_signals": ["wet restroom tile floor with no caution sign placed", "toilet stall missing required ADA grab bar on side wall", "soap dispenser visibly empty or broken off wall mount"],
+    "category": "restroom"
+  },
+  {
+    "rule_id": "off_024",
+    "description": "Emergency evacuation map not posted, outdated, or missing from required locations near exits and stairwells",
+    "severity": "medium",
+    "visual_signals": ["blank wall space near exit where evacuation map should be mounted", "faded and outdated floor plan map with old company name or layout", "evacuation map frame present but map insert missing or illegible"],
+    "category": "emergency_preparedness"
+  },
+  {
+    "rule_id": "off_025",
+    "description": "First aid kit missing, empty, inaccessible, or with expired supplies in workplace common area",
+    "severity": "high",
+    "visual_signals": ["first aid kit cabinet open showing depleted or empty compartments", "first aid kit mounted in locked closet with no key access visible", "first aid supplies scattered with expired medication packets visible"],
+    "category": "emergency_medical"
+  },
+  {
+    "rule_id": "off_026",
+    "description": "Fire alarm pull station blocked by furniture, obscured by signage, or missing required identification marking",
+    "severity": "critical",
+    "visual_signals": ["bookcase or filing cabinet placed directly in front of fire alarm pull station", "poster or notice board covering fire alarm pull handle on wall", "fire alarm pull station without red paint or identifying signage nearby"],
+    "category": "fire_alarm"
+  },
+  {
+    "rule_id": "off_027",
+    "description": "Smoke detector or carbon monoxide detector missing, disconnected, covered, or showing low battery indicator",
+    "severity": "critical",
+    "visual_signals": ["ceiling location with disconnected wires where smoke detector was removed", "smoke detector with plastic bag or tape covering sensor openings", "detector on ceiling with blinking red low-battery indicator light"],
+    "category": "detection_systems"
+  },
+  {
+    "rule_id": "off_028",
+    "description": "Visible mold growth or water damage on walls, ceilings, or around window frames indicating moisture intrusion",
+    "severity": "high",
+    "visual_signals": ["dark spotty mold patches spreading on drywall surface near floor", "brown water stain rings on ceiling tiles with bubbling paint", "black mold growth visible around window frame caulking and sill"],
+    "category": "building_envelope"
+  },
+  {
+    "rule_id": "off_029",
+    "description": "Outdoor designated smoking area located too close to building entrance, lacking proper butt receptacles, or creating litter hazard",
+    "severity": "low",
+    "visual_signals": ["cigarette butt receptacle positioned within ten feet of main entrance door", "cigarette butts littered on ground near building entryway without receptacle", "smoking area sign posted adjacent to air intake vent or window"],
+    "category": "smoking_area"
+  },
+  {
+    "rule_id": "off_030",
+    "description": "Parking garage serving office building with insufficient lighting, burned-out fixtures, or missing emergency phone stations",
+    "severity": "high",
+    "visual_signals": ["dark zones in parking garage with multiple burned-out ceiling fixtures", "emergency call station with out-of-order sign or missing handset", "parking level with no visible emergency phone or intercom station"],
+    "category": "parking_garage"
+  },
+  {
+    "rule_id": "off_031",
+    "description": "Exit sign missing, unlit, or not visible from the normal path of egress travel in corridors or open floor areas",
+    "severity": "critical",
+    "visual_signals": ["dark unlit exit sign above corridor doorway", "corridor intersection with no directional exit sign visible", "exit sign with burned-out bulb or dead battery backup"],
+    "category": "egress"
+  },
+  {
+    "rule_id": "off_032",
+    "description": "Emergency lighting units non-functional, missing, or failing to illuminate egress path during power loss",
+    "severity": "high",
+    "visual_signals": ["emergency light unit with no green indicator LED showing charge", "empty wall bracket where emergency lighting unit was removed", "emergency light fixture with visibly corroded or leaking battery pack"],
+    "category": "emergency_lighting"
+  },
+  {
+    "rule_id": "off_033",
+    "description": "Ground fault circuit interrupter outlets missing or non-functional in wet locations including break rooms, restrooms, and kitchens",
+    "severity": "high",
+    "visual_signals": ["standard outlet without GFCI protection installed next to break room sink", "GFCI outlet with tripped indicator and non-functioning reset button", "kitchen counter outlet near water source lacking GFCI test and reset buttons"],
+    "category": "electrical"
+  },
+  {
+    "rule_id": "off_034",
+    "description": "Corridor or aisle width reduced below required 44 inches by furniture, equipment, or stored materials",
+    "severity": "high",
+    "visual_signals": ["filing cabinets placed along both sides of narrow corridor", "copier or printer positioned in hallway reducing walking width", "stacked boxes along corridor wall narrowing the passage"],
+    "category": "egress"
+  },
+  {
+    "rule_id": "off_035",
+    "description": "Exposed or damaged electrical wiring visible in walls, ceilings, or under desks creating shock or fire hazard",
+    "severity": "critical",
+    "visual_signals": ["bare copper wire visible where insulation has been stripped away", "damaged conduit with wires protruding from wall or ceiling", "junction box with missing cover plate exposing wire connections"],
+    "category": "electrical"
   }
 ]

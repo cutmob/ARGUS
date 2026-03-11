@@ -17,7 +17,7 @@
     "rule_id": "flt_003",
     "description": "One or more required lights are broken, missing, or visibly non-functional on the vehicle",
     "severity": "high",
-    "visual_signals": ["shattered light lens", "missing bulb socket visible", "darkened light while others are illuminated", "condensation inside light housing"],
+    "visual_signals": ["shattered light lens", "missing bulb socket visible", "condensation inside light housing"],
     "category": "lighting"
   },
   {
@@ -38,7 +38,7 @@
     "rule_id": "flt_006",
     "description": "Fluid leak visible under or around the vehicle indicating engine, transmission, or hydraulic failure",
     "severity": "high",
-    "visual_signals": ["dark puddle beneath engine area", "wet streak along undercarriage", "dripping fluid from hose or fitting", "oily residue on pavement under vehicle"],
+    "visual_signals": ["dark puddle beneath engine area", "wet streak along undercarriage", "dripping fluid from hose or fitting"],
     "category": "fluid_leak"
   },
   {
@@ -59,7 +59,7 @@
     "rule_id": "flt_009",
     "description": "Load securement is inadequate with loose straps, missing tie-downs, or shifting cargo visible",
     "severity": "critical",
-    "visual_signals": ["slack strap flapping", "cargo shifted to one side", "fewer tie-downs than load requires", "broken ratchet on strap"],
+    "visual_signals": ["slack strap flapping", "cargo shifted to one side", "broken ratchet on strap"],
     "category": "load_securement"
   },
   {
@@ -68,5 +68,250 @@
     "severity": "medium",
     "visual_signals": ["gaps in reflective tape along trailer side", "peeling or faded conspicuity markings", "missing rear reflective striping"],
     "category": "reflective_markings"
+  },
+  {
+    "rule_id": "flt_011",
+    "description": "Brake components visibly damaged, worn, or leaking with brake drum or rotor showing scoring or cracks",
+    "severity": "critical",
+    "visual_signals": ["brake drum with visible crack or deep scoring", "brake pad material worn to metal backing plate", "brake fluid or grease leaking from wheel hub area"],
+    "category": "brake_system"
+  },
+  {
+    "rule_id": "flt_012",
+    "description": "Air brake slack adjuster pushed beyond safe limit indicating brake adjustment out of specification",
+    "severity": "critical",
+    "visual_signals": ["slack adjuster arm angle greater than 90 degrees from pushrod", "pushrod stroke extended beyond adjustment mark", "slack adjuster clevis pin missing or loose"],
+    "category": "brake_system"
+  },
+  {
+    "rule_id": "flt_013",
+    "description": "Low air pressure warning system non-functional or air pressure gauge reading below safe operating range",
+    "severity": "critical",
+    "visual_signals": ["air pressure gauge needle below 60 psi marking", "low air warning buzzer light illuminated on dashboard", "air pressure gauge with cracked lens or non-functional needle"],
+    "category": "brake_system"
+  },
+  {
+    "rule_id": "flt_014",
+    "description": "Brake hose or air line shows cracking, chafing, bulging, or improper routing with contact against sharp edges",
+    "severity": "high",
+    "visual_signals": ["cracked or dry-rotted air brake hose at fitting", "brake line chafed through outer cover from rubbing", "bulging section on rubber brake hose indicating internal failure"],
+    "category": "brake_system"
+  },
+  {
+    "rule_id": "flt_015",
+    "description": "Leaf spring cracked, broken, shifted, or missing leaves compromising vehicle suspension integrity",
+    "severity": "critical",
+    "visual_signals": ["visibly cracked or broken leaf spring plate", "leaf spring shifted sideways from spring seat", "missing leaf from spring pack with visible gap"],
+    "category": "suspension"
+  },
+  {
+    "rule_id": "flt_016",
+    "description": "Air suspension bag deflated, torn, or leaking causing vehicle to ride unevenly or bottomed out",
+    "severity": "high",
+    "visual_signals": ["deflated or collapsed air bag on one side of axle", "torn or cracked rubber air spring bag", "vehicle listing to one side indicating air bag failure"],
+    "category": "suspension"
+  },
+  {
+    "rule_id": "flt_017",
+    "description": "Shock absorber leaking fluid, mounting hardware loose, or shock body damaged reducing ride control",
+    "severity": "medium",
+    "visual_signals": ["oil film or wet streak on shock absorber body", "shock absorber mounting bushing cracked or missing", "dented or bent shock absorber cylinder"],
+    "category": "suspension"
+  },
+  {
+    "rule_id": "flt_018",
+    "description": "U-bolt on suspension spring pack loose, cracked, or missing allowing axle shift under load",
+    "severity": "high",
+    "visual_signals": ["visible gap between U-bolt nut and spring seat plate", "cracked or stretched U-bolt with deformed threads", "missing U-bolt with empty mounting holes on spring seat"],
+    "category": "suspension"
+  },
+  {
+    "rule_id": "flt_019",
+    "description": "Exhaust system component hanging, leaking near cab, or heat shield missing from catalytic converter",
+    "severity": "high",
+    "visual_signals": ["exhaust pipe hanging below normal position with broken hanger", "soot staining on cab floor or firewall indicating exhaust leak", "missing or displaced heat shield on catalytic converter"],
+    "category": "exhaust_system"
+  },
+  {
+    "rule_id": "flt_020",
+    "description": "Fifth wheel coupling shows excessive wear, improper locking, cracked mounting, or missing locking jaw components",
+    "severity": "critical",
+    "visual_signals": ["fifth wheel locking jaw not fully closed around kingpin", "visible crack in fifth wheel mounting bracket or plate", "excessive grease buildup with metal shavings indicating wear on fifth wheel surface"],
+    "category": "coupling_devices"
+  },
+  {
+    "rule_id": "flt_021",
+    "description": "Kingpin on trailer shows wear, bending, or improper dimension compromising coupling security",
+    "severity": "critical",
+    "visual_signals": ["visible wear groove around kingpin shank", "kingpin appearing bent or off-center from trailer apron", "metal filings or shavings accumulated around kingpin base"],
+    "category": "coupling_devices"
+  },
+  {
+    "rule_id": "flt_022",
+    "description": "Safety chains missing, improperly attached, or showing excessive wear on towed equipment or converter dollies",
+    "severity": "critical",
+    "visual_signals": ["missing safety chain on one or both sides of coupling", "safety chain dragging on ground not crossed under tongue", "worn or stretched chain links with visible thinning"],
+    "category": "coupling_devices"
+  },
+  {
+    "rule_id": "flt_023",
+    "description": "Pintle hook worn, cracked, or latch mechanism not securing properly on combination vehicles",
+    "severity": "critical",
+    "visual_signals": ["pintle hook latch not fully closed over drawbar eye", "visible crack at base of pintle hook casting", "worn or mushroomed pintle hook horn from repeated coupling"],
+    "category": "coupling_devices"
+  },
+  {
+    "rule_id": "flt_024",
+    "description": "Frame rail showing cracks, severe corrosion, or bending that compromises structural integrity of vehicle chassis",
+    "severity": "critical",
+    "visual_signals": ["visible crack in frame rail web or flange", "heavy rust with flaking or perforation on frame member", "bent or bowed frame rail visible from side profile"],
+    "category": "frame_chassis"
+  },
+  {
+    "rule_id": "flt_025",
+    "description": "Cross-member damaged, missing fasteners, or showing corrosion weakening frame assembly",
+    "severity": "high",
+    "visual_signals": ["cross-member hanging or displaced from frame rails", "missing bolts or rivets at cross-member to frame connection", "heavy corrosion thinning cross-member material"],
+    "category": "frame_chassis"
+  },
+  {
+    "rule_id": "flt_026",
+    "description": "Seat belt frayed, cut, buckle non-functional, or retractor mechanism failed in cab",
+    "severity": "high",
+    "visual_signals": ["frayed or cut webbing on driver seat belt", "seat belt buckle that does not latch when pressed", "seat belt fully extended and not retracting into housing"],
+    "category": "cab_safety"
+  },
+  {
+    "rule_id": "flt_027",
+    "description": "Fire extinguisher missing from cab, discharged, expired, or not properly mounted in required bracket",
+    "severity": "high",
+    "visual_signals": ["empty fire extinguisher bracket inside cab", "extinguisher gauge needle in red discharge zone", "fire extinguisher loose on cab floor without mounting bracket"],
+    "category": "cab_safety"
+  },
+  {
+    "rule_id": "flt_028",
+    "description": "Warning triangles or emergency reflectors missing or not properly stowed in required cab location",
+    "severity": "medium",
+    "visual_signals": ["empty triangle storage bracket or container behind cab seat", "broken or damaged warning triangle stored in cab", "no emergency reflector kit visible in required cab storage area"],
+    "category": "cab_safety"
+  },
+  {
+    "rule_id": "flt_029",
+    "description": "Wiper blades torn, cracked, or missing and washer fluid reservoir empty compromising driver visibility",
+    "severity": "medium",
+    "visual_signals": ["torn or split rubber on wiper blade edge", "wiper blade arm with missing or detached blade", "streaked or smeared windshield indicating worn wiper blades"],
+    "category": "wiper_system"
+  },
+  {
+    "rule_id": "flt_030",
+    "description": "Horn non-functional or horn housing damaged preventing required audible warning capability",
+    "severity": "medium",
+    "visual_signals": ["dented or crushed horn housing visible behind bumper or grille", "disconnected or cut wiring at horn assembly", "horn grille or opening blocked by debris or damage"],
+    "category": "horn"
+  },
+  {
+    "rule_id": "flt_031",
+    "description": "Fuel tank cap missing or not sealing, tank straps loose or corroded, or fuel line showing damage or leaks",
+    "severity": "high",
+    "visual_signals": ["missing or loose fuel tank cap with fuel odor staining", "rusted or cracked fuel tank strap with visible thinning", "wet fuel line fitting or drip stain below fuel system connection"],
+    "category": "fuel_system"
+  },
+  {
+    "rule_id": "flt_032",
+    "description": "Fuel tank cross-over pipe between dual tanks showing corrosion, loose clamps, or visible leak",
+    "severity": "high",
+    "visual_signals": ["corroded cross-over pipe between saddle fuel tanks", "loose or missing hose clamp on fuel cross-over connection", "fuel staining or wet area at cross-over pipe joint"],
+    "category": "fuel_system"
+  },
+  {
+    "rule_id": "flt_033",
+    "description": "Battery terminals corroded, hold-down bracket loose or missing, or battery case cracked leaking acid",
+    "severity": "high",
+    "visual_signals": ["white or green corrosion buildup on battery terminal posts", "battery shifting in tray without hold-down clamp", "cracked battery case with acid residue or wet staining on tray"],
+    "category": "battery_electrical"
+  },
+  {
+    "rule_id": "flt_034",
+    "description": "Air brake compressor showing oil leaks, air dryer malfunctioning, or excessive moisture in air system",
+    "severity": "high",
+    "visual_signals": ["oil leak at air compressor mounting or discharge line", "air dryer purge valve cycling excessively or not purging", "water spray visible when draining air tank petcock"],
+    "category": "air_brake_system"
+  },
+  {
+    "rule_id": "flt_035",
+    "description": "Glad hand connections damaged, improperly sealed, or trailer supply hose showing wear, cuts, or improper routing",
+    "severity": "high",
+    "visual_signals": ["cracked or chipped glad hand coupling seal face", "air hose between tractor and trailer chafed against frame or cross-member", "glad hand rubber seal missing or deformed causing audible air leak"],
+    "category": "air_brake_system"
+  },
+  {
+    "rule_id": "flt_036",
+    "description": "USDOT number and company markings missing, illegible, or not meeting minimum size requirements on commercial vehicle",
+    "severity": "medium",
+    "visual_signals": ["faded or peeling USDOT number decal on cab door", "USDOT number characters smaller than required two-inch height", "missing company name or motor carrier identification on vehicle door"],
+    "category": "dot_markings"
+  },
+  {
+    "rule_id": "flt_037",
+    "description": "Annual CVSA inspection decal expired, missing, or not displayed in proper location on vehicle",
+    "severity": "high",
+    "visual_signals": ["expired date visible on CVSA inspection decal", "no CVSA inspection sticker present on left side of vehicle frame", "damaged or illegible annual inspection decal"],
+    "category": "inspection_decal"
+  },
+  {
+    "rule_id": "flt_038",
+    "description": "Hazmat placard incorrect for load, missing from required positions, or in damaged and illegible condition",
+    "severity": "critical",
+    "visual_signals": ["empty placard holder on trailer side or rear carrying hazardous material", "faded or weather-damaged hazmat placard with illegible class number", "incorrect placard class displayed not matching vehicle cargo"],
+    "category": "hazmat_placarding"
+  },
+  {
+    "rule_id": "flt_039",
+    "description": "Required emergency equipment missing including charged fire extinguisher, spare fuses, and first aid kit",
+    "severity": "high",
+    "visual_signals": ["no fire extinguisher visible in cab or required mounting location", "empty first aid kit box or missing kit from cab", "spare fuse container empty or missing from cab electrical panel area"],
+    "category": "emergency_equipment"
+  },
+  {
+    "rule_id": "flt_040",
+    "description": "Trailer body showing holes in walls or floor, damaged roof, or door latches and hinges that do not secure properly",
+    "severity": "high",
+    "visual_signals": ["hole or puncture visible in trailer side wall panel", "trailer roof panel torn or lifted at seam exposing interior", "door hinge pin missing or latch mechanism bent preventing secure closure"],
+    "category": "trailer_body"
+  },
+  {
+    "rule_id": "flt_041",
+    "description": "Refrigeration unit on trailer not operating, showing alarm condition, or fuel level critically low",
+    "severity": "high",
+    "visual_signals": ["reefer unit display showing alarm code or shutdown message", "reefer fuel gauge indicating near-empty level", "reefer unit not running with no compressor or fan noise indicators visible"],
+    "category": "refrigeration_unit"
+  },
+  {
+    "rule_id": "flt_042",
+    "description": "Temperature recorder in refrigerated trailer not functioning, showing out-of-range reading, or missing printout capability",
+    "severity": "high",
+    "visual_signals": ["blank or non-functional temperature recorder display in reefer trailer", "temperature recorder screen showing out-of-range alarm value", "missing paper or non-printing temperature chart recorder"],
+    "category": "refrigeration_unit"
+  },
+  {
+    "rule_id": "flt_043",
+    "description": "Mud flaps or splash guards missing, improperly mounted, torn, or dragging on road surface",
+    "severity": "medium",
+    "visual_signals": ["missing mud flap bracket with no flap on rear axle", "torn or shredded mud flap hanging from mounting hardware", "mud flap dragging on ground with bottom edge worn through"],
+    "category": "mud_flaps"
+  },
+  {
+    "rule_id": "flt_044",
+    "description": "Cab-over engine tilt mechanism not securing properly or tilt lock indicators showing unlocked position during travel",
+    "severity": "high",
+    "visual_signals": ["cab tilt safety latch in unlatched position", "gap visible between cab and frame indicating cab not fully seated", "cab tilt warning indicator illuminated on dashboard"],
+    "category": "cab_tilt"
+  },
+  {
+    "rule_id": "flt_045",
+    "description": "ELD device not visible, not mounted correctly, or showing malfunction indicators in cab of commercial vehicle",
+    "severity": "medium",
+    "visual_signals": ["no electronic logging device visible on dashboard or windshield mount", "ELD screen showing diagnostic or malfunction error code", "ELD device dangling from loose windshield mount or disconnected cable"],
+    "category": "hours_of_service"
   }
 ]

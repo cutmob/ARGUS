@@ -68,5 +68,145 @@
     "severity": "high",
     "visual_signals": ["bent metal shelf bracket", "shelf visibly bowing under weight", "missing support clip or pin"],
     "category": "shelving_safety"
+  },
+  {
+    "rule_id": "ret_011",
+    "description": "Sprinkler head clearance violated with merchandise stored within 18 inches of sprinkler deflectors or touching ceiling",
+    "severity": "critical",
+    "visual_signals": ["product stacked to within inches of ceiling-mounted sprinkler head", "tall display fixture with items nearly touching sprinkler deflector", "overstock stored above shelving obstructing sprinkler spray pattern"],
+    "category": "sprinkler"
+  },
+  {
+    "rule_id": "ret_012",
+    "description": "Fire door or fire shutter in poor condition with damaged tracks, missing fusible links, or held open improperly",
+    "severity": "critical",
+    "visual_signals": ["fire shutter with bent or obstructed guide track", "fire door wedged open with merchandise or cart", "fire shutter fusible link missing or painted over"],
+    "category": "fire_door"
+  },
+  {
+    "rule_id": "ret_013",
+    "description": "Maximum occupancy sign not posted or not visible at main entrance or assembly areas as required by fire code",
+    "severity": "high",
+    "visual_signals": ["main entrance doorway lacking posted occupancy limit sign", "blank wall near entrance where occupancy placard should be mounted", "faded or illegible occupancy sign with unreadable numbers"],
+    "category": "occupancy"
+  },
+  {
+    "rule_id": "ret_014",
+    "description": "ADA accessible aisle width below 36-inch minimum due to merchandise displays, fixtures, or stock encroaching into pathway",
+    "severity": "high",
+    "visual_signals": ["merchandise display narrowing aisle so wheelchair cannot pass", "floor-standing product bins reducing aisle width below three feet", "clothing rack extending into accessible path blocking passage"],
+    "category": "ada_compliance"
+  },
+  {
+    "rule_id": "ret_015",
+    "description": "Stockroom stacking height exceeding safe limits with heavy items stored on upper shelves creating crush hazard",
+    "severity": "high",
+    "visual_signals": ["heavy boxes stacked above shoulder height on stockroom shelves", "unstable tower of merchandise cartons on top shelf of storage rack", "large appliance boxes stored on upper rack level without restraint"],
+    "category": "stockroom_safety"
+  },
+  {
+    "rule_id": "ret_016",
+    "description": "Pallet jack or hand truck in poor condition with broken wheels, damaged handles, or leaking hydraulic fluid",
+    "severity": "medium",
+    "visual_signals": ["pallet jack with cracked or missing wheel rolling unevenly", "hand truck with bent frame or broken handle grip", "hydraulic fluid puddle beneath parked pallet jack forks"],
+    "category": "material_handling"
+  },
+  {
+    "rule_id": "ret_017",
+    "description": "Receiving door area lacking security controls allowing unauthorized access to stockroom from loading dock",
+    "severity": "medium",
+    "visual_signals": ["receiving roll-up door left open with no staff present", "dock door propped open with no security camera or badge reader visible", "exterior loading dock accessible from public area with no fencing or gate"],
+    "category": "security"
+  },
+  {
+    "rule_id": "ret_018",
+    "description": "Security mirror cracked, misaligned, or missing from blind corners and high-theft areas reducing surveillance coverage",
+    "severity": "low",
+    "visual_signals": ["convex security mirror with cracked or cloudy surface", "empty mounting bracket where security mirror was removed", "security mirror angled incorrectly showing ceiling instead of aisle"],
+    "category": "security"
+  },
+  {
+    "rule_id": "ret_019",
+    "description": "Checkout counter area lacking anti-fatigue mat for standing cashiers or showing repetitive motion hazard indicators",
+    "severity": "medium",
+    "visual_signals": ["cashier standing on bare concrete or tile floor without mat at register", "worn-through anti-fatigue mat with holes or curled edges at checkout", "register scanner positioned requiring repeated awkward twisting motion"],
+    "category": "ergonomic"
+  },
+  {
+    "rule_id": "ret_020",
+    "description": "Customer queuing area with damaged stanchions, sharp exposed bases, or overcrowded conditions creating crush hazard",
+    "severity": "medium",
+    "visual_signals": ["retractable belt stanchion with frayed or broken belt mechanism", "stanchion base with sharp edge or cracked weighted bottom in walkway", "dense crowd compressed in narrow queue lane with no overflow management"],
+    "category": "customer_safety"
+  },
+  {
+    "rule_id": "ret_021",
+    "description": "Display case electrical hazard with exposed wiring, overloaded outlets, or damaged cords behind merchandise displays",
+    "severity": "high",
+    "visual_signals": ["bare wires visible behind illuminated display case", "multiple display lights plugged into single overloaded power strip behind fixture", "damaged power cord with cracked insulation running behind display unit"],
+    "category": "electrical_safety"
+  },
+  {
+    "rule_id": "ret_022",
+    "description": "Deli, bakery, or prepared food display case with missing temperature display, dirty food contact surfaces, or broken sneeze guard",
+    "severity": "high",
+    "visual_signals": ["food display case with temperature gauge reading outside safe range or blank", "visible grime or residue buildup on deli case food contact surfaces", "cracked or missing sneeze guard glass above self-serve food display"],
+    "category": "food_safety"
+  },
+  {
+    "rule_id": "ret_023",
+    "description": "Flammable merchandise including aerosol cans, lighter fluid, and solvents stored near ignition sources or without proper separation",
+    "severity": "critical",
+    "visual_signals": ["aerosol cans displayed on shelf adjacent to electrical panel or heat source", "lighter fluid and charcoal stored near furnace or water heater in stockroom", "flammable product shelf lacking required separation signage or fire-rated containment"],
+    "category": "flammable_storage"
+  },
+  {
+    "rule_id": "ret_024",
+    "description": "Emergency lighting non-functional or missing in stockroom, sales floor, or corridor areas required for egress illumination",
+    "severity": "high",
+    "visual_signals": ["emergency light unit in stockroom with no green charge indicator LED", "sales floor area near exit with no visible emergency lighting fixture", "emergency light battery pack visibly corroded or leaking on wall unit"],
+    "category": "emergency_lighting"
+  },
+  {
+    "rule_id": "ret_025",
+    "description": "Portable heating or cooling equipment placed unsafely including space heaters near merchandise or fans blocking egress paths",
+    "severity": "high",
+    "visual_signals": ["portable space heater placed beneath checkout counter near paper bags", "industrial fan positioned in doorway partially blocking exit path", "space heater sitting on stockroom floor surrounded by cardboard boxes"],
+    "category": "fire_safety"
+  },
+  {
+    "rule_id": "ret_026",
+    "description": "Exit sign missing, unlit, or obscured by merchandise displays or signage along egress path on sales floor",
+    "severity": "critical",
+    "visual_signals": ["dark exit sign with no illumination above rear emergency door", "promotional banner hanging in front of exit sign blocking visibility", "corridor junction on sales floor with no directional exit sign visible"],
+    "category": "egress"
+  },
+  {
+    "rule_id": "ret_027",
+    "description": "Smoke detector missing, covered, or visibly non-functional in sales floor, stockroom, or break room areas",
+    "severity": "critical",
+    "visual_signals": ["ceiling location with empty bracket and wires where smoke detector was removed", "smoke detector covered with plastic wrap or tape in stockroom", "detector with blinking fault indicator light or hanging off mount"],
+    "category": "detection_systems"
+  },
+  {
+    "rule_id": "ret_028",
+    "description": "Floor surface damaged with cracked tiles, torn carpet, or uneven transitions creating trip hazard for customers",
+    "severity": "medium",
+    "visual_signals": ["cracked floor tile with raised edge in customer walkway", "carpet seam pulled apart creating lip in walking path", "uneven floor transition between departments with no beveled strip"],
+    "category": "slip_trip_fall"
+  },
+  {
+    "rule_id": "ret_029",
+    "description": "Loading dock area with unsecured dock plates, missing edge protection, or gap between truck and dock creating fall hazard",
+    "severity": "high",
+    "visual_signals": ["dock leveler plate left in raised position with no safety chain", "open loading dock door with no barrier at edge and drop visible", "gap between delivery truck bed and dock edge without bridge plate"],
+    "category": "loading_dock"
+  },
+  {
+    "rule_id": "ret_030",
+    "description": "Restroom lacking required ADA grab bars, accessible stall dimensions, or proper signage for accessibility",
+    "severity": "medium",
+    "visual_signals": ["accessible restroom stall missing side wall grab bar", "restroom door lacking ADA-compliant signage with raised lettering and braille", "accessible stall too narrow for wheelchair turning with fixtures encroaching"],
+    "category": "ada_compliance"
   }
 ]

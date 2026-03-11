@@ -3,196 +3,350 @@
     "rule_id": "wh_001",
     "description": "Damaged rack upright — bent, dented, or deformed vertical column compromising structural capacity",
     "severity": "critical",
-    "visual_signals": ["rack", "bent_upright", "dented_column", "deformed_frame", "buckled_steel"],
+    "visual_signals": ["bent or bowed vertical rack column with visible deformation", "dented rack upright with paint chipped exposing bare metal", "buckled rack frame member showing lateral displacement"],
     "category": "racking"
   },
   {
     "rule_id": "wh_002",
     "description": "Missing beam locks — beam-to-upright safety clips absent, allowing beams to dislodge under impact",
     "severity": "high",
-    "visual_signals": ["beam", "no_safety_clip", "missing_pin", "beam_lock", "unsecured_beam"],
+    "visual_signals": ["beam end connection to upright without safety clip or pin", "empty clip holes at beam-to-column joint", "beam resting in slot without locking mechanism visible"],
     "category": "racking"
   },
   {
     "rule_id": "wh_003",
     "description": "Overloaded rack bay — visible sagging of beams or pallets exceeding posted load capacity",
     "severity": "critical",
-    "visual_signals": ["rack", "sagging_beam", "overloaded", "excessive_weight", "bowed_shelf"],
+    "visual_signals": ["rack beam sagging under excessive pallet weight", "multiple heavy pallets on shelf beyond rated count", "bowed beam with visible deflection at center span"],
     "category": "racking"
   },
   {
     "rule_id": "wh_004",
     "description": "Missing load capacity signage — rack system lacking posted maximum load per level and total bay capacity",
     "severity": "medium",
-    "visual_signals": ["rack", "no_capacity_sign", "missing_placard", "unlabeled_rack"],
+    "visual_signals": ["rack bay end without capacity placard or load sign", "row of racking with no visible load rating label", "rack system missing engineering capacity chart at aisle end"],
     "category": "racking"
   },
   {
     "rule_id": "wh_005",
     "description": "Missing column protectors — rack uprights at aisle ends without bollards or guards to absorb forklift impact",
     "severity": "high",
-    "visual_signals": ["rack_base", "no_guard", "no_bollard", "exposed_upright", "aisle_end"],
+    "visual_signals": ["rack upright at aisle end with no bollard or guard installed", "exposed rack column base in forklift travel lane", "end-of-aisle rack frame without protective post or deflector"],
     "category": "racking"
   },
   {
     "rule_id": "wh_006",
     "description": "Pallet overhanging rack edge — pallet or load extending beyond beam face creating strike or fall hazard",
     "severity": "high",
-    "visual_signals": ["pallet", "overhang", "extending_load", "beam_edge", "protruding_pallet"],
+    "visual_signals": ["pallet edge protruding past rack beam into aisle space", "load extending over rack beam face by several inches", "product box overhanging pallet and rack edge into walkway"],
     "category": "racking"
   },
   {
     "rule_id": "wh_007",
     "description": "Forklift traveling with raised forks — forks elevated above 4 inches while moving, reducing stability and visibility",
     "severity": "high",
-    "visual_signals": ["forklift", "raised_forks", "traveling", "elevated_forks", "moving"],
+    "visual_signals": ["forklift driving with forks raised high above floor level", "moving forklift with elevated empty forks blocking driver sight line", "powered truck traveling through aisle with forks not lowered"],
     "category": "forklift"
   },
   {
     "rule_id": "wh_008",
     "description": "Unsecured forklift load — load not tilted back or too tall/wide, at risk of sliding or falling during transport",
     "severity": "high",
-    "visual_signals": ["forklift", "unstable_load", "leaning_pallet", "unsecured_cargo", "tilting"],
+    "visual_signals": ["forklift carrying load tilted forward and visibly unstable", "pallet load leaning to one side on forklift forks", "oversized load on forks obstructing operator forward vision"],
     "category": "forklift"
   },
   {
     "rule_id": "wh_009",
     "description": "Pedestrian in forklift zone — worker on foot inside designated forklift travel lane without separation or escort",
     "severity": "critical",
-    "visual_signals": ["person", "forklift", "same_aisle", "no_separation", "pedestrian_in_lane"],
+    "visual_signals": ["person walking in same aisle as operating forklift", "pedestrian in marked forklift lane with no physical barrier", "worker on foot near blind corner where forklifts travel"],
     "category": "forklift"
   },
   {
     "rule_id": "wh_010",
     "description": "Forklift missing overhead guard — operator compartment lacks overhead protection against falling objects",
     "severity": "critical",
-    "visual_signals": ["forklift", "no_overhead_guard", "missing_cage", "open_cab", "no_canopy"],
+    "visual_signals": ["forklift operator sitting under open frame with no overhead cage", "powered truck missing overhead guard structure above seat", "forklift with damaged or removed canopy guard"],
     "category": "forklift"
   },
   {
     "rule_id": "wh_011",
     "description": "Forklift missing warning light — blue spot or strobe light absent, reducing pedestrian awareness of approaching truck",
     "severity": "medium",
-    "visual_signals": ["forklift", "no_blue_light", "no_strobe", "no_warning_light", "no_horn"],
+    "visual_signals": ["forklift operating without blue spot floor warning light", "powered truck with no strobe or beacon light on overhead guard", "forklift approaching intersection with no audible or visual warning"],
     "category": "forklift"
   },
   {
     "rule_id": "wh_012",
     "description": "Dock door open without trailer — overhead door raised with no trailer sealed to the dock, creating fall hazard",
     "severity": "critical",
-    "visual_signals": ["dock_door", "open_bay", "no_trailer", "empty_dock", "drop_off"],
+    "visual_signals": ["open dock bay door showing daylight with no trailer present", "raised overhead door revealing empty dock well and ground below", "dock opening without trailer or safety barrier across bay"],
     "category": "dock"
   },
   {
     "rule_id": "wh_013",
     "description": "Missing dock plate — gap between trailer bed and dock floor without bridge plate, creating trip/fall risk",
     "severity": "high",
-    "visual_signals": ["dock", "gap", "no_plate", "no_bridge", "trailer_gap"],
+    "visual_signals": ["visible gap between dock edge and trailer bed with no plate", "forklift approaching dock-trailer transition without bridge plate", "dock opening with trailer backed in but no leveler or plate deployed"],
     "category": "dock"
   },
   {
     "rule_id": "wh_014",
     "description": "Trailer not chocked — docked trailer without wheel chocks in place, risking trailer creep during loading",
     "severity": "high",
-    "visual_signals": ["trailer", "no_chock", "missing_wheel_chock", "dock_bay", "unchocked"],
+    "visual_signals": ["trailer wheels at dock with no chock blocks visible", "backed-in trailer tires on ground without chocking", "dock bay in use with wheel chocks hanging unused on wall"],
     "category": "dock"
   },
   {
     "rule_id": "wh_015",
     "description": "Dock edge without safety striping — dock perimeter lacking yellow/black hazard markings to warn of drop-off",
     "severity": "medium",
-    "visual_signals": ["dock_edge", "no_striping", "faded_paint", "unmarked_edge", "no_yellow_line"],
+    "visual_signals": ["dock edge floor with faded or missing yellow hazard striping", "dock perimeter without contrasting safety paint markings", "unmarked dock edge where floor meets drop-off to bay"],
     "category": "dock"
   },
   {
     "rule_id": "wh_016",
     "description": "Fire extinguisher missing — required extinguisher absent from mounting location or not visible in designated area",
     "severity": "high",
-    "visual_signals": ["empty_bracket", "no_extinguisher", "missing_fire_equipment", "bare_wall_mount"],
+    "visual_signals": ["empty wall bracket where fire extinguisher should be mounted", "fire extinguisher sign on wall with no unit present", "bare mounting hook in warehouse area designated for extinguisher"],
     "category": "fire_safety"
   },
   {
     "rule_id": "wh_017",
     "description": "Blocked fire exit — emergency exit door obstructed by pallets, inventory, equipment, or debris",
     "severity": "critical",
-    "visual_signals": ["exit_door", "blocked", "pallets_blocking", "obstructed_exit", "inventory_stacked"],
+    "visual_signals": ["pallets stacked in front of emergency exit door", "inventory blocking clear path to fire exit", "exit door with equipment staged directly against it preventing opening"],
     "category": "fire_safety"
   },
   {
     "rule_id": "wh_018",
     "description": "Obstructed sprinkler heads — storage stacked within 18 inches of sprinkler deflectors violating NFPA 13 clearance",
     "severity": "high",
-    "visual_signals": ["sprinkler", "close_storage", "insufficient_clearance", "ceiling", "pallet_near_sprinkler"],
+    "visual_signals": ["inventory stacked close to ceiling touching or near sprinkler heads", "pallet top within inches of sprinkler deflector plate", "boxes on top rack level encroaching on 18-inch sprinkler clearance"],
     "category": "fire_safety"
   },
   {
     "rule_id": "wh_019",
     "description": "Missing exit sign — emergency exit lacking illuminated or photoluminescent exit signage",
     "severity": "medium",
-    "visual_signals": ["no_exit_sign", "dark_exit", "missing_sign", "unmarked_door"],
+    "visual_signals": ["emergency door with no illuminated exit sign above it", "dark or unlit exit sign above emergency egress door", "exit pathway without visible directional exit signage"],
     "category": "fire_safety"
   },
   {
     "rule_id": "wh_020",
     "description": "Aisle obstruction — travel aisle partially or fully blocked by pallets, equipment, trash, or staged goods",
     "severity": "high",
-    "visual_signals": ["aisle", "blocked", "obstruction", "pallet_in_aisle", "narrow_passage"],
+    "visual_signals": ["warehouse aisle partially blocked by pallets placed on floor", "forklift travel lane narrowed by staged goods encroaching into aisle", "aisle fully blocked by equipment preventing through passage"],
     "category": "aisles"
   },
   {
     "rule_id": "wh_021",
     "description": "Faded floor markings — pedestrian lanes, forklift paths, or staging zones with worn or missing paint lines",
     "severity": "medium",
-    "visual_signals": ["faded_line", "worn_paint", "floor_marking", "invisible_lane", "peeling_tape"],
+    "visual_signals": ["barely visible yellow floor line in warehouse aisle", "worn pedestrian lane marking with gaps in paint", "staging zone boundary line faded beyond recognition"],
     "category": "aisles"
   },
   {
     "rule_id": "wh_022",
     "description": "Floor spill — liquid, oil, or granular material on floor creating slip hazard without cleanup or warning signs",
     "severity": "high",
-    "visual_signals": ["spill", "wet_floor", "liquid", "oil_puddle", "no_wet_floor_sign"],
+    "visual_signals": ["liquid puddle on warehouse floor without wet floor sign", "oil slick on concrete near equipment with no absorbent applied", "granular material spilled across walkway without cleanup"],
     "category": "aisles"
   },
   {
     "rule_id": "wh_023",
     "description": "Tripping hazard — hoses, cables, shrink wrap, strapping, or small debris in walking or driving paths",
     "severity": "medium",
-    "visual_signals": ["cable", "hose", "shrink_wrap", "strapping", "debris_on_floor"],
+    "visual_signals": ["electrical cable or air hose stretched across warehouse aisle", "loose shrink wrap and strapping bands on floor in travel path", "small debris and packing material scattered in walkway"],
     "category": "aisles"
   },
   {
     "rule_id": "wh_024",
     "description": "Worker without hard hat — employee in rack loading zone or under elevated work without head protection",
     "severity": "high",
-    "visual_signals": ["person", "no_hard_hat", "bare_head", "loading_zone", "overhead_hazard"],
+    "visual_signals": ["person under racking without hard hat while forklift loads above", "worker in overhead hazard zone with bare head", "employee near elevated stock operations lacking head protection"],
     "category": "ppe"
   },
   {
     "rule_id": "wh_025",
     "description": "Worker without safety vest — employee in forklift traffic area lacking high-visibility garment",
     "severity": "medium",
-    "visual_signals": ["person", "no_vest", "dark_clothing", "forklift_zone", "low_visibility"],
+    "visual_signals": ["person in dark clothing in active forklift zone", "worker without reflective vest walking in equipment area", "employee in forklift traffic aisle lacking hi-vis garment"],
     "category": "ppe"
   },
   {
     "rule_id": "wh_026",
     "description": "Blocked electrical panel — switchgear or breaker panel obstructed within 36-inch clearance zone (OSHA 1910.303)",
     "severity": "high",
-    "visual_signals": ["electrical_panel", "blocked_panel", "storage_in_front", "no_clearance"],
+    "visual_signals": ["boxes or inventory stacked in front of electrical panel", "equipment placed within 36 inches of breaker box", "electrical panel access blocked by stored materials"],
     "category": "electrical"
   },
   {
     "rule_id": "wh_027",
     "description": "Missing SDS or chemical label — hazardous material container without safety data sheet access or proper labeling",
     "severity": "high",
-    "visual_signals": ["unlabeled_container", "no_sds", "chemical_drum", "missing_label", "unmarked_bottle"],
+    "visual_signals": ["unlabeled chemical container in warehouse storage area", "chemical drum with no identification label or GHS markings", "cleaning chemical bottles without hazard information labels"],
     "category": "hazmat"
   },
   {
     "rule_id": "wh_028",
     "description": "Leaking drum — chemical, oil, or waste drum with visible drip, stain, or pooling beneath container",
     "severity": "critical",
-    "visual_signals": ["leaking_drum", "drip", "stain_on_floor", "pooling_liquid", "corroded_drum"],
+    "visual_signals": ["drum with liquid dripping from bung or seam onto floor", "dark stain spreading beneath chemical storage drum", "corroded drum with pooling liquid visible at base"],
     "category": "hazmat"
+  },
+  {
+    "rule_id": "wh_029",
+    "description": "Mezzanine guardrail missing or damaged — mezzanine level lacking standard 42-inch guardrail with midrail and toeboard on open sides",
+    "severity": "critical",
+    "visual_signals": ["mezzanine edge without guardrail showing open drop-off", "damaged or bent mezzanine railing with gap in protection", "mezzanine platform with missing midrail or toeboard sections"],
+    "category": "mezzanine"
+  },
+  {
+    "rule_id": "wh_030",
+    "description": "Mezzanine load rating not posted — mezzanine or elevated platform without visible load capacity signage per OSHA 1910.22",
+    "severity": "medium",
+    "visual_signals": ["mezzanine structure with no load capacity sign visible", "elevated storage platform lacking pounds per square foot rating sign", "mezzanine stairway entrance without posted weight limit"],
+    "category": "mezzanine"
+  },
+  {
+    "rule_id": "wh_031",
+    "description": "Mezzanine kick plate missing — open-sided mezzanine lacking 4-inch toeboard to prevent objects from falling to lower level",
+    "severity": "high",
+    "visual_signals": ["mezzanine edge with guardrail but no toeboard at floor level", "gap at base of mezzanine railing where kick plate should be", "items near mezzanine edge that could slide under railing without toeboard"],
+    "category": "mezzanine"
+  },
+  {
+    "rule_id": "wh_032",
+    "description": "Mezzanine gate not self-closing — swing gate or pallet gate on mezzanine left open or lacking spring-loaded self-closing mechanism",
+    "severity": "high",
+    "visual_signals": ["mezzanine pallet gate standing open with no safety chain", "swing gate on mezzanine propped open during operations", "drop-gate on mezzanine ledge without self-closing hardware"],
+    "category": "mezzanine"
+  },
+  {
+    "rule_id": "wh_033",
+    "description": "Sprinkler head clearance insufficient — storage or racking top level within 18 inches of sprinkler deflector plate violating NFPA 13",
+    "severity": "high",
+    "visual_signals": ["top of stacked inventory nearly touching sprinkler head", "rack top shelf merchandise within inches of ceiling sprinkler", "in-rack sprinkler head obstructed by product on adjacent shelf"],
+    "category": "fire_safety"
+  },
+  {
+    "rule_id": "wh_034",
+    "description": "Dock plate or dock board deficiency — dock plate missing rated capacity label, not secured in position, or visibly damaged",
+    "severity": "high",
+    "visual_signals": ["dock plate with no capacity rating label visible on surface", "dock board shifted or unsecured on dock edge during loading", "bent or cracked dock plate with visible structural damage"],
+    "category": "dock"
+  },
+  {
+    "rule_id": "wh_035",
+    "description": "Emergency evacuation map not posted — warehouse area lacking posted evacuation route map or assembly point signage per OSHA 1910.38",
+    "severity": "medium",
+    "visual_signals": ["warehouse wall near exit without evacuation map posted", "break area or main aisle lacking emergency route diagram", "building section without visible assembly point signage"],
+    "category": "emergency"
+  },
+  {
+    "rule_id": "wh_036",
+    "description": "Flammable storage cabinet violation — flammable liquids stored outside yellow flammable storage cabinet or cabinet doors left open",
+    "severity": "high",
+    "visual_signals": ["flammable liquid containers sitting outside yellow storage cabinet", "flammable cabinet with doors propped or left open", "aerosol cans and solvents on open shelf instead of rated cabinet"],
+    "category": "hazmat"
+  },
+  {
+    "rule_id": "wh_037",
+    "description": "Compressed gas cylinders improperly stored — cylinders not chained upright, caps missing, or incompatible gases stored together",
+    "severity": "high",
+    "visual_signals": ["gas cylinder standing without chain or strap securing it to wall", "compressed gas bottle with valve protection cap removed during storage", "oxygen and acetylene cylinders stored side by side without separation"],
+    "category": "hazmat"
+  },
+  {
+    "rule_id": "wh_038",
+    "description": "Spill containment missing for hazardous materials — hazmat drums or chemical containers stored without secondary containment pallet or berm",
+    "severity": "high",
+    "visual_signals": ["chemical drums sitting directly on floor without spill pallet", "hazardous material containers on bare concrete with no containment", "multiple liquid drums stored without berm or drip tray beneath"],
+    "category": "hazmat"
+  },
+  {
+    "rule_id": "wh_039",
+    "description": "Battery charging station lacking ventilation — forklift battery charging area without adequate ventilation for hydrogen gas dissipation",
+    "severity": "high",
+    "visual_signals": ["enclosed battery charging room with no visible exhaust fan or vent", "forklift charging station in closed area without ventilation opening", "battery charging area with sealed ceiling and no air movement"],
+    "category": "forklift"
+  },
+  {
+    "rule_id": "wh_040",
+    "description": "Battery charging area missing eyewash — forklift battery charging station without accessible eyewash station within 25 feet per OSHA 1910.151",
+    "severity": "high",
+    "visual_signals": ["battery charging area with no eyewash station or bottle visible nearby", "charging station wall lacking mounted eyewash unit", "battery maintenance area without plumbed or portable eyewash within reach"],
+    "category": "forklift"
+  },
+  {
+    "rule_id": "wh_041",
+    "description": "Battery charging area missing no-smoking sign — forklift charging zone without no smoking and open flame prohibition signage",
+    "severity": "medium",
+    "visual_signals": ["battery charging station without no smoking sign posted", "charging area entrance lacking fire and flame prohibition signage", "forklift battery bay without warning signs about hydrogen gas"],
+    "category": "forklift"
+  },
+  {
+    "rule_id": "wh_042",
+    "description": "Conveyor emergency stop missing or obstructed — conveyor system without accessible red emergency stop button or pull cord along its length",
+    "severity": "critical",
+    "visual_signals": ["conveyor section with no visible red emergency stop button", "e-stop pull cord missing from conveyor side rail", "emergency stop button on conveyor blocked by boxes or equipment"],
+    "category": "conveyor"
+  },
+  {
+    "rule_id": "wh_043",
+    "description": "Conveyor nip point unguarded — exposed pinch points at conveyor rollers, belts, or drive mechanisms without protective guarding",
+    "severity": "critical",
+    "visual_signals": ["exposed conveyor belt and roller junction without guard", "open drive mechanism at conveyor end with rotating parts exposed", "conveyor return roller accessible without nip point guard installed"],
+    "category": "conveyor"
+  },
+  {
+    "rule_id": "wh_044",
+    "description": "Conveyor walkway crossover missing — conveyor line crossing pedestrian path without designated crossover bridge or underpass",
+    "severity": "high",
+    "visual_signals": ["conveyor belt crossing aisle with no overhead walkway bridge", "workers stepping over running conveyor to cross path", "conveyor blocking pedestrian route without safe crossover point"],
+    "category": "conveyor"
+  },
+  {
+    "rule_id": "wh_045",
+    "description": "Noise hazard area without signage — area with loud equipment lacking hearing protection required signs or noise warning posting",
+    "severity": "medium",
+    "visual_signals": ["loud machinery area without hearing protection required sign", "high-noise zone entrance lacking decibel warning notice", "compressor or machinery room without posted noise hazard signage"],
+    "category": "noise"
+  },
+  {
+    "rule_id": "wh_046",
+    "description": "Worker without hearing protection in noise area — employee near loud equipment without earplugs or earmuffs where noise exceeds 85 dBA",
+    "severity": "medium",
+    "visual_signals": ["worker near loud conveyor or equipment with no ear protection", "employee operating noisy machinery without earmuffs or plugs", "person in posted hearing protection area with uncovered ears"],
+    "category": "noise"
+  },
+  {
+    "rule_id": "wh_047",
+    "description": "First aid kit missing or inaccessible — warehouse area without accessible first aid kit or supplies in designated location",
+    "severity": "medium",
+    "visual_signals": ["empty first aid cabinet or bracket on warehouse wall", "first aid station sign with no kit present at location", "first aid box blocked by stored materials preventing access"],
+    "category": "emergency"
+  },
+  {
+    "rule_id": "wh_048",
+    "description": "AED missing from designated location — automated external defibrillator absent from its posted wall cabinet or mounting",
+    "severity": "high",
+    "visual_signals": ["empty AED wall cabinet with door open and no unit inside", "AED sign posted on wall with no device present", "AED mounting bracket on wall without defibrillator unit"],
+    "category": "emergency"
+  },
+  {
+    "rule_id": "wh_049",
+    "description": "Electrical panel clearance violation in warehouse — breaker panel or electrical equipment with less than 36-inch clear working space",
+    "severity": "high",
+    "visual_signals": ["pallets stored within arm's reach of electrical distribution panel", "racking or shelving installed within 36 inches of breaker box", "product staged on floor directly in front of electrical panel"],
+    "category": "electrical"
+  },
+  {
+    "rule_id": "wh_050",
+    "description": "Ergonomic lifting hazard — worker manually lifting heavy or awkward load without assistance, team lift, or mechanical aid",
+    "severity": "medium",
+    "visual_signals": ["worker bending at waist to lift heavy box from floor level", "single person struggling with oversized or heavy package", "employee lifting load above shoulder height without mechanical aid"],
+    "category": "ergonomics"
   }
 ]

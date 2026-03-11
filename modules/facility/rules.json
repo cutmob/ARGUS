@@ -3,84 +3,315 @@
     "rule_id": "fac_001",
     "description": "Emergency exits must be clearly marked and unobstructed",
     "severity": "critical",
-    "visual_signals": ["exit", "exit_sign", "door", "blocked", "obstruction"],
+    "visual_signals": ["exit sign dark or missing above doorway", "boxes or furniture blocking path to exit door", "exit door chained shut or padlocked"],
     "category": "egress"
   },
   {
     "rule_id": "fac_002",
-    "description": "Fire extinguishers must be mounted, accessible, and serviced",
+    "description": "Fire extinguishers must be mounted, accessible, and serviced with current inspection tag",
     "severity": "high",
-    "visual_signals": ["fire_extinguisher", "extinguisher", "mount", "expired"],
+    "visual_signals": ["fire extinguisher on floor instead of wall mount", "inspection tag showing expired annual service date", "extinguisher blocked by stored materials or equipment"],
     "category": "fire_safety"
   },
   {
     "rule_id": "fac_003",
     "description": "Wet floor hazards must be marked with warning signs",
     "severity": "medium",
-    "visual_signals": ["wet_floor", "water", "spill", "sign"],
+    "visual_signals": ["visible water puddle on tile floor with no sign present", "wet floor sign knocked over or placed far from spill", "glossy wet surface near building entrance without warning cone"],
     "category": "slip_trip"
   },
   {
     "rule_id": "fac_004",
-    "description": "Electrical panels must be accessible with 36-inch clearance",
+    "description": "Electrical panels must be accessible with 36-inch clearance maintained (OSHA 1910.303)",
     "severity": "high",
-    "visual_signals": ["electrical_panel", "clearance", "blocked", "storage"],
+    "visual_signals": ["storage boxes stacked directly in front of electrical panel", "equipment parked within the 36-inch marked clearance zone", "panel door unable to open fully due to adjacent obstruction"],
     "category": "electrical"
   },
   {
     "rule_id": "fac_005",
-    "description": "Smoke detectors must be present and unobstructed",
+    "description": "Smoke detectors must be present, unobstructed, and showing active status indicator",
     "severity": "critical",
-    "visual_signals": ["smoke_detector", "ceiling", "missing", "covered"],
+    "visual_signals": ["ceiling location with missing smoke detector and visible wiring", "smoke detector covered with plastic bag or tape", "detector hanging from ceiling with no indicator light visible"],
     "category": "fire_safety"
   },
   {
     "rule_id": "fac_006",
-    "description": "Emergency lighting must be functional",
+    "description": "Emergency lighting must be functional with charged batteries",
     "severity": "high",
-    "visual_signals": ["emergency_light", "exit_light", "battery", "broken"],
+    "visual_signals": ["emergency light unit with no illumination during test", "battery backup light showing red fault indicator", "broken lens or missing lamp head on emergency light fixture"],
     "category": "lighting"
   },
   {
     "rule_id": "fac_007",
-    "description": "Stairways must have handrails and be free of obstructions",
+    "description": "Stairways must have continuous handrails and be free of obstructions",
     "severity": "high",
-    "visual_signals": ["stairs", "handrail", "obstruction", "debris"],
+    "visual_signals": ["stairwell with boxes or supplies stored on treads", "handrail detached from wall or missing mounting brackets", "gap in handrail run where section is absent"],
     "category": "egress"
   },
   {
     "rule_id": "fac_008",
-    "description": "Hazardous materials must be properly labeled and stored",
+    "description": "Hazardous materials must be properly labeled with GHS-compliant signage and stored in appropriate containment",
     "severity": "high",
-    "visual_signals": ["chemical", "container", "label", "sds", "hazmat"],
+    "visual_signals": ["chemical container with no label or faded illegible label", "hazardous liquid stored without secondary containment tray", "SDS binder missing from designated wall station near chemical storage"],
     "category": "hazmat"
   },
   {
     "rule_id": "fac_009",
-    "description": "First aid kit must be accessible and stocked",
+    "description": "First aid kit must be accessible, properly signed, and stocked",
     "severity": "medium",
-    "visual_signals": ["first_aid", "medical", "kit", "supplies"],
+    "visual_signals": ["first aid cabinet with empty compartments visible through window", "first aid kit sign missing or obscured above station", "kit locked without break-glass access or key visible"],
     "category": "medical"
   },
   {
     "rule_id": "fac_010",
-    "description": "Floor surfaces must be in good repair without cracks or holes",
+    "description": "Floor surfaces must be in good repair without cracks, holes, or uneven joints",
     "severity": "medium",
-    "visual_signals": ["floor", "crack", "hole", "damage", "uneven"],
+    "visual_signals": ["cracked concrete floor with raised lip creating trip edge", "hole in floor surface exposing subfloor or utility space", "uneven floor joint with height difference greater than quarter inch"],
     "category": "slip_trip"
   },
   {
     "rule_id": "fac_011",
-    "description": "HVAC systems must be properly maintained and accessible",
+    "description": "HVAC systems must be properly maintained with clean filters and no visible mold growth",
     "severity": "low",
-    "visual_signals": ["hvac", "duct", "vent", "filter", "mold"],
+    "visual_signals": ["dark discoloration or mold visible around air vent diffuser", "HVAC filter visibly clogged with dust and debris", "condensation dripping from ductwork or ceiling vent"],
     "category": "ventilation"
   },
   {
     "rule_id": "fac_012",
-    "description": "Security cameras and access control systems operational",
+    "description": "Security cameras and access control systems must be operational and unobstructed",
     "severity": "low",
-    "visual_signals": ["camera", "access_control", "badge_reader", "lock"],
+    "visual_signals": ["security camera with lens aimed at wall or ceiling instead of coverage area", "badge reader with cracked screen or dangling wires", "camera obscured by plant growth or decorative banner"],
     "category": "security"
+  },
+  {
+    "rule_id": "fac_013",
+    "description": "Sprinkler heads must be visible, unobstructed, and maintain 18-inch clearance below deflector (NFPA 25)",
+    "severity": "critical",
+    "visual_signals": ["stored materials stacked within 18 inches of sprinkler head deflector", "sprinkler head painted over or covered with decorative cap", "corroded or leaking sprinkler head with visible mineral deposits"],
+    "category": "fire_safety"
+  },
+  {
+    "rule_id": "fac_014",
+    "description": "Sprinkler system control valves must be in the open position and properly supervised",
+    "severity": "critical",
+    "visual_signals": ["sprinkler control valve handle in closed or partially closed position", "valve missing tamper seal or supervisory lock", "OS&Y valve stem not extended indicating closed position"],
+    "category": "fire_safety"
+  },
+  {
+    "rule_id": "fac_015",
+    "description": "Fire department connection (FDC) must be accessible, undamaged, and caps in place",
+    "severity": "high",
+    "visual_signals": ["FDC siamese connection with missing or broken caps", "landscaping or parked vehicle blocking access to FDC", "FDC with visible corrosion or damaged threads on couplings"],
+    "category": "fire_safety"
+  },
+  {
+    "rule_id": "fac_016",
+    "description": "Fire alarm pull stations must be accessible, mounted at proper height, and unobstructed (NFPA 72)",
+    "severity": "critical",
+    "visual_signals": ["pull station obscured behind wall-mounted furniture or signage", "pull station mounted higher than 54 inches above floor", "pull station with broken handle or missing protective cover"],
+    "category": "fire_safety"
+  },
+  {
+    "rule_id": "fac_017",
+    "description": "Fire doors must self-close completely, latch properly, and not be wedged or propped open",
+    "severity": "critical",
+    "visual_signals": ["fire-rated door held open with wooden wedge or doorstop", "fire door with disconnected or broken self-closing hardware", "fire door with gap visible between door edge and frame when closed"],
+    "category": "fire_safety"
+  },
+  {
+    "rule_id": "fac_018",
+    "description": "Fire doors must display visible fire rating label on door edge or hinge side",
+    "severity": "high",
+    "visual_signals": ["fire door edge missing the metal fire rating label", "painted-over or illegible fire rating tag on door frame", "replacement door without UL or WHI certification label"],
+    "category": "fire_safety"
+  },
+  {
+    "rule_id": "fac_019",
+    "description": "Stairwell doors must be self-closing with no storage permitted in stairwells (NFPA 101)",
+    "severity": "high",
+    "visual_signals": ["boxes or cleaning supplies stored under stairwell", "stairwell door propped open with equipment or trash can", "stairwell lacking required floor identification signage"],
+    "category": "egress"
+  },
+  {
+    "rule_id": "fac_020",
+    "description": "Evacuation maps must be posted at designated locations showing routes and assembly points",
+    "severity": "medium",
+    "visual_signals": ["wall-mounted evacuation map frame empty or map missing", "evacuation route map faded or outdated with old floor layout", "no visible assembly point signage near building exits"],
+    "category": "emergency_preparedness"
+  },
+  {
+    "rule_id": "fac_021",
+    "description": "Emergency action plan drill records must be current and posted (OSHA 1910.38)",
+    "severity": "medium",
+    "visual_signals": ["fire drill log with last entry dated more than 12 months ago", "empty clipboard at emergency action plan posting location", "no posted schedule of upcoming fire or evacuation drills"],
+    "category": "emergency_preparedness"
+  },
+  {
+    "rule_id": "fac_022",
+    "description": "ADA-compliant accessible routes must be clear, properly signed, and maintained (ADA Standards)",
+    "severity": "high",
+    "visual_signals": ["wheelchair ramp blocked by furniture or delivery items", "accessible route sign missing or not at required height", "tactile warning strip at ramp transition missing or damaged"],
+    "category": "ada_compliance"
+  },
+  {
+    "rule_id": "fac_023",
+    "description": "ADA door hardware must be operable with one hand without tight grasping or twisting",
+    "severity": "medium",
+    "visual_signals": ["round doorknob on accessible route instead of lever handle", "door closer requiring excessive force to open", "push-button automatic door opener non-functional or missing"],
+    "category": "ada_compliance"
+  },
+  {
+    "rule_id": "fac_024",
+    "description": "Wheelchair ramp slope must not exceed 1:12 ratio and must have edge protection and handrails",
+    "severity": "high",
+    "visual_signals": ["ramp visibly steeper than standard slope with no landing at top", "ramp missing edge guard or curb along open side", "ramp handrails absent or ending before the full ramp length"],
+    "category": "ada_compliance"
+  },
+  {
+    "rule_id": "fac_025",
+    "description": "Elevator inspection certificate must be current and posted in elevator cab",
+    "severity": "medium",
+    "visual_signals": ["empty certificate frame inside elevator cab", "inspection certificate showing expired date in cab frame", "elevator cab with no visible inspection documentation"],
+    "category": "elevator"
+  },
+  {
+    "rule_id": "fac_026",
+    "description": "Roof access hatches must be secured and restricted access signs posted",
+    "severity": "medium",
+    "visual_signals": ["roof hatch left open or unlocked without personnel present", "no restricted access sign at roof access ladder or doorway", "roof access door with broken lock or missing latch hardware"],
+    "category": "security"
+  },
+  {
+    "rule_id": "fac_027",
+    "description": "Loading dock must have wheel chocks in use and dock leveler in safe condition",
+    "severity": "high",
+    "visual_signals": ["trailer at dock without visible wheel chocks behind rear tires", "dock leveler plate bent, cracked, or stuck in raised position", "gap between dock leveler and trailer bed creating fall hazard"],
+    "category": "loading_dock"
+  },
+  {
+    "rule_id": "fac_028",
+    "description": "Loading dock areas must have safety barriers and fall protection at open dock doors",
+    "severity": "high",
+    "visual_signals": ["open dock door with no safety chain or barrier across opening", "dock edge without yellow warning stripe or bollards", "personnel walking near open dock edge without guardrail"],
+    "category": "loading_dock"
+  },
+  {
+    "rule_id": "fac_029",
+    "description": "Outdoor walkways must be free of ice, debris, potholes, and have adequate lighting",
+    "severity": "high",
+    "visual_signals": ["ice sheet on exterior walkway with no salt or sand treatment visible", "pothole in pedestrian walkway deeper than half inch", "exterior walkway with non-functioning overhead light fixture at night"],
+    "category": "slip_trip"
+  },
+  {
+    "rule_id": "fac_030",
+    "description": "Dumpster and waste enclosure must maintain fire clearance from building and lids must be closed",
+    "severity": "medium",
+    "visual_signals": ["dumpster positioned directly against exterior building wall", "dumpster lid left open with waste overflowing above rim", "waste enclosure fence damaged or gate hanging off hinges"],
+    "category": "housekeeping"
+  },
+  {
+    "rule_id": "fac_031",
+    "description": "Mechanical rooms must be locked, properly signed, and free of unrelated storage",
+    "severity": "medium",
+    "visual_signals": ["mechanical room door propped open without personnel present", "no mechanical room identification sign on door", "boxes and miscellaneous items stored among mechanical equipment"],
+    "category": "housekeeping"
+  },
+  {
+    "rule_id": "fac_032",
+    "description": "Backflow preventer must have current inspection tag and be accessible for testing",
+    "severity": "medium",
+    "visual_signals": ["backflow preventer with expired or missing annual test tag", "backflow device buried behind stored materials preventing access", "backflow preventer showing visible corrosion or dripping from relief port"],
+    "category": "plumbing"
+  },
+  {
+    "rule_id": "fac_033",
+    "description": "Floor openings must be guarded with standard railings and toeboards or secured covers (OSHA 1910.23)",
+    "severity": "critical",
+    "visual_signals": ["open floor hole with no cover or guardrail visible", "floor opening cover displaced or not secured against movement", "floor hatch left open without temporary barricade around perimeter"],
+    "category": "fall_protection"
+  },
+  {
+    "rule_id": "fac_034",
+    "description": "Combustible dust must not be allowed to accumulate on overhead surfaces, ledges, or equipment (NFPA 652)",
+    "severity": "critical",
+    "visual_signals": ["visible dust layer coating overhead beams and light fixtures", "dust accumulation on ductwork and pipe runs above work area", "dust buildup on electrical conduit and junction boxes near ceiling"],
+    "category": "fire_safety"
+  },
+  {
+    "rule_id": "fac_035",
+    "description": "Asbestos-containing material must be identified with warning signs and monitored for condition (OSHA 1910.1001)",
+    "severity": "high",
+    "visual_signals": ["pipe insulation with frayed or damaged fibrous wrapping and no label", "missing asbestos warning sign at entrance to area with known ACM", "ceiling tiles or floor tiles with visible crumbling or deterioration in older building"],
+    "category": "hazmat"
+  },
+  {
+    "rule_id": "fac_036",
+    "description": "Emergency eyewash stations must be unobstructed with current weekly flush tags (ANSI Z358.1)",
+    "severity": "high",
+    "visual_signals": ["eyewash station weekly test tag with no recent entries", "equipment or storage blocking path to eyewash station", "eyewash nozzle covers missing or dust-capped indicating disuse"],
+    "category": "emergency_equipment"
+  },
+  {
+    "rule_id": "fac_037",
+    "description": "Emergency generator must show adequate fuel level, visible run-hour log, and proper exhaust routing",
+    "severity": "high",
+    "visual_signals": ["generator fuel gauge reading below quarter-tank level", "run-hour log clipboard missing or last entry months old", "generator exhaust pipe terminating near air intake or window"],
+    "category": "emergency_preparedness"
+  },
+  {
+    "rule_id": "fac_038",
+    "description": "Extension cords must not be used as permanent wiring and must be in good condition (OSHA 1910.305)",
+    "severity": "high",
+    "visual_signals": ["extension cord routed through wall, ceiling, or doorway as permanent installation", "extension cord with damaged insulation exposing bare conductors", "multiple extension cords daisy-chained together at power strip"],
+    "category": "electrical"
+  },
+  {
+    "rule_id": "fac_039",
+    "description": "Ground fault circuit interrupter (GFCI) outlets must be installed in wet or damp locations",
+    "severity": "high",
+    "visual_signals": ["standard outlet without GFCI protection near sink or water source", "GFCI outlet with tripped indicator and not reset", "missing weatherproof cover on outdoor electrical outlet"],
+    "category": "electrical"
+  },
+  {
+    "rule_id": "fac_040",
+    "description": "Portable space heaters must be approved, have tip-over protection, and maintain clearance from combustibles",
+    "severity": "high",
+    "visual_signals": ["portable heater positioned directly against cardboard boxes or paper", "space heater without visible tip-over safety switch", "non-commercial space heater plugged into extension cord"],
+    "category": "fire_safety"
+  },
+  {
+    "rule_id": "fac_041",
+    "description": "Guardrails on elevated platforms and mezzanines must be 42 inches high with mid-rail and toeboard (OSHA 1910.29)",
+    "severity": "critical",
+    "visual_signals": ["mezzanine edge with guardrail below standard 42-inch height", "elevated platform railing missing mid-rail between top rail and floor", "guardrail with missing or damaged toeboard allowing objects to slide off edge"],
+    "category": "fall_protection"
+  },
+  {
+    "rule_id": "fac_042",
+    "description": "Means of egress must be illuminated to at least 1 foot-candle at floor level (NFPA 101)",
+    "severity": "high",
+    "visual_signals": ["dark corridor in egress path with burned-out overhead lighting", "dimly lit stairwell with insufficient lighting to see treads", "exit discharge area outside building door with no lighting at night"],
+    "category": "lighting"
+  },
+  {
+    "rule_id": "fac_043",
+    "description": "Fire extinguisher must be appropriate type for hazards in area and mounted at proper height",
+    "severity": "high",
+    "visual_signals": ["water-type extinguisher mounted near electrical equipment instead of CO2", "extinguisher handle mounted higher than 5 feet above floor", "extinguisher missing operating instructions label or pressure gauge in red zone"],
+    "category": "fire_safety"
+  },
+  {
+    "rule_id": "fac_044",
+    "description": "Flammable and combustible liquid storage cabinets must be properly labeled, grounded, and self-closing (OSHA 1910.106)",
+    "severity": "high",
+    "visual_signals": ["flammable storage cabinet with doors propped open or latches missing", "yellow flammable cabinet without visible Flammable warning label", "flammable cabinet missing grounding wire connection lug"],
+    "category": "fire_safety"
+  },
+  {
+    "rule_id": "fac_045",
+    "description": "No smoking signs must be posted in prohibited areas and enforced",
+    "severity": "medium",
+    "visual_signals": ["cigarette butts on ground near building entrance without designated area", "no smoking sign missing near flammable storage or fuel dispensing area", "ash tray or smoking evidence in non-smoking area"],
+    "category": "fire_safety"
   }
 ]

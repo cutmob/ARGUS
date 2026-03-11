@@ -159,5 +159,124 @@
     "severity": "medium",
     "visual_signals": ["visible gap between baseboard and wall", "hole or crack in wall near floor", "daylight visible through wall penetration"],
     "category": "floors"
+  },
+  {
+    "rule_id": "kit_024",
+    "description": "Walk-in cooler or freezer emergency interior release mechanism missing, obstructed, non-functional, or lacking glow-in-the-dark marking per code",
+    "severity": "critical",
+    "visual_signals": ["walk-in cooler interior door handle missing or broken off", "emergency release mechanism inside freezer blocked by stored product", "interior safety release on walk-in door without glow-in-dark indicator or signage"],
+    "category": "equipment"
+  },
+  {
+    "rule_id": "kit_025",
+    "description": "Hot held food items displayed or stored below the required 135 degrees F minimum holding temperature, entering the temperature danger zone",
+    "severity": "critical",
+    "visual_signals": ["steam table pan with food showing no visible steam and no thermometer confirming temperature", "buffet heat lamp over food with thermometer reading below 135F", "hot holding unit with temperature display showing value below safe minimum"],
+    "category": "temperature_control"
+  },
+  {
+    "rule_id": "kit_026",
+    "description": "Cold held food items stored or displayed above the required 41 degrees F maximum holding temperature",
+    "severity": "critical",
+    "visual_signals": ["salad bar with thermometer showing reading above 41F", "cold prep table with food and temperature display above safe range", "refrigerated display case thermometer reading above 41F"],
+    "category": "temperature_control"
+  },
+  {
+    "rule_id": "kit_027",
+    "description": "Refrigeration unit or cold holding equipment lacking a visible and functional thermometer for temperature verification",
+    "severity": "high",
+    "visual_signals": ["walk-in cooler interior with no thermometer visible on wall or shelf", "prep cooler without thermometer on display or hanging inside unit", "cold holding unit with broken or missing temperature gauge"],
+    "category": "temperature_control"
+  },
+  {
+    "rule_id": "kit_028",
+    "description": "Handwashing station lacking required signage instructing employees to wash hands, or signage not posted in the employee's language",
+    "severity": "medium",
+    "visual_signals": ["handwash sink area with bare wall and no hand washing sign posted", "faded or illegible handwashing sign above sink", "handwash station with sign posted only in English in multilingual kitchen"],
+    "category": "hygiene"
+  },
+  {
+    "rule_id": "kit_029",
+    "description": "Three-compartment sink not set up correctly with wash, rinse, and sanitize sequence or missing required temperature and concentration labels",
+    "severity": "high",
+    "visual_signals": ["three-compartment sink without labels identifying wash rinse and sanitize compartments", "sanitize compartment of three-bay sink with no test strip dispenser visible", "three-compartment sink with single water temperature visible below required minimum"],
+    "category": "hygiene"
+  },
+  {
+    "rule_id": "kit_030",
+    "description": "Grease trap showing signs of overflow, backup, or inaccessible location preventing required maintenance service",
+    "severity": "high",
+    "visual_signals": ["grease trap lid with grease overflow residue on surrounding floor", "foul-smelling standing liquid pooling around grease interceptor access point", "grease trap access cover blocked by equipment or storage preventing service"],
+    "category": "equipment"
+  },
+  {
+    "rule_id": "kit_031",
+    "description": "Knives stored improperly with exposed blades creating laceration risk for employees reaching into storage or near traffic paths",
+    "severity": "high",
+    "visual_signals": ["loose knives with exposed blades in a drawer mixed with other utensils", "knife with blade extending over edge of magnetic strip near walkway", "knives placed blade-up in dish rack or drying area"],
+    "category": "worker_safety"
+  },
+  {
+    "rule_id": "kit_032",
+    "description": "Cleaning chemicals and sanitizers stored in proximity to or above food, food contact surfaces, or single-use items without required separation",
+    "severity": "critical",
+    "visual_signals": ["spray bottles of cleaner stored on shelf directly above food containers", "chemical jugs on same shelf as dry food ingredients", "unlabeled spray bottle sitting on food prep surface"],
+    "category": "chemical_storage"
+  },
+  {
+    "rule_id": "kit_033",
+    "description": "Chemical spray bottles or secondary containers lacking required content identification labels per OSHA Hazard Communication standard",
+    "severity": "medium",
+    "visual_signals": ["plain unmarked spray bottle containing colored liquid on shelf", "secondary chemical container without any label or marking", "squeeze bottle with chemical liquid but no name or hazard identification"],
+    "category": "chemical_storage"
+  },
+  {
+    "rule_id": "kit_034",
+    "description": "Excessive condensation on walls, ceiling, or cold surfaces indicating inadequate ventilation or makeup air imbalance in kitchen",
+    "severity": "medium",
+    "visual_signals": ["water droplets forming on ceiling directly above cooking or prep area", "condensation running down wall surfaces near hood system", "moisture fog or haze visible in kitchen atmosphere near exhaust hood"],
+    "category": "ventilation"
+  },
+  {
+    "rule_id": "kit_035",
+    "description": "Employee personal items including purses, phones, backpacks, or personal food stored in food preparation or cooking areas",
+    "severity": "medium",
+    "visual_signals": ["cell phone sitting on food prep counter surface", "employee backpack or purse stored on shelf near food items", "personal food container or beverage cup on prep table or cooking line"],
+    "category": "hygiene"
+  },
+  {
+    "rule_id": "kit_036",
+    "description": "Pest control bait station damaged, improperly placed near food areas, or electronic fly killing device positioned over food prep surfaces",
+    "severity": "high",
+    "visual_signals": ["bait station with cracked or open housing near food storage", "electronic insect light trap mounted directly above food preparation counter", "pest bait station placed inside walk-in cooler or near open food containers"],
+    "category": "pest"
+  },
+  {
+    "rule_id": "kit_037",
+    "description": "Dish machine sanitizer concentration below required minimum or rinse temperature below required threshold for proper sanitization",
+    "severity": "critical",
+    "visual_signals": ["dish machine temperature gauge displaying rinse temperature below 180F for hot water sanitizing", "chemical sanitizer test strip showing concentration below minimum ppm requirement", "dish machine chemical dispenser showing empty sanitizer container with low indicator light"],
+    "category": "equipment"
+  },
+  {
+    "rule_id": "kit_038",
+    "description": "Hood suppression system service tag expired or pull station for kitchen fire suppression obstructed or inaccessible",
+    "severity": "critical",
+    "visual_signals": ["hood suppression system tag showing expired semi-annual inspection date", "kitchen fire suppression pull station blocked by equipment or shelving", "missing or illegible service tag on Ansul or hood suppression system cylinder"],
+    "category": "fire_safety"
+  },
+  {
+    "rule_id": "kit_039",
+    "description": "Food not properly labeled with item name and preparation date for date marking per FDA Food Code seven-day rule for ready-to-eat TCS foods",
+    "severity": "high",
+    "visual_signals": ["food container in cooler without any date label or content identification", "prepped food pan missing both item name and preparation date sticker", "multiple unlabeled containers of similar-looking product on walk-in shelf"],
+    "category": "food_storage"
+  },
+  {
+    "rule_id": "kit_040",
+    "description": "Cooking equipment with heavy carbon buildup or grease accumulation on exterior surfaces creating fire ignition risk",
+    "severity": "high",
+    "visual_signals": ["thick black carbon crust on fryer exterior and backsplash", "heavy grease buildup on grill exterior panels and legs", "charred food debris and grease layered on oven exterior surfaces"],
+    "category": "hood_system"
   }
 ]

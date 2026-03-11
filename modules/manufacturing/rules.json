@@ -1,86 +1,317 @@
 [
   {
     "rule_id": "mfg_001",
-    "description": "Machine guards must be in place at all point-of-operation and nip points",
+    "description": "Machine guards must be in place at all point-of-operation, nip points, and rotating parts (OSHA 1910.212)",
     "severity": "critical",
-    "visual_signals": ["machine", "guard", "missing", "removed", "rotating"],
+    "visual_signals": ["exposed rotating shaft or gear with no guard enclosure", "point-of-operation guard removed and set aside near machine", "nip point between rollers accessible without barrier guard"],
     "category": "machine_guarding"
   },
   {
     "rule_id": "mfg_002",
-    "description": "Lockout/tagout devices must be visible during maintenance (OSHA 1910.147)",
+    "description": "Lockout/tagout devices must be visible during maintenance operations (OSHA 1910.147)",
     "severity": "critical",
-    "visual_signals": ["lock", "tag", "maintenance", "energy_isolation"],
+    "visual_signals": ["worker performing maintenance on machine with no lock on energy disconnect", "lockout hasp with fewer locks than workers performing service", "danger tag attached but no physical lock on energy isolation device"],
     "category": "loto"
   },
   {
     "rule_id": "mfg_003",
     "description": "Compressed gas cylinders must be chained upright and capped when not in use",
     "severity": "high",
-    "visual_signals": ["cylinder", "gas", "unsecured", "chain", "cap"],
+    "visual_signals": ["gas cylinder standing without chain or strap restraint to wall or cart", "cylinder valve cap missing from cylinder not connected to regulator", "cylinder lying on its side on floor or leaning against bench"],
     "category": "storage"
   },
   {
     "rule_id": "mfg_004",
-    "description": "Oil, coolant, and hydraulic fluid spills must be cleaned immediately",
+    "description": "Oil, coolant, and hydraulic fluid spills must be cleaned immediately and contained",
     "severity": "high",
-    "visual_signals": ["spill", "oil", "coolant", "fluid", "floor"],
+    "visual_signals": ["dark oil slick on concrete floor around machine base", "coolant puddle spreading from CNC machine without absorbent applied", "hydraulic fluid trail from equipment to walkway without cleanup"],
     "category": "housekeeping"
   },
   {
     "rule_id": "mfg_005",
-    "description": "Workers must wear required PPE near operating machinery",
+    "description": "Workers must wear required PPE near operating machinery (OSHA 1910.132)",
     "severity": "high",
-    "visual_signals": ["person", "goggles", "gloves", "ear_protection", "machine"],
+    "visual_signals": ["person operating grinder without safety glasses or face shield", "worker near loud machinery without ear plugs or ear muffs visible", "operator at machine with loose clothing or jewelry and no gloves"],
     "category": "ppe"
   },
   {
     "rule_id": "mfg_006",
-    "description": "Emergency stop buttons must be visible, accessible, and undamaged",
+    "description": "Emergency stop buttons must be visible, accessible, unobstructed, and undamaged on all machines",
     "severity": "critical",
-    "visual_signals": ["e_stop", "button", "obscured", "damaged", "missing"],
+    "visual_signals": ["e-stop mushroom button obscured by rags or tooling", "e-stop button cracked or missing red cap on machine panel", "e-stop location blocked by material bins preventing quick reach"],
     "category": "controls"
   },
   {
     "rule_id": "mfg_007",
-    "description": "Fire exits and aisles must not be blocked by materials or WIP",
+    "description": "Fire exits and aisles must not be blocked by materials, WIP, or equipment",
     "severity": "high",
-    "visual_signals": ["exit", "aisle", "blocked", "materials", "obstruction"],
+    "visual_signals": ["pallet of raw material stacked in marked aisle blocking exit path", "work-in-progress carts parked across fire exit corridor", "exit door obscured behind tall material rack"],
     "category": "egress"
   },
   {
     "rule_id": "mfg_008",
-    "description": "Conveyor guards and pinch-point covers must be in place",
+    "description": "Conveyor guards and pinch-point covers must be in place at all transfer and nip points",
     "severity": "critical",
-    "visual_signals": ["conveyor", "guard", "pinch_point", "cover", "missing"],
+    "visual_signals": ["conveyor belt nip point at roller exposed without guard panel", "conveyor transfer point between belts with no pinch-point cover", "guard panel removed from conveyor drive sprocket area"],
     "category": "machine_guarding"
   },
   {
     "rule_id": "mfg_009",
-    "description": "Hoses and cables across walkways must have ramp covers",
+    "description": "Hoses and cables across walkways must have ramp covers to prevent trip hazards",
     "severity": "medium",
-    "visual_signals": ["hose", "cable", "walkway", "ramp", "trip"],
+    "visual_signals": ["air hose stretched across walkway with no cable ramp", "welding leads crossing pedestrian path without protective cover", "extension cord running across aisle on floor surface"],
     "category": "housekeeping"
   },
   {
     "rule_id": "mfg_010",
-    "description": "Raw materials must be stacked safely without leaning or overloading",
+    "description": "Raw materials must be stacked safely without leaning, overloading, or exceeding rack capacity",
     "severity": "high",
-    "visual_signals": ["stack", "leaning", "overloaded", "materials", "lumber"],
+    "visual_signals": ["material stack leaning visibly to one side on pallet", "rack loaded beyond posted weight capacity sign", "unsecured lumber or bar stock protruding from rack into aisle"],
     "category": "storage"
   },
   {
     "rule_id": "mfg_011",
-    "description": "Chemical containers must have legible hazard labels (GHS compliant)",
+    "description": "Chemical containers must have legible GHS-compliant hazard labels (OSHA 1910.1200)",
     "severity": "medium",
-    "visual_signals": ["container", "label", "chemical", "illegible", "missing"],
+    "visual_signals": ["unlabeled container of liquid on workbench", "chemical drum with peeling label and no GHS pictograms visible", "spray bottle with handwritten label missing hazard information"],
     "category": "hazcom"
   },
   {
     "rule_id": "mfg_012",
     "description": "Overhead crane hooks must have safety latches and wire rope must be undamaged",
     "severity": "critical",
-    "visual_signals": ["crane", "hook", "latch", "wire_rope", "frayed"],
-    "category": "equipment"
+    "visual_signals": ["crane hook with missing or bent safety latch", "wire rope showing frayed strands or bird-caging near drum", "wire rope with visible kink or crushed section"],
+    "category": "crane_rigging"
+  },
+  {
+    "rule_id": "mfg_013",
+    "description": "Robot cell perimeter must have safety light curtains, interlocked gates, and safety mats operational",
+    "severity": "critical",
+    "visual_signals": ["robot cell gate propped open bypassing interlock switch", "light curtain emitter or receiver knocked out of alignment", "safety mat inside robot cell visibly damaged or curled at edges"],
+    "category": "robot_safety"
+  },
+  {
+    "rule_id": "mfg_014",
+    "description": "Robot teach pendant must be in good condition with enabling switch functional",
+    "severity": "high",
+    "visual_signals": ["teach pendant hanging by cable with cracked housing", "pendant enabling device switch taped in on position", "teach pendant left inside cell during automatic operation"],
+    "category": "robot_safety"
+  },
+  {
+    "rule_id": "mfg_015",
+    "description": "Press brake must have functioning light curtain, two-hand controls, or barrier guard at point of operation",
+    "severity": "critical",
+    "visual_signals": ["press brake operating with light curtain sender or receiver missing", "single-hand activation possible on press requiring two-hand control", "operator reaching past barrier guard into press die area"],
+    "category": "machine_guarding"
+  },
+  {
+    "rule_id": "mfg_016",
+    "description": "Press brake anti-repeat mechanism must prevent unintended second stroke",
+    "severity": "critical",
+    "visual_signals": ["press brake foot pedal without protective cover to prevent accidental activation", "control panel with anti-repeat selector bypassed or taped", "press cycling continuously without operator activation visible"],
+    "category": "machine_guarding"
+  },
+  {
+    "rule_id": "mfg_017",
+    "description": "CNC machine chip guard doors must be closed during operation and door interlocks functional",
+    "severity": "high",
+    "visual_signals": ["CNC lathe running with chip guard door open or removed", "CNC mill door interlock switch bypassed with zip tie or tape", "hot chips spraying from machine with no splash guard"],
+    "category": "machine_guarding"
+  },
+  {
+    "rule_id": "mfg_018",
+    "description": "CNC machine coolant must be contained with no overflow onto floor",
+    "severity": "medium",
+    "visual_signals": ["coolant overflowing from CNC machine sump onto surrounding floor", "coolant mist visible without mist collector running", "coolant trail from machine to floor drain without containment"],
+    "category": "housekeeping"
+  },
+  {
+    "rule_id": "mfg_019",
+    "description": "Welding operations must have flash curtains or screens to protect nearby workers (OSHA 1910.252)",
+    "severity": "high",
+    "visual_signals": ["welding arc visible with no flash curtain screening adjacent work area", "welding screen with torn or missing panels exposing passersby", "person near welding operation shielding eyes without proper curtain barrier"],
+    "category": "welding"
+  },
+  {
+    "rule_id": "mfg_020",
+    "description": "Welding fume extraction must be operational with hood positioned at source",
+    "severity": "high",
+    "visual_signals": ["visible welding fume plume rising with no local exhaust ventilation", "fume extraction arm pushed away from weld area and not in use", "fume extractor unit turned off while welding in progress"],
+    "category": "welding"
+  },
+  {
+    "rule_id": "mfg_021",
+    "description": "Welding cylinder storage must separate fuel gas from oxygen by 20 feet or firewall (OSHA 1910.253)",
+    "severity": "high",
+    "visual_signals": ["oxygen and acetylene cylinders stored side by side without barrier", "mixed gas cylinders in same rack without 20-foot separation or firewall", "welding cart with unsecured cylinders and no flashback arrestors visible"],
+    "category": "welding"
+  },
+  {
+    "rule_id": "mfg_022",
+    "description": "Fire watch must be maintained during and 30 minutes after hot work with extinguisher present",
+    "severity": "high",
+    "visual_signals": ["hot work in progress with no fire extinguisher within visible reach", "hot work permit not posted at welding or cutting location", "sparks from grinding landing on combustible materials with no fire watch"],
+    "category": "welding"
+  },
+  {
+    "rule_id": "mfg_023",
+    "description": "Paint spray booth must be clean of overspray buildup with filters in serviceable condition (OSHA 1910.107)",
+    "severity": "critical",
+    "visual_signals": ["heavy paint overspray buildup on booth walls and exhaust plenum", "booth intake filters visibly clogged with paint and sagging", "paint residue accumulation on booth floor exceeding thin film"],
+    "category": "spray_booth"
+  },
+  {
+    "rule_id": "mfg_024",
+    "description": "Paint spray booth must have visible airflow indicators showing adequate ventilation and grounding",
+    "severity": "high",
+    "visual_signals": ["manometer or magnehelic gauge reading outside acceptable range on booth panel", "static grounding clamp disconnected from spray gun or workpiece", "airflow indicator strips not moving at booth face showing no draw"],
+    "category": "spray_booth"
+  },
+  {
+    "rule_id": "mfg_025",
+    "description": "Dust collection system must have intact ductwork, functional spark detection, and explosion venting (NFPA 652)",
+    "severity": "critical",
+    "visual_signals": ["dust collection duct with visible hole or disconnected joint leaking dust", "spark detection sensor on duct covered or disconnected", "explosion vent panel on dust collector bolted shut or obstructed"],
+    "category": "dust_collection"
+  },
+  {
+    "rule_id": "mfg_026",
+    "description": "Dust collector filter status indicators must show filters in serviceable condition",
+    "severity": "high",
+    "visual_signals": ["differential pressure gauge on collector reading in red zone", "dust leaking from collector housing indicating filter breach", "pulse-jet cleaning system indicator showing fault alarm"],
+    "category": "dust_collection"
+  },
+  {
+    "rule_id": "mfg_027",
+    "description": "Powered industrial trucks must have completed pre-shift inspection checklist (OSHA 1910.178)",
+    "severity": "high",
+    "visual_signals": ["forklift operating without daily inspection checklist on clipboard", "pre-shift checklist on forklift with unchecked or blank entries", "forklift with visible damage operating without out-of-service tag"],
+    "category": "pit"
+  },
+  {
+    "rule_id": "mfg_028",
+    "description": "Forklift must have intact overhead guard and load backrest extension",
+    "severity": "high",
+    "visual_signals": ["forklift with bent or missing overhead guard frame", "load backrest extension missing allowing load to shift toward operator", "overhead guard with cracked or missing crossbars"],
+    "category": "pit"
+  },
+  {
+    "rule_id": "mfg_029",
+    "description": "Overhead crane must display rated load capacity sign visible from floor (OSHA 1910.179)",
+    "severity": "high",
+    "visual_signals": ["crane bridge or trolley without visible capacity rating plate", "capacity sign on crane faded or too small to read from operating level", "crane with multiple hoists but only one capacity sign visible"],
+    "category": "crane_rigging"
+  },
+  {
+    "rule_id": "mfg_030",
+    "description": "Overhead crane pendant controls must be clearly labeled and limit switches operational",
+    "severity": "high",
+    "visual_signals": ["crane pendant with worn button labels no longer readable", "pendant control buttons sticking or housing cracked", "crane approaching travel limit with no automatic stop engaging"],
+    "category": "crane_rigging"
+  },
+  {
+    "rule_id": "mfg_031",
+    "description": "Fall protection required at mezzanines and elevated platforms above 4 feet (OSHA 1910.28)",
+    "severity": "critical",
+    "visual_signals": ["mezzanine edge without standard guardrail system at 42 inches", "elevated work platform with guardrail section removed and not replaced", "worker on elevated platform without visible fall protection at open edge"],
+    "category": "fall_protection"
+  },
+  {
+    "rule_id": "mfg_032",
+    "description": "Fixed ladders over 24 feet must have ladder safety system or cage (OSHA 1910.28)",
+    "severity": "high",
+    "visual_signals": ["tall fixed ladder without cage or ladder safety rail system", "ladder cage with missing or bent bars compromising enclosure", "ladder safety cable system with worn or frayed cable visible"],
+    "category": "fall_protection"
+  },
+  {
+    "rule_id": "mfg_033",
+    "description": "Confined space entry points must be identified with signs, permits posted, and rescue equipment staged (OSHA 1910.146)",
+    "severity": "critical",
+    "visual_signals": ["confined space entry with no danger sign or permit-required label", "open manway or tank entry with no attendant visible at opening", "confined space entry without rescue tripod or retrieval system staged nearby"],
+    "category": "confined_space"
+  },
+  {
+    "rule_id": "mfg_034",
+    "description": "Atmospheric monitors must be present and active at confined space entries",
+    "severity": "critical",
+    "visual_signals": ["confined space entry in progress with no gas monitor visible", "4-gas monitor sitting on ground turned off during entry", "atmospheric test results not recorded on posted entry permit"],
+    "category": "confined_space"
+  },
+  {
+    "rule_id": "mfg_035",
+    "description": "Noise hazard areas must have posted noise levels and hearing protection zone markings (OSHA 1910.95)",
+    "severity": "medium",
+    "visual_signals": ["high-noise area without hearing protection required sign posted", "noise level posting sign missing dBA measurement at entry", "hearing protection dispenser empty at entrance to noise zone"],
+    "category": "noise"
+  },
+  {
+    "rule_id": "mfg_036",
+    "description": "Electrical panels in production areas must maintain required clearance and be labeled (OSHA 1910.303)",
+    "severity": "high",
+    "visual_signals": ["electrical panel in shop with WIP or tooling stored in clearance zone", "panel directory label blank or missing circuit identification", "panel cover missing exposing live electrical components"],
+    "category": "electrical"
+  },
+  {
+    "rule_id": "mfg_037",
+    "description": "Walking-working surfaces must have compliant handrails, stair nosings, and posted floor loading (OSHA 1910.22)",
+    "severity": "high",
+    "visual_signals": ["metal stairway with worn or missing non-slip nosing on treads", "platform without standard handrail along open side", "mezzanine without posted floor load capacity sign"],
+    "category": "walking_surfaces"
+  },
+  {
+    "rule_id": "mfg_038",
+    "description": "Chemical spill containment and secondary containment must be in place for hazardous liquids",
+    "severity": "high",
+    "visual_signals": ["55-gallon drum of chemicals sitting directly on floor without containment pallet", "secondary containment berm with crack or visible leak path", "drip pan under equipment overflowing with collected fluid"],
+    "category": "spill_containment"
+  },
+  {
+    "rule_id": "mfg_039",
+    "description": "Slings, rigging, and below-the-hook lifting devices must be inspected and in good condition (OSHA 1910.184)",
+    "severity": "critical",
+    "visual_signals": ["nylon sling with visible cuts, burns, or frayed edges in use", "chain sling with stretched or bent links hanging on crane hook", "shackle with missing or loose pin in active rigging setup"],
+    "category": "crane_rigging"
+  },
+  {
+    "rule_id": "mfg_040",
+    "description": "Local exhaust ventilation hoods must be positioned at contaminant source with adequate capture velocity",
+    "severity": "high",
+    "visual_signals": ["LEV hood pushed away from grinding or sanding operation", "visible dust or fume escaping past ventilation hood capture zone", "flexible exhaust duct kinked or collapsed restricting airflow"],
+    "category": "ventilation"
+  },
+  {
+    "rule_id": "mfg_041",
+    "description": "Ergonomic workstations must have anti-fatigue mats and adjustable fixtures for standing tasks",
+    "severity": "low",
+    "visual_signals": ["operator standing on bare concrete at assembly station without anti-fatigue mat", "workbench height forcing worker into visible hunched posture", "assembly fixture not adjustable with worker reaching overhead repeatedly"],
+    "category": "ergonomics"
+  },
+  {
+    "rule_id": "mfg_042",
+    "description": "Waste containers must be properly labeled, segregated by type, and not overflowing",
+    "severity": "medium",
+    "visual_signals": ["waste drum without hazardous waste label or accumulation start date", "mixed waste types visible in single container such as oily rags with general trash", "waste container overflowing with materials spilling onto floor"],
+    "category": "waste_management"
+  },
+  {
+    "rule_id": "mfg_043",
+    "description": "Portable fire extinguishers must be appropriate for hazards and within 50-foot travel distance in manufacturing areas",
+    "severity": "high",
+    "visual_signals": ["large open production area with no fire extinguisher visible on walls", "fire extinguisher with pressure gauge needle in red zone", "extinguisher mounted behind equipment where it cannot be quickly accessed"],
+    "category": "fire_safety"
+  },
+  {
+    "rule_id": "mfg_044",
+    "description": "Lockout/tagout energy isolation verification must show zero-energy state confirmed before work begins",
+    "severity": "critical",
+    "visual_signals": ["machine partially disassembled with disconnect switch in ON position", "multiple energy sources on machine with only one locked out", "stored energy device such as spring or hydraulic accumulator without visible bleed-off"],
+    "category": "loto"
+  },
+  {
+    "rule_id": "mfg_045",
+    "description": "Safety data sheets must be readily accessible near chemical use and storage areas (OSHA 1910.1200)",
+    "severity": "medium",
+    "visual_signals": ["SDS binder station on wall empty or missing binder", "chemical storage area without visible SDS access point or digital terminal", "SDS binder with pages missing or not matching chemicals present in area"],
+    "category": "hazcom"
   }
 ]

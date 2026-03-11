@@ -1,86 +1,247 @@
 [
   {
     "rule_id": "elec_001",
-    "description": "Arc flash warning labels must be present on all panels and switchgear",
+    "description": "Arc flash warning labels missing from electrical panels, switchgear, or motor control centers where required by NFPA 70E",
     "severity": "high",
-    "visual_signals": ["panel", "label", "arc_flash", "warning", "missing"],
+    "visual_signals": ["electrical panel front with no arc flash hazard label visible", "switchgear door lacking orange arc flash warning sticker", "motor control center bucket without arc flash PPE requirement label"],
     "category": "labeling"
   },
   {
     "rule_id": "elec_002",
-    "description": "Panels must have 36-inch clear working space in front (NEC 110.26)",
+    "description": "Electrical panels or switchgear lacking required 36-inch clear working space in front per NEC 110.26",
     "severity": "high",
-    "visual_signals": ["panel", "clearance", "blocked", "storage", "box"],
+    "visual_signals": ["boxes or storage items stacked directly in front of electrical panel", "equipment positioned within 36-inch clearance zone of breaker panel", "shelving unit encroaching on required working space before switchgear"],
     "category": "access"
   },
   {
     "rule_id": "elec_003",
-    "description": "All knockout openings must be covered — no exposed holes in panels",
+    "description": "Open or missing knockout covers on electrical panels, junction boxes, or enclosures exposing interior wiring",
     "severity": "high",
-    "visual_signals": ["panel", "knockout", "hole", "opening", "missing_cover"],
+    "visual_signals": ["circular hole visible in side or bottom of electrical panel where knockout is missing", "junction box with open knockout hole showing wiring inside", "conduit fitting missing from panel knockout leaving open gap"],
     "category": "enclosure"
   },
   {
     "rule_id": "elec_004",
-    "description": "No visible signs of overheating — discoloration, melted insulation, or scorch marks",
+    "description": "Signs of electrical overheating including discoloration, melted insulation, scorch marks, or heat damage on panels or conductors",
     "severity": "critical",
-    "visual_signals": ["discoloration", "melted", "scorch", "burn", "heat"],
+    "visual_signals": ["brown or black heat discoloration on panel bus connection or breaker", "melted wire insulation with exposed conductor visible inside panel", "scorch marks or charring on panel interior wall or breaker face"],
     "category": "thermal"
   },
   {
     "rule_id": "elec_005",
-    "description": "Panel dead-fronts must be in place — no exposed bus bars",
+    "description": "Panel dead-front cover removed or missing, exposing energized bus bars and creating electrocution and arc flash hazard",
     "severity": "critical",
-    "visual_signals": ["panel", "open", "bus_bar", "exposed", "cover_missing"],
+    "visual_signals": ["electrical panel open with bus bars and wiring fully exposed", "missing inner dead-front cover with bare copper bus visible", "panel cover off with energized connections accessible to contact"],
     "category": "enclosure"
   },
   {
     "rule_id": "elec_006",
-    "description": "Extension cords must not be used as permanent wiring",
+    "description": "Extension cords used as substitute for permanent wiring, routed through walls, ceilings, or floors, or daisy-chained in series",
     "severity": "medium",
-    "visual_signals": ["extension_cord", "permanent", "taped", "routed"],
+    "visual_signals": ["extension cord routed through doorway or wall penetration as permanent installation", "extension cord taped to baseboard or stapled along wall surface", "multiple extension cords plugged end-to-end in daisy chain configuration"],
     "category": "wiring"
   },
   {
     "rule_id": "elec_007",
-    "description": "No water or moisture near electrical equipment",
+    "description": "Water intrusion, moisture, or condensation present on or near energized electrical equipment creating shock and short-circuit hazard",
     "severity": "critical",
-    "visual_signals": ["water", "puddle", "condensation", "stain", "drip"],
+    "visual_signals": ["water puddle on floor directly beneath electrical panel or disconnect", "condensation droplets visible on exterior of electrical enclosure", "water stain trail running down wall from above electrical panel"],
     "category": "environment"
   },
   {
     "rule_id": "elec_008",
-    "description": "Circuit breakers and panels must be labeled with directory",
+    "description": "Circuit breakers and panelboard directory not labeled or directory incomplete, preventing proper circuit identification per NEC 408.4",
     "severity": "medium",
-    "visual_signals": ["breaker", "label", "directory", "unlabeled", "blank"],
+    "visual_signals": ["panelboard with blank circuit directory card inside door", "breaker panel with handwritten labels that are faded and illegible", "panel directory with most circuit entries left blank or marked unknown"],
     "category": "labeling"
   },
   {
     "rule_id": "elec_009",
-    "description": "Cable trays must not be overfilled and cables must be supported",
+    "description": "Cable trays overfilled beyond rated capacity or cables unsupported between tray sections creating sag and stress on connections",
     "severity": "medium",
-    "visual_signals": ["cable_tray", "overfilled", "sagging", "unsupported"],
+    "visual_signals": ["cable tray with cables piled above side rail height", "cables sagging between cable tray support points", "cable tray section visibly deflecting under excessive cable weight"],
     "category": "wiring"
   },
   {
     "rule_id": "elec_010",
-    "description": "Conduit must be intact — no exposed wiring runs",
+    "description": "Conduit damaged, disconnected, or missing sections leaving conductors exposed and unprotected from physical damage",
     "severity": "high",
-    "visual_signals": ["conduit", "damaged", "exposed_wire", "missing"],
+    "visual_signals": ["broken or crushed conduit section with wires visible through opening", "conduit disconnected at fitting with gap exposing conductors", "missing conduit section with bare wires running along wall surface"],
     "category": "wiring"
   },
   {
     "rule_id": "elec_011",
-    "description": "Emergency disconnects must be accessible and unobstructed",
+    "description": "Emergency electrical disconnects blocked, obstructed, or not readily accessible for immediate operation in an emergency",
     "severity": "critical",
-    "visual_signals": ["disconnect", "emergency", "blocked", "shutoff"],
+    "visual_signals": ["equipment or storage blocking access to red emergency disconnect handle", "emergency shutoff switch obscured behind parked equipment", "disconnect switch handle inaccessible due to items piled in front"],
     "category": "access"
   },
   {
     "rule_id": "elec_012",
-    "description": "No combustible materials stored in dedicated electrical rooms",
+    "description": "Combustible materials including cardboard, paper, wood, or flammable liquids stored inside dedicated electrical rooms violating NEC 110.26(E)",
     "severity": "high",
-    "visual_signals": ["cardboard", "paper", "combustible", "storage", "electrical_room"],
+    "visual_signals": ["cardboard boxes stored on floor of electrical room", "paper files or documents stacked on shelf inside electrical room", "cleaning supplies or chemical containers stored in electrical room"],
     "category": "fire_safety"
+  },
+  {
+    "rule_id": "elec_013",
+    "description": "Arc flash PPE boundary markings missing from floor in front of switchgear or large electrical equipment per NFPA 70E",
+    "severity": "medium",
+    "visual_signals": ["floor in front of switchgear lineup without any arc flash boundary tape or paint", "faded or worn arc flash boundary marking on floor before electrical equipment", "switchgear room floor with no visible limited approach or arc flash boundary lines"],
+    "category": "labeling"
+  },
+  {
+    "rule_id": "elec_014",
+    "description": "Switchgear room used for storage of non-electrical items, containing piping not serving the room, or housing unrelated equipment violating dedicated space requirements",
+    "severity": "high",
+    "visual_signals": ["janitorial supplies or cleaning equipment stored inside switchgear room", "water pipes or plumbing running through switchgear room ceiling not serving equipment", "furniture or filing cabinets placed inside dedicated electrical switchgear room"],
+    "category": "access"
+  },
+  {
+    "rule_id": "elec_015",
+    "description": "GFCI protection missing at receptacles in wet or damp locations including near sinks, outdoors, garages, and unfinished basements per NEC 210.8",
+    "severity": "high",
+    "visual_signals": ["standard non-GFCI receptacle installed next to sink or wet area", "outdoor receptacle without GFCI protection or weather-resistant cover", "receptacle near water source without GFCI test and reset buttons visible"],
+    "category": "wiring"
+  },
+  {
+    "rule_id": "elec_016",
+    "description": "Transformer showing oil leaks, corrosion, unusual discoloration, or cooling fan not operating indicating degraded condition",
+    "severity": "critical",
+    "visual_signals": ["oil stain or drip trail on transformer housing or beneath transformer pad", "heavy rust or corrosion on transformer tank surface or radiator fins", "transformer cooling fan visibly not spinning while unit is under load"],
+    "category": "thermal"
+  },
+  {
+    "rule_id": "elec_017",
+    "description": "Grounding electrode conductor showing corrosion, physical damage, or improper connection at grounding electrode or panel",
+    "severity": "high",
+    "visual_signals": ["green or bare copper grounding conductor with visible corrosion at clamp connection", "grounding electrode conductor with physical cut or abrasion damage to insulation", "loose or improperly crimped lug on grounding conductor at panel bonding point"],
+    "category": "grounding"
+  },
+  {
+    "rule_id": "elec_018",
+    "description": "Motor control center bucket door damaged, not latching properly, or left open exposing internal starters and wiring",
+    "severity": "high",
+    "visual_signals": ["MCC bucket door hanging open with visible starter contactors and wiring", "motor control center door with broken latch mechanism not closing flush", "MCC bucket with bent or damaged door that does not seat against frame"],
+    "category": "enclosure"
+  },
+  {
+    "rule_id": "elec_019",
+    "description": "Emergency generator automatic transfer switch showing alarm, set to manual mode, or with expired maintenance tags",
+    "severity": "high",
+    "visual_signals": ["transfer switch panel with alarm indicator light illuminated", "ATS control selector set to manual or off position instead of auto", "expired maintenance or inspection tag hanging from transfer switch handle"],
+    "category": "emergency_power"
+  },
+  {
+    "rule_id": "elec_020",
+    "description": "Evidence of bypassed, double-tapped, or improperly sized overcurrent protection devices creating overload or fire hazard",
+    "severity": "critical",
+    "visual_signals": ["two conductors landed on single breaker terminal that is rated for one", "circuit breaker with visible jumper wire bypassing trip mechanism", "fuse holder with oversized fuse or metallic object inserted instead of proper fuse"],
+    "category": "overcurrent"
+  },
+  {
+    "rule_id": "elec_021",
+    "description": "Flexible cord or portable cable showing damage, missing strain relief, or used with improper cord type for the environment",
+    "severity": "medium",
+    "visual_signals": ["power cord with cracked or frayed outer jacket exposing inner conductors", "flexible cord entering junction box or equipment without strain relief fitting", "lightweight indoor-rated extension cord being used in outdoor or wet environment"],
+    "category": "wiring"
+  },
+  {
+    "rule_id": "elec_022",
+    "description": "Electrical room ambient temperature excessively high or ventilation and cooling equipment non-functional creating thermal risk to equipment",
+    "severity": "high",
+    "visual_signals": ["electrical room with no visible ventilation grille or exhaust fan", "wall-mounted thermometer in electrical room showing elevated temperature reading", "electrical room cooling unit or exhaust fan visibly not operating with dust accumulation"],
+    "category": "environment"
+  },
+  {
+    "rule_id": "elec_023",
+    "description": "Junction box covers missing, exposing wire splices and connections, violating NEC 314.25 requiring all boxes to be covered",
+    "severity": "high",
+    "visual_signals": ["open junction box mounted on wall or ceiling with visible wire nuts and splices", "junction box in accessible area with cover plate removed showing connections", "uncovered octagonal box with exposed wiring at ceiling light fixture location"],
+    "category": "enclosure"
+  },
+  {
+    "rule_id": "elec_024",
+    "description": "Temporary wiring such as construction lighting strings or seasonal decorations left installed permanently beyond allowable period per NEC 590",
+    "severity": "medium",
+    "visual_signals": ["temporary construction string lights installed as permanent lighting in work area", "holiday or seasonal decorative lights left up well past seasonal period", "temporary power distribution panel still in place after construction completion"],
+    "category": "wiring"
+  },
+  {
+    "rule_id": "elec_025",
+    "description": "Electrical receptacle showing damage including cracked faceplate, missing ground pin hole, loose mounting, or signs of thermal stress",
+    "severity": "high",
+    "visual_signals": ["receptacle faceplate with visible crack or broken corner piece", "receptacle pulled away from wall with gap behind cover plate", "discoloration or brown heat marks visible on receptacle face or wall around outlet"],
+    "category": "wiring"
+  },
+  {
+    "rule_id": "elec_026",
+    "description": "Electrical disconnect switch lacking labeling identifying which specific equipment or circuit it controls per NEC 404.7",
+    "severity": "medium",
+    "visual_signals": ["disconnect switch on wall with no label or nameplate identifying served equipment", "row of disconnect switches without any identifying labels or tags", "faded or illegible equipment identification label on disconnect enclosure"],
+    "category": "labeling"
+  },
+  {
+    "rule_id": "elec_027",
+    "description": "Panelboard circuit directory inaccurate, outdated, or not reflecting current circuit assignments creating confusion during maintenance or emergency",
+    "severity": "medium",
+    "visual_signals": ["panelboard directory with crossed-out entries and handwritten corrections", "circuit directory with multiple blank entries for occupied breaker positions", "panel directory card showing outdated room numbers or equipment no longer present"],
+    "category": "labeling"
+  },
+  {
+    "rule_id": "elec_028",
+    "description": "Discoloration at bus bar connections or lug terminations indicating loose connection and resistive heating creating fire risk",
+    "severity": "critical",
+    "visual_signals": ["brown or rainbow heat discoloration on bus bar at lug connection point", "darkened or oxidized conductor insulation at breaker terminal connection", "visible heat damage or melting on bus bar splice or tap connection"],
+    "category": "thermal"
+  },
+  {
+    "rule_id": "elec_029",
+    "description": "Ground fault indicator tripped or activated on electrical equipment signaling current leakage to ground",
+    "severity": "high",
+    "visual_signals": ["ground fault indicator light illuminated on motor or equipment panel", "GFCI receptacle with tripped indicator showing red flag", "ground fault relay on switchgear showing tripped or alarm status"],
+    "category": "grounding"
+  },
+  {
+    "rule_id": "elec_030",
+    "description": "Voltage testing equipment or personal protective equipment absent from area near electrical panels or switchgear where live work may be performed",
+    "severity": "medium",
+    "visual_signals": ["electrical room with no voltage tester or multimeter visible in designated location", "empty PPE storage cabinet or hook near switchgear where gloves should be stored", "no visible voltage testing device holder or station near high-voltage equipment"],
+    "category": "safety_equipment"
+  },
+  {
+    "rule_id": "elec_031",
+    "description": "Electrical panel or switchgear room door lacking required identification signage or warning labels per NEC 110.22",
+    "severity": "medium",
+    "visual_signals": ["unmarked door leading to electrical room without danger or high voltage sign", "electrical room door lacking required room identification placard", "switchgear room entrance without visible electrical hazard warning signage"],
+    "category": "labeling"
+  },
+  {
+    "rule_id": "elec_032",
+    "description": "Wiring devices or equipment installed without proper weatherproof covers in outdoor or weather-exposed locations per NEC 406.9",
+    "severity": "high",
+    "visual_signals": ["outdoor receptacle with missing or broken in-use weatherproof cover", "exterior junction box without weather-tight cover allowing moisture entry", "outdoor disconnect switch with damaged weatherproof enclosure gasket"],
+    "category": "enclosure"
+  },
+  {
+    "rule_id": "elec_033",
+    "description": "Improper or excessive use of wire nuts, tape splices, or connections outside of approved junction boxes violating NEC splice and junction requirements",
+    "severity": "high",
+    "visual_signals": ["wire splice made with electrical tape outside of junction box in open air", "wire nut connection visible in open ceiling or wall cavity without box", "conductor spliced and taped inside conduit body without proper access"],
+    "category": "wiring"
+  },
+  {
+    "rule_id": "elec_034",
+    "description": "Electrical equipment grounding conductor missing, disconnected, or improperly terminated compromising equipment safety ground per NEC 250",
+    "severity": "critical",
+    "visual_signals": ["green equipment grounding wire cut or disconnected at receptacle box", "grounding lug on equipment panel empty where bonding conductor should terminate", "missing green grounding screw and conductor on metal device box or enclosure"],
+    "category": "grounding"
+  },
+  {
+    "rule_id": "elec_035",
+    "description": "Panelboard or load center with more breakers installed than the panel is rated for, indicating an overfilled or tandem-breaker-exceeded condition",
+    "severity": "high",
+    "visual_signals": ["panelboard with tandem or slim breakers filling every position beyond panel rating", "panel with breaker extending outside of panel enclosure edge", "circuit breakers installed in panel positions not designed for tandem use"],
+    "category": "overcurrent"
   }
 ]

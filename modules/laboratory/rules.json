@@ -68,5 +68,194 @@
     "severity": "high",
     "visual_signals": ["no certification sticker on BSC exterior", "certification tag with date older than one year", "BSC with peeling or blank certification label"],
     "category": "biosafety_cabinet"
+  },
+  {
+    "rule_id": "lab_011",
+    "description": "Fume hood face velocity inadequate as shown by smoke tube test failure or indicator strip not deflecting (OSHA 1910.1450)",
+    "severity": "high",
+    "visual_signals": ["smoke tube released at hood face drifting away from opening instead of into hood", "airflow indicator strip at hood edge hanging limp with no deflection", "face velocity sticker showing last test result below 100 fpm"],
+    "category": "fume_hood"
+  },
+  {
+    "rule_id": "lab_012",
+    "description": "Fume hood interior cluttered with excess equipment or chemicals reducing airflow effectiveness",
+    "severity": "medium",
+    "visual_signals": ["hood interior packed with bottles blocking rear baffle slots", "large equipment inside hood restricting cross-sectional airflow", "chemical containers stacked high inside hood blocking exhaust slots"],
+    "category": "fume_hood"
+  },
+  {
+    "rule_id": "lab_013",
+    "description": "Flammable storage cabinet doors not self-closing, not grounded, or exceeding capacity (NFPA 45)",
+    "severity": "high",
+    "visual_signals": ["yellow flammable cabinet with door propped open by container", "flammable cabinet missing grounding wire at bonding lug", "flammable cabinet overfilled with bottles visible above shelf lips"],
+    "category": "chemical_storage"
+  },
+  {
+    "rule_id": "lab_014",
+    "description": "Flammable storage cabinet missing required Flammable warning signage",
+    "severity": "medium",
+    "visual_signals": ["yellow cabinet without Flammable Keep Fire Away label", "flammable cabinet sign damaged or missing from door", "storage cabinet with chemicals but no hazard identification sign"],
+    "category": "chemical_storage"
+  },
+  {
+    "rule_id": "lab_015",
+    "description": "Chemical waste containers not labeled, left open when not actively in use, or lacking secondary containment",
+    "severity": "high",
+    "visual_signals": ["waste container without hazardous waste label or content description", "open chemical waste container on bench with no one actively adding waste", "waste container sitting directly on bench without secondary containment tray"],
+    "category": "chemical_waste"
+  },
+  {
+    "rule_id": "lab_016",
+    "description": "Chemical waste container missing accumulation start date or exceeding 90-day storage limit",
+    "severity": "high",
+    "visual_signals": ["waste container label with no start date written in date field", "accumulation date on waste container more than 90 days old", "multiple waste containers with dates approaching or past regulatory limit"],
+    "category": "chemical_waste"
+  },
+  {
+    "rule_id": "lab_017",
+    "description": "Autoclave door gasket worn, cracked, or showing signs of failure affecting seal integrity",
+    "severity": "high",
+    "visual_signals": ["autoclave door gasket with visible cracks or deformation", "steam leak visible around autoclave door during cycle", "gasket material protruding or displaced from door groove"],
+    "category": "autoclave"
+  },
+  {
+    "rule_id": "lab_018",
+    "description": "Autoclave biological indicator log not current or operational indicators showing fault",
+    "severity": "medium",
+    "visual_signals": ["autoclave spore test log with last entry more than one week old", "autoclave temperature chart recorder showing incomplete cycle profile", "autoclave display panel showing error code or fault indicator"],
+    "category": "autoclave"
+  },
+  {
+    "rule_id": "lab_019",
+    "description": "Biosafety cabinet face velocity alarm active or airflow visibly inadequate (NSF 49 certification required annually)",
+    "severity": "critical",
+    "visual_signals": ["BSC alarm light illuminated on front panel indicating airflow failure", "BSC sash open beyond safe operating level with no alarm response", "smoke or visible aerosol escaping from BSC opening during use"],
+    "category": "biosafety_cabinet"
+  },
+  {
+    "rule_id": "lab_020",
+    "description": "Laser safety controls absent including warning signs, interlock doors, and protective eyewear (ANSI Z136)",
+    "severity": "critical",
+    "visual_signals": ["laser in use without Danger Laser warning sign on lab door", "laser lab door without interlock switch and warning light above entry", "laser protective eyewear storage rack empty or goggles not visible near laser setup"],
+    "category": "laser_safety"
+  },
+  {
+    "rule_id": "lab_021",
+    "description": "Laser beam path not fully enclosed or stray beam hazard present",
+    "severity": "high",
+    "visual_signals": ["open laser beam path without beam tube or enclosure", "reflective surface in laser beam path creating potential stray beam", "laser aperture aimed toward lab door or window without beam stop"],
+    "category": "laser_safety"
+  },
+  {
+    "rule_id": "lab_022",
+    "description": "Radiation safety controls missing including dosimeter storage, survey meters, and caution signage (NRC 10 CFR 20)",
+    "severity": "critical",
+    "visual_signals": ["radiation area entry without Caution Radioactive Materials sign", "dosimeter storage rack empty or badges not visible at lab entrance", "radiation survey meter absent from designated location near source"],
+    "category": "radiation_safety"
+  },
+  {
+    "rule_id": "lab_023",
+    "description": "Lead shielding for radioactive sources displaced, damaged, or inadequate",
+    "severity": "critical",
+    "visual_signals": ["lead brick shielding around source with visible gap or missing brick", "lead pig container left open with radioactive source exposed", "shielding barrier moved away from source storage location"],
+    "category": "radiation_safety"
+  },
+  {
+    "rule_id": "lab_024",
+    "description": "Cryogenic storage Dewars in poor condition or area lacking oxygen depletion monitoring",
+    "severity": "high",
+    "visual_signals": ["Dewar flask with heavy frost buildup indicating vacuum failure", "cryogenic storage room without oxygen depletion monitor on wall", "liquid nitrogen Dewar in small room with no low-oxygen alarm visible"],
+    "category": "cryogenic_safety"
+  },
+  {
+    "rule_id": "lab_025",
+    "description": "Cryogenic storage area lacking adequate ventilation for gas displacement hazard",
+    "severity": "high",
+    "visual_signals": ["multiple large Dewars in enclosed room with no ventilation louvers visible", "cryogenic freezer in closet-sized space without exhaust fan", "LN2 dispensing station without visible ventilation system"],
+    "category": "cryogenic_safety"
+  },
+  {
+    "rule_id": "lab_026",
+    "description": "Electrical safety violation in wet lab including missing GFCI or extension cord use",
+    "severity": "high",
+    "visual_signals": ["standard outlet without GFCI near lab sink or wet bench area", "extension cord used as permanent power source for lab equipment", "electrical cord with cracked insulation or exposed wires near water"],
+    "category": "electrical_safety"
+  },
+  {
+    "rule_id": "lab_027",
+    "description": "Chemical segregation storage map not posted near chemical storage areas",
+    "severity": "medium",
+    "visual_signals": ["chemical storage area wall without visible segregation chart or map", "chemical shelving with no color-coded or category-labeled zones", "storage room entrance without chemical inventory or compatibility guide"],
+    "category": "chemical_storage"
+  },
+  {
+    "rule_id": "lab_028",
+    "description": "PPE storage area contaminated or required protective equipment not available at point of use",
+    "severity": "medium",
+    "visual_signals": ["safety goggles storage bin empty at lab entrance", "face shields and goggles stored on bench next to chemical contamination", "lab coat hooks empty with no clean coats available at entry"],
+    "category": "ppe_compliance"
+  },
+  {
+    "rule_id": "lab_029",
+    "description": "Lab benchtop surface showing cracks, deep stains, or deterioration indicating inadequate decontamination",
+    "severity": "medium",
+    "visual_signals": ["bench surface with deep cracks allowing chemical absorption", "dark chemical staining penetrating benchtop surface material", "bench top with peeling or delaminating surface near chemical work area"],
+    "category": "decontamination"
+  },
+  {
+    "rule_id": "lab_030",
+    "description": "Gas cylinders in lab not properly restrained with regulator, valve cap, or leak detection provisions",
+    "severity": "high",
+    "visual_signals": ["gas cylinder connected to regulator but not chained to wall or bench", "cylinder without valve protection cap sitting in storage area", "gas cylinder without visible leak detection solution or snoop nearby"],
+    "category": "compressed_gas"
+  },
+  {
+    "rule_id": "lab_031",
+    "description": "Biohazard signage missing at BSL-rated lab entry or specimen transport containers not sealed",
+    "severity": "critical",
+    "visual_signals": ["lab entrance without biohazard warning sign or BSL level indicator", "specimen transport container with unsealed or cracked lid", "biohazard symbol sign missing from door of lab handling infectious agents"],
+    "category": "biosafety"
+  },
+  {
+    "rule_id": "lab_032",
+    "description": "Biological waste not properly contained in marked biohazard bags or containers",
+    "severity": "high",
+    "visual_signals": ["biological waste in regular trash container without biohazard bag", "biohazard waste bag overfull and not sealed at top", "biohazard waste container without foot-operated lid mechanism"],
+    "category": "biosafety"
+  },
+  {
+    "rule_id": "lab_033",
+    "description": "Fire extinguisher type not appropriate for laboratory hazards present in area",
+    "severity": "high",
+    "visual_signals": ["water-type extinguisher mounted near electrical equipment or solvent storage", "no CO2 extinguisher visible near electronics or instrument bench area", "single ABC extinguisher as only option near metal hydride or reactive chemical storage"],
+    "category": "fire_safety"
+  },
+  {
+    "rule_id": "lab_034",
+    "description": "Emergency shower not tested weekly or test tag not current (ANSI Z358.1)",
+    "severity": "high",
+    "visual_signals": ["emergency shower weekly test tag with no recent date entries", "shower pull handle corroded indicating long period without activation", "test record clipboard at shower station missing or blank"],
+    "category": "emergency_equipment"
+  },
+  {
+    "rule_id": "lab_035",
+    "description": "Laboratory chemical hygiene plan not posted or accessible in the lab (OSHA 1910.1450)",
+    "severity": "medium",
+    "visual_signals": ["chemical hygiene plan binder location empty on designated shelf", "no visible CHP reference document near chemical work areas", "faded or outdated chemical hygiene plan posted on wall with old revision date"],
+    "category": "documentation"
+  },
+  {
+    "rule_id": "lab_036",
+    "description": "Perchloric acid fume hood used without dedicated washdown system or used for incompatible chemicals",
+    "severity": "critical",
+    "visual_signals": ["perchloric acid work performed in standard fume hood without washdown", "perchloric acid hood used for organic solvent work", "white crystalline residue visible in hood ductwork from perchloric acid"],
+    "category": "fume_hood"
+  },
+  {
+    "rule_id": "lab_037",
+    "description": "Laboratory refrigerator or freezer used for chemical storage not rated for flammable storage",
+    "severity": "high",
+    "visual_signals": ["standard domestic refrigerator in lab storing flammable chemicals", "flammable solvents visible in refrigerator without explosion-proof rating label", "lab freezer without flammable storage rated sticker containing ether or volatile chemicals"],
+    "category": "chemical_storage"
   }
 ]

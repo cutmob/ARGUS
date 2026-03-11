@@ -31,7 +31,7 @@
     "rule_id": "cs_005",
     "description": "Racking uprights bent, beams deformed, or safety clips missing from forklift impact damage",
     "severity": "high",
-    "visual_signals": ["bent vertical rack column", "deformed horizontal beam", "scrape marks on rack base", "missing beam locking pins"],
+    "visual_signals": ["bent vertical rack column", "deformed horizontal beam", "missing beam locking pins"],
     "category": "racking_damage"
   },
   {
@@ -68,5 +68,145 @@
     "severity": "medium",
     "visual_signals": ["bare hands handling frozen product", "worker in short sleeves inside freezer", "missing insulated footwear"],
     "category": "ppe_compliance"
+  },
+  {
+    "rule_id": "cs_011",
+    "description": "Ammonia leak detector missing, improperly positioned, or showing alert status in refrigeration machinery room",
+    "severity": "critical",
+    "visual_signals": ["empty mounting bracket where ammonia detector should be installed", "ammonia detector display showing alarm or fault code", "detector positioned above head height away from likely leak points"],
+    "category": "ammonia_safety"
+  },
+  {
+    "rule_id": "cs_012",
+    "description": "Ammonia refrigeration PPE station missing, incomplete, or obstructed near machinery room entrance",
+    "severity": "critical",
+    "visual_signals": ["empty PPE cabinet or missing SCBA unit at machinery room door", "ammonia PPE station blocked by stored materials", "expired or damaged full-face respirator in ammonia PPE cabinet"],
+    "category": "ammonia_safety"
+  },
+  {
+    "rule_id": "cs_013",
+    "description": "Visual indicators of ammonia leak such as frost plume, oil residue at pipe fittings, or pungent odor warning signage activated",
+    "severity": "critical",
+    "visual_signals": ["white frost plume or vapor cloud near refrigeration piping", "oily residue at pipe joints or valve packing glands", "ammonia warning beacon or strobe light activated on machinery room exterior"],
+    "category": "ammonia_safety"
+  },
+  {
+    "rule_id": "cs_014",
+    "description": "Evaporator coil shows excessive ice buildup indicating defrost cycle failure or door seal compromise",
+    "severity": "high",
+    "visual_signals": ["thick ice encasing evaporator coil fins", "icicles hanging from evaporator unit housing", "frost completely blocking evaporator air intake grille"],
+    "category": "evaporator_condition"
+  },
+  {
+    "rule_id": "cs_015",
+    "description": "Evaporator drain pan overflowing or drain line frozen causing water or ice accumulation below unit",
+    "severity": "high",
+    "visual_signals": ["water dripping from evaporator housing onto stored product", "ice mound formed beneath evaporator drain point", "drain pan visibly full with water spilling over edges"],
+    "category": "evaporator_condition"
+  },
+  {
+    "rule_id": "cs_016",
+    "description": "Floor drains frozen, clogged, or in unsanitary condition preventing proper drainage in cold storage areas",
+    "severity": "medium",
+    "visual_signals": ["ice cap covering floor drain grate", "standing water pooled around clogged drain", "discolored or slimy buildup around drain opening"],
+    "category": "floor_drain"
+  },
+  {
+    "rule_id": "cs_017",
+    "description": "Forklift battery charging room near cold storage lacking proper heating, ventilation, or hydrogen gas monitoring",
+    "severity": "high",
+    "visual_signals": ["frost or condensation on battery charger units in unheated room", "no visible exhaust ventilation in battery charging enclosure", "missing hydrogen gas detector in enclosed charging area"],
+    "category": "battery_charging"
+  },
+  {
+    "rule_id": "cs_018",
+    "description": "Anti-slip floor coating worn, peeling, or traction tape deteriorated in cold storage traffic areas",
+    "severity": "high",
+    "visual_signals": ["smooth bare concrete exposed where anti-slip coating has worn away", "peeling or bubbling floor coating in freezer traffic lanes", "traction tape strips curled, torn, or missing from walking surfaces"],
+    "category": "slip_hazard"
+  },
+  {
+    "rule_id": "cs_019",
+    "description": "Condensation management failure with fogged door glass, sweating walls, or non-functional anti-sweat heaters on door frames",
+    "severity": "medium",
+    "visual_signals": ["heavy condensation or fog on cold storage door glass obscuring view", "water streaming down walls near cold-warm boundary", "frost formation on door frame indicating anti-sweat heater failure"],
+    "category": "condensation_management"
+  },
+  {
+    "rule_id": "cs_020",
+    "description": "Product rotation non-compliance with missing or illegible FIFO labels, date codes, or lot tracking markers",
+    "severity": "high",
+    "visual_signals": ["pallets lacking visible date labels or FIFO rotation tags", "older date-coded product stacked behind newer product", "illegible or frost-obscured lot tracking labels on stored items"],
+    "category": "product_rotation"
+  },
+  {
+    "rule_id": "cs_021",
+    "description": "Blast freezer door interlock missing or bypassed and personnel entrapment prevention system non-functional",
+    "severity": "critical",
+    "visual_signals": ["blast freezer door interlock switch wired in bypass position", "missing interior emergency alarm pull station inside blast freezer", "no interior release handle or panic hardware visible on blast freezer door"],
+    "category": "blast_freezer"
+  },
+  {
+    "rule_id": "cs_022",
+    "description": "Blast freezer timer display non-functional or cycle indicator missing preventing personnel awareness of active freeze cycles",
+    "severity": "high",
+    "visual_signals": ["blank or non-functional timer display on blast freezer control panel", "no exterior running indicator showing active freeze cycle in progress", "missing warning beacon or status light at blast freezer entry"],
+    "category": "blast_freezer"
+  },
+  {
+    "rule_id": "cs_023",
+    "description": "Insulated panel integrity compromised with dents, delamination, moisture staining, or exposed foam indicating thermal breach",
+    "severity": "high",
+    "visual_signals": ["dented or punctured insulated metal panel on cold storage wall", "panel joint separation with visible foam insulation exposed", "brown moisture staining or bubbling paint on panel surface indicating infiltration"],
+    "category": "panel_integrity"
+  },
+  {
+    "rule_id": "cs_024",
+    "description": "Fire protection system in cold storage showing dry sprinkler heads with corrosion, missing escutcheons, or non-functional indicators",
+    "severity": "critical",
+    "visual_signals": ["corroded or ice-encrusted dry sprinkler heads in freezer space", "missing escutcheon plate around sprinkler penetration through insulated panel", "dry system air pressure gauge reading zero or in alarm range"],
+    "category": "fire_protection"
+  },
+  {
+    "rule_id": "cs_025",
+    "description": "Cold storage dock interface lacking strip curtains, dock shelter seal, or temperature transition barriers allowing thermal break",
+    "severity": "high",
+    "visual_signals": ["missing or torn strip curtain panels at cold storage dock opening", "large gap between dock shelter and trailer allowing warm air entry", "fog or condensation plume visible at unprotected dock-to-cold-storage transition"],
+    "category": "dock_interface"
+  },
+  {
+    "rule_id": "cs_026",
+    "description": "Oxygen monitoring equipment missing or non-functional in spaces using CO2 or nitrogen for atmosphere control",
+    "severity": "critical",
+    "visual_signals": ["no oxygen monitor visible at entrance to controlled atmosphere room", "oxygen monitor displaying fault code or blank screen", "missing low-oxygen warning signage at entrance to spaces with inert gas systems"],
+    "category": "respiratory_protection"
+  },
+  {
+    "rule_id": "cs_027",
+    "description": "LP-powered forklift operating in enclosed cold storage space without adequate ventilation or catalytic converter",
+    "severity": "critical",
+    "visual_signals": ["propane-powered forklift visible inside enclosed cold storage room", "exhaust haze or fumes visible in cold storage air", "LP forklift with missing or damaged catalytic converter operating indoors"],
+    "category": "forklift_exhaust"
+  },
+  {
+    "rule_id": "cs_028",
+    "description": "Lone worker protocol deficiencies with no buddy system indicators, missing personal alarm devices, or absent communication equipment in cold storage",
+    "severity": "high",
+    "visual_signals": ["single worker inside cold storage with no communication device visible", "empty personal alarm device charging station near cold storage entry", "missing sign-in/sign-out log board at cold storage entrance"],
+    "category": "lone_worker"
+  },
+  {
+    "rule_id": "cs_029",
+    "description": "Electrical equipment in cold storage not rated for low temperature environment with visible condensation ingress or missing weatherproof covers",
+    "severity": "high",
+    "visual_signals": ["open electrical junction box with condensation droplets on wiring inside cold storage", "standard non-rated outlet or switch plate showing frost or moisture in freezer", "missing gasket or cover on electrical panel in temperature transition zone"],
+    "category": "electrical_equipment"
+  },
+  {
+    "rule_id": "cs_030",
+    "description": "IIAR compliance signage missing from ammonia refrigeration machinery room including pipe labeling, emergency contacts, and hazard identification",
+    "severity": "high",
+    "visual_signals": ["ammonia piping without color-coded labels indicating liquid, vapor, or pressure levels", "missing IIAR emergency procedure placard at machinery room entrance", "no emergency contact information posted at ammonia refrigeration equipment area"],
+    "category": "ammonia_safety"
   }
 ]

@@ -180,5 +180,292 @@
     "severity": "critical",
     "visual_signals": ["chain and padlock on exit door", "equipment blocking exterior exit path", "exit door handle secured with zip tie", "pallet stacked against exterior egress door"],
     "category": "exterior"
+  },
+  {
+    "rule_id": "hc_027",
+    "description": "Medication refrigerator lacking a visible temperature monitoring log or displaying an out-of-range temperature reading",
+    "severity": "high",
+    "visual_signals": ["medication refrigerator with no temperature log posted", "digital thermometer on medication fridge showing out-of-range value", "blank or outdated temperature recording sheet on refrigerator door"],
+    "category": "medication_storage"
+  },
+  {
+    "rule_id": "hc_028",
+    "description": "Narcotics cabinet or controlled substance storage found unlocked, with door ajar, or missing required dual-lock mechanism",
+    "severity": "critical",
+    "visual_signals": ["narcotics cabinet door standing open with no staff present", "controlled substance drawer ajar on medication cart", "broken or missing lock on narcotics storage compartment"],
+    "category": "medication_storage"
+  },
+  {
+    "rule_id": "hc_029",
+    "description": "Expired medications visible on shelving, in carts, or in automated dispensing machines past their use-by date",
+    "severity": "high",
+    "visual_signals": ["medication vial with expired date label visible on shelf", "blister pack showing past-due date in medication bin", "outdated medication sticker visible in dispensing cabinet tray"],
+    "category": "medication_storage"
+  },
+  {
+    "rule_id": "hc_030",
+    "description": "Multi-dose medication vial lacking a beyond-use date label after initial puncture per USP standards",
+    "severity": "medium",
+    "visual_signals": ["opened multi-dose vial with no date written on label", "punctured medication vial missing beyond-use date sticker", "multi-dose vial with visible needle puncture marks and no dating"],
+    "category": "medication_storage"
+  },
+  {
+    "rule_id": "hc_031",
+    "description": "Patient bed missing functional side rails in the raised position or bed alarm system not activated for fall-risk patient",
+    "severity": "high",
+    "visual_signals": ["hospital bed with side rails in the fully lowered position and fall-risk band on patient", "bed alarm indicator light showing off or disabled status", "bed exit alarm module unplugged or disconnected from bed frame"],
+    "category": "fall_prevention"
+  },
+  {
+    "rule_id": "hc_032",
+    "description": "Non-slip flooring absent or floor surface visibly wet without caution signage in patient care or ambulation areas",
+    "severity": "high",
+    "visual_signals": ["wet glossy floor surface near patient room without wet floor sign", "smooth tile flooring in patient bathroom without non-slip mat or texture", "water puddle in corridor near patient area with no caution cone"],
+    "category": "fall_prevention"
+  },
+  {
+    "rule_id": "hc_033",
+    "description": "Call light or nurse call device not within patient reach from the bed or toilet, preventing the patient from summoning help",
+    "severity": "high",
+    "visual_signals": ["nurse call cord dangling out of patient reach behind bed", "call button clipped to far side rail away from patient", "no visible call device within arm's reach at patient bedside"],
+    "category": "fall_prevention"
+  },
+  {
+    "rule_id": "hc_034",
+    "description": "Airborne infection isolation room negative pressure monitor showing positive or neutral pressure, or indicator absent from outside the door",
+    "severity": "critical",
+    "visual_signals": ["pressure monitor ball or flag outside isolation room not indicating negative airflow", "digital pressure display at isolation room door reading zero or positive value", "missing or blank negative pressure indicator device outside isolation room door"],
+    "category": "isolation"
+  },
+  {
+    "rule_id": "hc_035",
+    "description": "PPE station outside airborne or contact isolation room missing required items such as gowns, gloves, masks, or face shields",
+    "severity": "high",
+    "visual_signals": ["empty PPE dispensing cart or rack outside isolation room door", "isolation PPE station with depleted glove box and no gowns visible", "bare wall hooks outside isolation room where gown and mask dispensers should be mounted"],
+    "category": "isolation"
+  },
+  {
+    "rule_id": "hc_036",
+    "description": "Isolation precaution signage missing from the door of a room with active isolation status, preventing proper PPE donning by entrants",
+    "severity": "high",
+    "visual_signals": ["isolation room door with no colored precaution sign posted", "contact isolation room lacking the required yellow or purple signage placard", "airborne isolation door without the red or magenta respiratory precaution sign"],
+    "category": "isolation"
+  },
+  {
+    "rule_id": "hc_037",
+    "description": "Medical gas zone valve box obstructed, inaccessible, or lacking required labeling identifying the zone it controls",
+    "severity": "high",
+    "visual_signals": ["equipment or storage cart blocking wall-mounted zone valve box", "zone valve box with missing or illegible label plate", "zone valve access panel obscured behind furniture or shelving unit"],
+    "category": "medical_gas"
+  },
+  {
+    "rule_id": "hc_038",
+    "description": "Compressed gas cylinders stored in clinical areas without proper segregation of full and empty cylinders or mixed gas types stored together",
+    "severity": "high",
+    "visual_signals": ["full and empty gas cylinders mixed together on same rack without separation", "oxygen and nitrous oxide cylinders stored side by side without required spacing", "cylinders lacking full or empty status tags in storage area"],
+    "category": "medical_gas"
+  },
+  {
+    "rule_id": "hc_039",
+    "description": "Medical gas cylinder regulator or flowmeter showing visible damage, missing protective cap during storage, or leaking audibly",
+    "severity": "high",
+    "visual_signals": ["cylinder with missing valve protection cap during transport or storage", "bent or cracked regulator gauge face on gas cylinder", "green oxidation or debris around cylinder valve connection fitting"],
+    "category": "medical_gas"
+  },
+  {
+    "rule_id": "hc_040",
+    "description": "Surgical suite restricted area entered without proper surgical attire or traffic pattern controls not enforced at the OR suite boundary",
+    "severity": "high",
+    "visual_signals": ["person in street clothes visible inside surgical restricted corridor", "OR suite entry doors propped open without staff controlling access", "missing red line or signage demarcating restricted surgical zone boundary"],
+    "category": "surgical_safety"
+  },
+  {
+    "rule_id": "hc_041",
+    "description": "Sterile supply packaging compromised, torn, or wet, indicating loss of sterile barrier integrity in the surgical suite or sterile storage",
+    "severity": "critical",
+    "visual_signals": ["torn or punctured sterile instrument peel pouch on supply shelf", "wet or stained sterile pack wrapper in surgical storage area", "sterile tray wrap with broken seal indicator tape visible"],
+    "category": "surgical_safety"
+  },
+  {
+    "rule_id": "hc_042",
+    "description": "Regulated medical waste and general waste not properly segregated in surgical or procedural areas, with wrong waste placed in incorrect receptacle",
+    "severity": "high",
+    "visual_signals": ["regular trash visible inside red biohazard waste container", "bloody gauze or surgical waste in general waste bin without red liner", "sharps or needles disposed in regular trash can instead of sharps container"],
+    "category": "surgical_safety"
+  },
+  {
+    "rule_id": "hc_043",
+    "description": "Infant security band or electronic abduction prevention tag missing from newborn in maternity or NICU area",
+    "severity": "critical",
+    "visual_signals": ["infant in bassinette without visible security ankle or wrist band", "disconnected or loose electronic security tag on newborn", "empty security band clasp on infant limb indicating tag removal"],
+    "category": "infant_security"
+  },
+  {
+    "rule_id": "hc_044",
+    "description": "NICU or nursery access control defeated by propped-open door, non-functional badge reader, or missing staff verification at entry point",
+    "severity": "critical",
+    "visual_signals": ["NICU entry door propped open with wedge or equipment", "badge reader at nursery door showing fault light or powered off", "nursery entrance with no staff present and door in unlocked position"],
+    "category": "infant_security"
+  },
+  {
+    "rule_id": "hc_045",
+    "description": "Emergency generator weekly test log missing, outdated, or generator room showing evidence of deferred maintenance",
+    "severity": "high",
+    "visual_signals": ["generator room log sheet with gaps in weekly test entries", "blank or missing generator test log on clipboard near unit", "generator with visible oil leak stain on floor beneath engine block"],
+    "category": "utility_systems"
+  },
+  {
+    "rule_id": "hc_046",
+    "description": "Medical air compressor room showing contamination risk from improper intake location, dirty filters, or oil-lubricated compressor used for breathing air",
+    "severity": "high",
+    "visual_signals": ["dirty or discolored air intake filter on medical air compressor", "medical air compressor room with open containers of chemicals or solvents nearby", "oil residue or staining visible around medical air compressor fittings"],
+    "category": "utility_systems"
+  },
+  {
+    "rule_id": "hc_047",
+    "description": "Transfer switch or automatic transfer switch showing alarm condition, not in automatic mode, or with deferred maintenance tags",
+    "severity": "high",
+    "visual_signals": ["transfer switch panel displaying fault or alarm indicator light", "ATS control switch set to manual or test position instead of automatic", "expired maintenance tag hanging from transfer switch handle"],
+    "category": "utility_systems"
+  },
+  {
+    "rule_id": "hc_048",
+    "description": "Ligature-resistant fixture replaced with standard hardware or ligature risk point identified in behavioral health patient care area",
+    "severity": "critical",
+    "visual_signals": ["standard door lever handle in behavioral health unit patient room", "exposed shower head or rod that could support a ligature in behavioral health bathroom", "standard coat hook or towel bar mounted on wall in behavioral health room"],
+    "category": "behavioral_health"
+  },
+  {
+    "rule_id": "hc_049",
+    "description": "Door in behavioral health unit lacking anti-barricade hinges or continuous hinges allowing patient to barricade room",
+    "severity": "critical",
+    "visual_signals": ["standard butt hinges on behavioral health patient room door", "door in behavioral health unit that swings only inward without anti-barricade feature", "missing continuous hinge on behavioral health bathroom door"],
+    "category": "behavioral_health"
+  },
+  {
+    "rule_id": "hc_050",
+    "description": "Breakaway ceiling tile or grid system not installed in behavioral health area, presenting overhead ligature point",
+    "severity": "critical",
+    "visual_signals": ["standard suspended ceiling grid in behavioral health patient room", "non-breakaway ceiling tile system in behavioral health unit", "heavy-duty ceiling grid that would support weight in behavioral health area"],
+    "category": "behavioral_health"
+  },
+  {
+    "rule_id": "hc_051",
+    "description": "Clinical alarm on patient monitoring equipment silenced or disabled without visual indicator showing staff awareness, per Joint Commission NPSG.06.01.01",
+    "severity": "high",
+    "visual_signals": ["patient monitor displaying alarm-silenced icon with no staff at bedside", "cardiac monitor with alarm volume indicator showing muted status", "telemetry station with multiple alarm-off indicators visible on screen"],
+    "category": "alarm_management"
+  },
+  {
+    "rule_id": "hc_052",
+    "description": "Physiological monitor in patient care area showing visible damage, cracked screen, or disconnected leads while assigned to a patient",
+    "severity": "high",
+    "visual_signals": ["patient monitor with cracked or spider-webbed display screen", "cardiac monitor with frayed or exposed lead wire insulation", "bedside monitor with taped-together cable connector at patient connection"],
+    "category": "alarm_management"
+  },
+  {
+    "rule_id": "hc_053",
+    "description": "Protected health information visible on unattended computer screen, printed document, or patient chart in public or semi-public area, violating HIPAA privacy requirements",
+    "severity": "high",
+    "visual_signals": ["computer screen at nurses station displaying patient record with no staff present", "printed patient face sheet or medication list left on counter in open area", "patient chart or label with name and medical record number visible on unattended desk"],
+    "category": "patient_privacy"
+  },
+  {
+    "rule_id": "hc_054",
+    "description": "Computer workstation in patient care area left logged in and unattended without privacy screen or automatic timeout engaged",
+    "severity": "medium",
+    "visual_signals": ["workstation on wheels in hallway showing active login session with no user present", "desktop computer at open nursing station displaying EMR without privacy filter", "unattended tablet or laptop on counter showing patient data without screen lock"],
+    "category": "patient_privacy"
+  },
+  {
+    "rule_id": "hc_055",
+    "description": "Sterile processing instrument packaging showing compromised chemical indicator, wet pack, or missing biological indicator log per AAMI ST79",
+    "severity": "high",
+    "visual_signals": ["sterilization indicator tape on instrument tray not showing complete color change", "wrapped instrument set with visible moisture or water stain on packaging", "biological indicator log sheet at sterile processing area with missing or overdue entries"],
+    "category": "sterile_processing"
+  },
+  {
+    "rule_id": "hc_056",
+    "description": "Sterile instruments stored in area with compromised environmental conditions including excessive humidity, dust, or proximity to contaminated items",
+    "severity": "high",
+    "visual_signals": ["sterile packs stored on open shelving near soiled utility room", "dust accumulation visible on sterile supply packaging", "sterile storage area with visible water stain or condensation on ceiling above sterile supplies"],
+    "category": "sterile_processing"
+  },
+  {
+    "rule_id": "hc_057",
+    "description": "Compressed gas cylinder storage area in clinical space lacking proper ventilation, signage, or exceeding maximum quantity allowed outside a designated storage room",
+    "severity": "high",
+    "visual_signals": ["more than twelve full-size cylinders grouped in clinical alcove without proper storage room designation", "compressed gas storage area lacking required warning signage on wall or door", "gas cylinders stored in enclosed space without visible ventilation grille or exhaust"],
+    "category": "medical_gas"
+  },
+  {
+    "rule_id": "hc_058",
+    "description": "ADA-required accessible features missing or non-functional in patient care areas including doorway width, signage, or accessible controls",
+    "severity": "medium",
+    "visual_signals": ["patient care area door too narrow for wheelchair passage without required clearance", "missing Braille or tactile signage at patient room entrance", "paper towel dispenser or hand sanitizer mounted above ADA-accessible reach height range"],
+    "category": "ada_compliance"
+  },
+  {
+    "rule_id": "hc_059",
+    "description": "Accessible toilet or shower in patient area lacking required clearances, grab bar configuration, or accessible controls per ADA and Joint Commission standards",
+    "severity": "medium",
+    "visual_signals": ["patient bathroom with grab bars mounted at incorrect height or configuration", "accessible shower lacking fold-down seat or hand-held shower head", "toilet in accessible bathroom without required side and rear grab bars"],
+    "category": "ada_compliance"
+  },
+  {
+    "rule_id": "hc_060",
+    "description": "Evacuation chair missing from designated stairwell location or stairwell lacking required signage for areas of refuge",
+    "severity": "high",
+    "visual_signals": ["empty evacuation chair storage bracket in stairwell landing", "stairwell door lacking area of refuge signage or two-way communication device", "stairwell landing with no visible evacuation equipment where wall bracket is mounted"],
+    "category": "disaster_preparedness"
+  },
+  {
+    "rule_id": "hc_061",
+    "description": "Decontamination equipment and supplies not staged or accessible at designated location for hazmat or mass casualty incident response",
+    "severity": "medium",
+    "visual_signals": ["decontamination supply cabinet empty or lock broken at emergency department staging area", "portable decontamination shower unit visibly deflated or damaged in storage", "missing decontamination supply inventory checklist at designated staging location"],
+    "category": "disaster_preparedness"
+  },
+  {
+    "rule_id": "hc_062",
+    "description": "Smoke detector in patient care area showing fault indicator, physical damage, or painted-over sensing element reducing detection capability",
+    "severity": "critical",
+    "visual_signals": ["smoke detector on corridor ceiling with blinking amber fault light", "smoke detector housing visibly painted over obscuring sensor openings", "damaged smoke detector with cracked or missing cover in patient area"],
+    "category": "fire_safety"
+  },
+  {
+    "rule_id": "hc_063",
+    "description": "Hand hygiene station lacking soap, paper towels, or alcohol-based hand rub at point of care, compromising infection prevention per CMS CoP",
+    "severity": "high",
+    "visual_signals": ["empty soap dispenser at hand wash sink in patient care area", "hand hygiene station with depleted paper towel holder", "wall-mounted hand rub dispenser with empty cartridge in clinical corridor"],
+    "category": "infection_control"
+  },
+  {
+    "rule_id": "hc_064",
+    "description": "Soiled linen or contaminated materials stored or transported in a manner allowing contact with clean supplies, surfaces, or patient areas",
+    "severity": "high",
+    "visual_signals": ["soiled linen hamper overflowing into corridor near clean supply cart", "contaminated linen bag placed on top of clean supply shelf", "uncovered soiled utility cart in corridor adjacent to patient rooms"],
+    "category": "infection_control"
+  },
+  {
+    "rule_id": "hc_065",
+    "description": "Eyewash station or safety shower blocked, not inspected per schedule, or showing visible contamination in the basin or nozzle",
+    "severity": "high",
+    "visual_signals": ["eyewash station with green algae or sediment visible in bowl", "equipment blocking access to wall-mounted eyewash unit", "eyewash weekly inspection tag with overdue or missing entries"],
+    "category": "mechanical"
+  },
+  {
+    "rule_id": "hc_066",
+    "description": "Medical equipment with expired or missing biomedical engineering inspection sticker indicating device has not been safety-tested on schedule",
+    "severity": "medium",
+    "visual_signals": ["patient care device with expired biomed inspection sticker showing past-due date", "medical equipment without any biomedical engineering inspection label", "infusion pump with biomed sticker showing failed or conditional status"],
+    "category": "patient_rooms"
+  },
+  {
+    "rule_id": "hc_067",
+    "description": "Hazardous chemical spill kit missing from required location or spill kit cabinet showing depleted or expired contents",
+    "severity": "medium",
+    "visual_signals": ["empty spill kit cabinet in laboratory or pharmacy area", "spill kit bag with broken seal and missing absorbent materials", "spill response station with no visible kit where wall sign indicates one should be"],
+    "category": "mechanical"
   }
 ]
