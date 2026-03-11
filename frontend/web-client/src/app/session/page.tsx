@@ -22,11 +22,11 @@ export default function SessionPage() {
   const { context, detecting } = useCameraContext();
   const [manualContext, setManualContext] = useState<CameraContext | null>(null);
 
+  // Wake word only starts — never stops. Stops require an explicit voice command
+  // ("stop", "end") so that saying "argus" during an active session doesn't
+  // accidentally interrupt it (e.g. "argus, what do you see?").
   const handleWake = useCallback(() => {
-    if (session.isInspecting) {
-      session.stopInspection();
-      speakResponse("Inspection stopped.");
-    } else {
+    if (!session.isInspecting) {
       session.startInspection(inspectionMode);
       speakResponse("On it.");
     }

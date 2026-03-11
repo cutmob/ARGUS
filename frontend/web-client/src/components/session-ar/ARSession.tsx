@@ -112,8 +112,10 @@ export function ARSession({ session, mode }: ARSessionProps) {
         session.generateReport();
         speakResponse("Generating report.");
       } else if (t.includes("overlay") || t.includes("show") || t.includes("hide")) {
-        setOverlaysVisible((v) => !v);
-        speakResponse(overlaysVisible ? "Overlays hidden." : "Overlays visible.");
+        setOverlaysVisible((v) => {
+          speakResponse(v ? "Overlays hidden." : "Overlays visible.");
+          return !v;
+        });
       } else if (t.includes("light") || t.includes("bright")) {
         setGlassMode("light");
         speakResponse("Light glass.");

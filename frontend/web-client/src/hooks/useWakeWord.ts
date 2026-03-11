@@ -49,17 +49,33 @@ export function useWakeWord({
     recognition.maxAlternatives = 1;
 
     let fired = false; // debounce — fire once per utterance
+    let wakeTimer: ReturnType<typeof setTimeout> | null = null;
     const target = word.toLowerCase();
+    // These words following the wake word indicate a command — don't activate,
+    // let the voice-command handler deal with it instead.
+    const STOP_WORDS = ["stop", "end", "cancel", "abort", "halt"];
 
     recognition.onresult = (event) => {
       for (let i = event.resultIndex; i < event.results.length; i++) {
         const transcript = event.results[i][0].transcript.toLowerCase();
+        const isFinal    = event.results[i].isFinal;
+
         if (!fired && transcript.includes(target)) {
-          fired = true;
-          onWakeRef.current();
+          // Wait briefly for the final result so we can check for stop words
+          if (wakeTimer) clearTimeout(wakeTimer);
+          wakeTimer = setTimeout(() => {
+            if (!fired && !STOP_WORDS.some((w) => transcript.includes(w))) {
+              fired = true;
+              onWakeRef.current();
+            }
+            wakeTimer = null;
+          }, isFinal ? 0 : 600);
         }
-        // Reset debounce when utterance finalises
-        if (event.results[i].isFinal) fired = false;
+
+        if (isFinal) {
+          fired = false;
+          if (wakeTimer) { clearTimeout(wakeTimer); wakeTimer = null; }
+        }
       }
     };
 
