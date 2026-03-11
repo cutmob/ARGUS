@@ -5,6 +5,7 @@ import { useVoiceCommands } from "@/hooks/useVoiceCommands";
 import { speakResponse } from "@/lib/tts";
 import { ArgusIndicator } from "@/components/ArgusIndicator";
 import { HazardOverlay, type GlassMode } from "@/components/HazardOverlay";
+import { INSPECTION_MODES } from "@/lib/modes";
 import type { Hazard, Overlay } from "@/lib/types";
 
 interface ARSessionProps {
@@ -20,8 +21,10 @@ interface ARSessionProps {
     startInspection: (mode: string) => void;
     stopInspection: () => void;
     generateReport: () => void;
+    clearHazards: () => void;
   };
   mode: string;
+  onModeChange: (mode: string) => void;
 }
 
 /**
@@ -32,11 +35,20 @@ interface ARSessionProps {
  * The only visual element is a tiny ARGUS indicator in the top-left corner
  * that appears when processing or speaking, and vanishes when idle.
  */
-export function ARSession({ session, mode }: ARSessionProps) {
+export function ARSession({ session, mode, onModeChange }: ARSessionProps) {
   const videoRef  = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [overlaysVisible, setOverlaysVisible] = useState(false);
   const [glassMode, setGlassMode] = useState<GlassMode>("dark");
+  const [ttsEnabled, setTtsEnabled] = useState(true);
+  const ttsEnabledRef = useRef(true);
+  ttsEnabledRef.current = ttsEnabled;
+
+  // Wrapped speak — respects mute state
+  const speak = useCallback((text: string, onEnd?: () => void) => {
+    if (ttsEnabledRef.current) speakResponse(text, onEnd);
+    else onEnd?.();
+  }, []);
 
   const indicatorState = session.speaking
     ? "speaking"
@@ -102,34 +114,86 @@ export function ARSession({ session, mode }: ARSessionProps) {
   const handleVoiceCommand = useCallback(
     (transcript: string) => {
       const t = transcript.toLowerCase();
+
+      // ── Inspection control ──────────────────────────────────────
       if (t.includes("inspect") || t.includes("start")) {
         session.startInspection(mode);
-        speakResponse("On it.");
-      } else if (t.includes("stop")) {
+        speak("On it.");
+
+      } else if (t.includes("stop") || t.includes("end")) {
         session.stopInspection();
-        speakResponse("Stopped.");
+        speak("Stopped.");
+
       } else if (t.includes("report")) {
         session.generateReport();
-        speakResponse("Generating report.");
+        speak("Generating report.");
+
+      } else if (t.includes("status") || t.includes("how many") || t.includes("what's the")) {
+        const n = session.hazards.length;
+        speak(`${n} hazard${n !== 1 ? "s" : ""} detected. Risk level ${session.riskLevel}.`);
+
+      // ── Clear / reset log ────────────────────────────────────────
+      // Accepts: "clear", "reset", "clear log", "reset log", "clear hazards",
+      //          "reset logging", "start fresh", "wipe", etc.
+      } else if (
+        t.includes("clear") || t.includes("reset") ||
+        t.includes("wipe")  || t.includes("fresh")
+      ) {
+        session.clearHazards();
+        speak("Cleared.");
+
+      // ── Describe / what do you see ───────────────────────────────
+      // Summarises current hazards from local state — no extra backend call
+      } else if (
+        t.includes("describe") || t.includes("what do you see") ||
+        t.includes("what's there") || t.includes("what can you see") ||
+        t.includes("look") || t.includes("analyse") || t.includes("analyze") ||
+        t.includes("summary") || t.includes("summarise") || t.includes("summarize")
+      ) {
+        if (session.hazards.length === 0) {
+          speak("No hazards detected yet.");
+        } else {
+          const top = session.hazards.slice(0, 3);
+          const summary = top.map((h) => h.description).join(". ");
+          speak(`${session.hazards.length} hazard${session.hazards.length !== 1 ? "s" : ""}. ${summary}`);
+        }
+
+      // ── Mode switching ───────────────────────────────────────────
+      // "switch to electrical", "change to kitchen mode", "elevator", etc.
+      } else if (t.includes("switch") || t.includes("change") || t.includes("mode")) {
+        const matched = INSPECTION_MODES.find((m) => t.includes(m) || t.includes(m.replace("-", " ")));
+        if (matched) {
+          onModeChange(matched);
+          speak(`Switching to ${matched}.`);
+        }
+
+      // ── Overlays ─────────────────────────────────────────────────
       } else if (t.includes("overlay") || t.includes("show") || t.includes("hide")) {
         setOverlaysVisible((v) => {
-          speakResponse(v ? "Overlays hidden." : "Overlays visible.");
+          speak(v ? "Overlays hidden." : "Overlays visible.");
           return !v;
         });
+
       } else if (t.includes("light") || t.includes("bright")) {
         setGlassMode("light");
-        speakResponse("Light glass.");
+        speak("Light glass.");
+
       } else if (t.includes("dark")) {
         setGlassMode("dark");
-        speakResponse("Dark glass.");
-      } else if (t.includes("status")) {
-        const n = session.hazards.length;
-        speakResponse(
-          `${n} hazard${n !== 1 ? "s" : ""} detected. Risk level ${session.riskLevel}.`
-        );
+        speak("Dark glass.");
+
+      // ── Mute / unmute ────────────────────────────────────────────
+      } else if (t.includes("mute") && !t.includes("unmute")) {
+        window.speechSynthesis?.cancel();
+        setTtsEnabled(false);
+        // Can't speak confirmation when muting — just cancel
+
+      } else if (t.includes("unmute") || t.includes("sound on") || t.includes("voice on")) {
+        setTtsEnabled(true);
+        speakResponse("Voice on."); // bypass mute check intentionally
       }
     },
-    [session, mode]
+    [session, mode, onModeChange, speak]
   );
 
   useVoiceCommands({ onCommand: handleVoiceCommand, enabled: true });

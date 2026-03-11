@@ -88,7 +88,7 @@ export default function SessionPage() {
   }
 
   if (activeContext === "ar") {
-    return <ARSession session={session} mode={inspectionMode} />;
+    return <ARSession session={session} mode={inspectionMode} onModeChange={handleModeChange} />;
   }
 
   // Default: CCTV / desktop

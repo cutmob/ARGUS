@@ -191,6 +191,12 @@ export function useArgusSession() {
     sendCommand("generate_report", { format: "json" });
   }, [sendCommand]);
 
+  const clearHazards = useCallback(() => {
+    setHazards([]);
+    setOverlays([]);
+    setRiskLevel("low");
+  }, []);
+
   const resetAuth = useCallback(() => {
     setUnauthorized(false);
     connect();
@@ -211,6 +217,7 @@ export function useArgusSession() {
     stopInspection,
     switchMode,
     generateReport,
+    clearHazards,
     resetAuth,
   };
 }

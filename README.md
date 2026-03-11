@@ -72,14 +72,31 @@ ARGUS is designed to be fully voice-controlled. All commands work in AR and Smar
 
 The wake word activates ARGUS. If the word "stop", "end", "cancel", "abort", or "halt" appears in the same utterance, activation is suppressed so follow-on commands are handled cleanly.
 
+Commands are matched loosely — partial phrases work. "stop", "end", "end inspection", "please stop" all stop an inspection.
+
 ### Inspection control
 
 | Phrase | Action |
 |---|---|
 | "inspect" / "start" | Start inspection |
-| "stop" / "end inspection" | Stop inspection |
+| "stop" / "end" | Stop inspection |
 | "report" | Generate inspection report |
-| "status" | Speak hazard count and current risk level |
+| "status" / "how many" / "what's the…" | Speak hazard count and current risk level |
+| "describe" / "what do you see" / "summary" / "analyse" / "look" | Speak a summary of current detected hazards |
+
+### Clear / reset
+
+| Phrase | Action |
+|---|---|
+| "clear" / "reset" / "clear log" / "reset log" / "clear hazards" / "wipe" / "start fresh" | Clear all detected hazards and reset risk level |
+
+### Mode switching (AR only)
+
+| Phrase | Action |
+|---|---|
+| "switch to electrical" / "change to kitchen" / "elevator mode" / "elevator" | Switch inspection module mid-session |
+
+Any module name works: `construction` · `facility` · `warehouse` · `manufacturing` · `electrical` · `kitchen` · `healthcare` · `refinery` · `laboratory` · `office` · `retail` · `hotel` · `school` · `datacenter` · `parking` · `elevator` · `loading dock` · `cold storage` · `rooftop` · `fleet`
 
 ### Overlays
 
@@ -88,6 +105,13 @@ The wake word activates ARGUS. If the word "stop", "end", "cancel", "abort", or 
 | "overlay" / "show" / "hide" | Toggle hazard overlays on/off |
 | "light" / "bright" | Switch to light liquid-glass overlay style |
 | "dark" | Switch to dark liquid-glass overlay style |
+
+### Voice / mute
+
+| Phrase | Action |
+|---|---|
+| "mute" | Silence all spoken responses |
+| "unmute" / "sound on" / "voice on" | Re-enable spoken responses |
 
 ### CCTV keyboard shortcuts
 
