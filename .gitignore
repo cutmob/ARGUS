@@ -1,0 +1,44 @@
+# Binaries
+*.exe
+*.dll
+*.so
+*.dylib
+argus-server
+
+# Environment
+.env
+.env.local
+
+# Go
+/vendor/
+
+# Node
+node_modules/
+.next/
+out/
+
+# Reports
+reports/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Build
+dist/
+build/
+
+# Landing page (separate repo)
+landing/
+
+# Video assets (too large for git)
+Videos/
+
+# Claude
+.claude/

@@ -1,0 +1,107 @@
+[
+  {
+    "rule_id": "const_001",
+    "description": "All workers must wear hard hats in active work zones",
+    "severity": "high",
+    "visual_signals": ["person", "helmet", "hard_hat", "head"],
+    "category": "ppe"
+  },
+  {
+    "rule_id": "const_002",
+    "description": "Scaffolding must have guard rails on all open sides",
+    "severity": "critical",
+    "visual_signals": ["scaffold", "guardrail", "railing", "platform"],
+    "category": "fall_protection"
+  },
+  {
+    "rule_id": "const_003",
+    "description": "Workers at height must use fall arrest systems",
+    "severity": "critical",
+    "visual_signals": ["person", "height", "harness", "lanyard", "roof"],
+    "category": "fall_protection"
+  },
+  {
+    "rule_id": "const_004",
+    "description": "Ladders must be secured and at proper angle",
+    "severity": "high",
+    "visual_signals": ["ladder", "angle", "secured", "unstable"],
+    "category": "access"
+  },
+  {
+    "rule_id": "const_005",
+    "description": "Electrical panels must be covered and labeled",
+    "severity": "high",
+    "visual_signals": ["electrical_panel", "exposed_wire", "wiring", "open_panel"],
+    "category": "electrical"
+  },
+  {
+    "rule_id": "const_006",
+    "description": "Excavations deeper than 4 feet must have shoring or sloping",
+    "severity": "critical",
+    "visual_signals": ["excavation", "trench", "hole", "dirt"],
+    "category": "excavation"
+  },
+  {
+    "rule_id": "const_007",
+    "description": "Fire extinguishers must be accessible and serviced",
+    "severity": "high",
+    "visual_signals": ["fire_extinguisher", "extinguisher", "red_cylinder"],
+    "category": "fire_safety"
+  },
+  {
+    "rule_id": "const_008",
+    "description": "Workers must wear high-visibility vests near equipment",
+    "severity": "medium",
+    "visual_signals": ["person", "vest", "high_vis", "reflective"],
+    "category": "ppe"
+  },
+  {
+    "rule_id": "const_009",
+    "description": "Heavy machinery must have spotters when reversing",
+    "severity": "high",
+    "visual_signals": ["excavator", "crane", "forklift", "truck", "person"],
+    "category": "equipment"
+  },
+  {
+    "rule_id": "const_010",
+    "description": "Walkways must be clear of debris and tripping hazards",
+    "severity": "medium",
+    "visual_signals": ["walkway", "debris", "obstruction", "cable", "hose"],
+    "category": "housekeeping"
+  },
+  {
+    "rule_id": "const_011",
+    "description": "Warning signs must be posted at hazard zones",
+    "severity": "medium",
+    "visual_signals": ["sign", "warning", "danger", "caution"],
+    "category": "signage"
+  },
+  {
+    "rule_id": "const_012",
+    "description": "Eye protection required where grinding or cutting occurs",
+    "severity": "high",
+    "visual_signals": ["person", "grinder", "sparks", "cutting", "goggles"],
+    "category": "ppe"
+  },
+  {
+    "rule_id": "const_013",
+    "description": "Crane loads must not pass over workers",
+    "severity": "critical",
+    "visual_signals": ["crane", "load", "person", "overhead"],
+    "category": "equipment"
+  },
+  {
+    "rule_id": "const_014",
+    "description": "Proper barricading around floor openings",
+    "severity": "critical",
+    "visual_signals": ["opening", "hole", "floor", "barrier", "cover"],
+    "category": "fall_protection"
+  },
+  {
+    "rule_id": "const_015",
+    "description": "Materials stored safely and not overloaded on platforms",
+    "severity": "medium",
+    "visual_signals": ["materials", "stack", "overloaded", "platform"],
+    "category": "housekeeping"
+  }
+]

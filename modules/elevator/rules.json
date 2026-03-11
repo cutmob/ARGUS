@@ -1,0 +1,86 @@
+[
+  {
+    "rule_id": "elev_001",
+    "description": "Emergency alarm button must be visible and undamaged",
+    "severity": "high",
+    "visual_signals": ["button", "control_panel", "damage", "alarm"],
+    "category": "safety_equipment"
+  },
+  {
+    "rule_id": "elev_002",
+    "description": "Interior lighting must be fully operational",
+    "severity": "medium",
+    "visual_signals": ["light", "lighting", "dark", "flickering"],
+    "category": "lighting"
+  },
+  {
+    "rule_id": "elev_003",
+    "description": "Floor must be level and free of tripping hazards",
+    "severity": "high",
+    "visual_signals": ["floor", "gap", "uneven", "debris"],
+    "category": "structural"
+  },
+  {
+    "rule_id": "elev_004",
+    "description": "Door edges must have proper safety sensors",
+    "severity": "critical",
+    "visual_signals": ["door", "sensor", "edge", "gap"],
+    "category": "door_system"
+  },
+  {
+    "rule_id": "elev_005",
+    "description": "Emergency phone must be accessible and functional",
+    "severity": "high",
+    "visual_signals": ["phone", "intercom", "communication"],
+    "category": "safety_equipment"
+  },
+  {
+    "rule_id": "elev_006",
+    "description": "Weight capacity signage must be visible",
+    "severity": "medium",
+    "visual_signals": ["sign", "weight", "capacity", "label"],
+    "category": "signage"
+  },
+  {
+    "rule_id": "elev_007",
+    "description": "Inspection certificate must be current and displayed",
+    "severity": "high",
+    "visual_signals": ["certificate", "inspection", "document", "date"],
+    "category": "compliance"
+  },
+  {
+    "rule_id": "elev_008",
+    "description": "Handrails must be secure and undamaged",
+    "severity": "medium",
+    "visual_signals": ["handrail", "rail", "grip", "loose"],
+    "category": "structural"
+  },
+  {
+    "rule_id": "elev_009",
+    "description": "Ventilation system must be operational",
+    "severity": "medium",
+    "visual_signals": ["vent", "ventilation", "fan", "airflow"],
+    "category": "ventilation"
+  },
+  {
+    "rule_id": "elev_010",
+    "description": "Floor indicator display must accurately show current floor",
+    "severity": "low",
+    "visual_signals": ["display", "indicator", "floor_number", "screen"],
+    "category": "controls"
+  },
+  {
+    "rule_id": "elev_011",
+    "description": "Door closing speed must not pose pinch hazard",
+    "severity": "high",
+    "visual_signals": ["door", "closing", "speed"],
+    "category": "door_system"
+  },
+  {
+    "rule_id": "elev_012",
+    "description": "Cab walls and ceiling must be free of damage or corrosion",
+    "severity": "medium",
+    "visual_signals": ["wall", "ceiling", "rust", "corrosion", "damage"],
+    "category": "structural"
+  }
+]

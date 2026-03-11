@@ -1,0 +1,86 @@
+[
+  {
+    "rule_id": "fac_001",
+    "description": "Emergency exits must be clearly marked and unobstructed",
+    "severity": "critical",
+    "visual_signals": ["exit", "exit_sign", "door", "blocked", "obstruction"],
+    "category": "egress"
+  },
+  {
+    "rule_id": "fac_002",
+    "description": "Fire extinguishers must be mounted, accessible, and serviced",
+    "severity": "high",
+    "visual_signals": ["fire_extinguisher", "extinguisher", "mount", "expired"],
+    "category": "fire_safety"
+  },
+  {
+    "rule_id": "fac_003",
+    "description": "Wet floor hazards must be marked with warning signs",
+    "severity": "medium",
+    "visual_signals": ["wet_floor", "water", "spill", "sign"],
+    "category": "slip_trip"
+  },
+  {
+    "rule_id": "fac_004",
+    "description": "Electrical panels must be accessible with 36-inch clearance",
+    "severity": "high",
+    "visual_signals": ["electrical_panel", "clearance", "blocked", "storage"],
+    "category": "electrical"
+  },
+  {
+    "rule_id": "fac_005",
+    "description": "Smoke detectors must be present and unobstructed",
+    "severity": "critical",
+    "visual_signals": ["smoke_detector", "ceiling", "missing", "covered"],
+    "category": "fire_safety"
+  },
+  {
+    "rule_id": "fac_006",
+    "description": "Emergency lighting must be functional",
+    "severity": "high",
+    "visual_signals": ["emergency_light", "exit_light", "battery", "broken"],
+    "category": "lighting"
+  },
+  {
+    "rule_id": "fac_007",
+    "description": "Stairways must have handrails and be free of obstructions",
+    "severity": "high",
+    "visual_signals": ["stairs", "handrail", "obstruction", "debris"],
+    "category": "egress"
+  },
+  {
+    "rule_id": "fac_008",
+    "description": "Hazardous materials must be properly labeled and stored",
+    "severity": "high",
+    "visual_signals": ["chemical", "container", "label", "sds", "hazmat"],
+    "category": "hazmat"
+  },
+  {
+    "rule_id": "fac_009",
+    "description": "First aid kit must be accessible and stocked",
+    "severity": "medium",
+    "visual_signals": ["first_aid", "medical", "kit", "supplies"],
+    "category": "medical"
+  },
+  {
+    "rule_id": "fac_010",
+    "description": "Floor surfaces must be in good repair without cracks or holes",
+    "severity": "medium",
+    "visual_signals": ["floor", "crack", "hole", "damage", "uneven"],
+    "category": "slip_trip"
+  },
+  {
+    "rule_id": "fac_011",
+    "description": "HVAC systems must be properly maintained and accessible",
+    "severity": "low",
+    "visual_signals": ["hvac", "duct", "vent", "filter", "mold"],
+    "category": "ventilation"
+  },
+  {
+    "rule_id": "fac_012",
+    "description": "Security cameras and access control systems operational",
+    "severity": "low",
+    "visual_signals": ["camera", "access_control", "badge_reader", "lock"],
+    "category": "security"
+  }
+]

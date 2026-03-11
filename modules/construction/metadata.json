@@ -1,0 +1,6 @@
+{
+  "author": "ARGUS Core Team",
+  "version": "1",
+  "tags": ["construction", "building_site", "osha", "safety"],
+  "required_objects": ["person", "helmet", "scaffold", "ladder", "crane", "forklift"]
+}

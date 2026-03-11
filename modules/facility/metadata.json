@@ -1,0 +1,6 @@
+{
+  "author": "ARGUS Core Team",
+  "version": "1",
+  "tags": ["facility", "building", "commercial", "safety", "fire_code"],
+  "required_objects": ["door", "exit_sign", "fire_extinguisher", "stairs", "light"]
+}
