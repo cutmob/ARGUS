@@ -156,8 +156,8 @@ graph TB
 
 ```bash
 # 1. Clone and configure
-git clone https://github.com/cutmob/argus
-cd argus
+git clone https://github.com/cutmob/ARgus
+cd ARgus
 cp .env.example .env
 # Set GEMINI_API_KEY in .env
 
@@ -290,10 +290,12 @@ All real-time communication between the frontend and backend runs over a single 
 | Variable | Required | Default | Description |
 |---|---|---|---|
 | `GEMINI_API_KEY` | Yes | — | Google Gemini API key |
+| `DEMO_TOKENS` | No | — | Comma-separated access codes (e.g. `ARGUS-DEMO1,ARGUS-SITE2`). Leave empty to disable the gate. |
 | `PORT` | No | `8080` | HTTP listen port |
 | `ARGUS_MODULES_DIR` | No | `./modules` | Path to inspection modules directory |
 | `GEMINI_LIVE_MODEL` | No | `gemini-2.5-flash-native-audio-preview` | Override Live API model |
 | `GEMINI_CONTENT_MODEL` | No | `gemini-2.5-flash` | Override GenerateContent model |
+| `NEXT_PUBLIC_WS_URL` | No | `ws://localhost:8080/ws` | WebSocket backend URL for the frontend |
 
 ---
 
