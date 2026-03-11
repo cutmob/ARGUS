@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"os"
 	"os/signal"
+	"strings"
 	"syscall"
 	"time"
 
@@ -88,6 +89,7 @@ func main() {
 		OnAudio:        agentCtrl.HandleAudio,
 		OnEvent:        agentCtrl.HandleEvent,
 		SessionManager: sessionMgr,
+		DemoTokens:     cfg.DemoTokens,
 	})
 
 	// HTTP routes
@@ -158,6 +160,7 @@ type Config struct {
 	Port       string
 	ModulesDir string
 	GeminiKey  string
+	DemoTokens map[string]bool
 	Vision     VisionConfig
 }
 
@@ -174,10 +177,21 @@ func loadConfig() Config {
 	if modulesDir == "" {
 		modulesDir = "./modules"
 	}
+	// DEMO_TOKENS is a comma-separated list of valid access codes, e.g. "ARGUS-A1,ARGUS-B2"
+	demoTokens := map[string]bool{}
+	if raw := os.Getenv("DEMO_TOKENS"); raw != "" {
+		for _, t := range strings.Split(raw, ",") {
+			if t = strings.TrimSpace(t); t != "" {
+				demoTokens[t] = true
+			}
+		}
+	}
+
 	return Config{
 		Port:       port,
 		ModulesDir: modulesDir,
 		GeminiKey:  os.Getenv("GEMINI_API_KEY"),
+		DemoTokens: demoTokens,
 		Vision: VisionConfig{
 			SampleIntervalMs: 3000,
 		},

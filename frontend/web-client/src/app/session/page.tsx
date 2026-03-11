@@ -6,6 +6,7 @@ import { useCameraContext } from "@/hooks/useCameraContext";
 import { useWakeWord } from "@/hooks/useWakeWord";
 import { speakResponse } from "@/lib/tts";
 import { ContextSelector } from "@/components/ContextSelector";
+import { DemoGate } from "@/components/DemoGate";
 import { SmartphoneSession } from "@/components/session-smartphone/SmartphoneSession";
 import { CCTVSession } from "@/components/session-cctv/CCTVSession";
 import { ARSession } from "@/components/session-ar/ARSession";
@@ -14,6 +15,9 @@ import type { CameraContext } from "@/lib/cameraContext";
 export default function SessionPage() {
   const [inspectionMode, setInspectionMode] = useState("construction");
   const [overlaysVisible, setOverlaysVisible] = useState(true);
+  const [gated, setGated] = useState(
+    () => typeof window !== "undefined" && !localStorage.getItem("argus_demo_token")
+  );
   const session = useArgusSession();
   const { context, detecting } = useCameraContext();
   const [manualContext, setManualContext] = useState<CameraContext | null>(null);
@@ -29,6 +33,17 @@ export default function SessionPage() {
   }, [session, inspectionMode]);
 
   useWakeWord({ onWake: handleWake, word: "argus" });
+
+  if (gated || session.unauthorized) {
+    return (
+      <DemoGate
+        onAccess={() => {
+          setGated(false);
+          if (session.unauthorized) session.resetAuth();
+        }}
+      />
+    );
+  }
 
   // Toggle overlays with "O" key (non-AR modes)
   useEffect(() => {

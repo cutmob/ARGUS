@@ -59,7 +59,7 @@ steps:
       - --memory=1Gi
       - --min-instances=0
       - --max-instances=10
-      - --set-secrets=GEMINI_API_KEY=GEMINI_API_KEY:latest
+      - --set-secrets=GEMINI_API_KEY=GEMINI_API_KEY:latest,DEMO_TOKENS=DEMO_TOKENS:latest
       - --set-env-vars=PORT=8080,ARGUS_MODULES_DIR=/app/modules
       - --quiet
 

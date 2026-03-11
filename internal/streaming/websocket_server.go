@@ -24,6 +24,7 @@ type Config struct {
 	OnAudio        func(sessionID string, chunk types.AudioChunk)
 	OnEvent        func(sessionID string, event types.VisionEvent)
 	SessionManager *session.Manager
+	DemoTokens     map[string]bool // allowed access tokens; nil = no gate
 }
 
 // WebSocketServer manages real-time bidirectional connections.
@@ -51,6 +52,16 @@ func NewWebSocketServer(cfg Config) *WebSocketServer {
 
 // HandleConnection upgrades HTTP to WebSocket and starts read/write pumps.
 func (ws *WebSocketServer) HandleConnection(w http.ResponseWriter, r *http.Request) {
+	// Demo token gate — reject connections without a valid token
+	if len(ws.cfg.DemoTokens) > 0 {
+		token := r.URL.Query().Get("token")
+		if !ws.cfg.DemoTokens[token] {
+			http.Error(w, "unauthorized", http.StatusUnauthorized)
+			slog.Warn("rejected connection: invalid demo token", "remote", r.RemoteAddr)
+			return
+		}
+	}
+
 	conn, err := upgrader.Upgrade(w, r, nil)
 	if err != nil {
 		slog.Error("websocket upgrade failed", "error", err)

@@ -13,6 +13,12 @@ interface WebSocketMessage {
 
 const WS_URL = process.env.NEXT_PUBLIC_WS_URL || "ws://localhost:8080/ws";
 
+function getDemoToken(): string {
+  return typeof window !== "undefined"
+    ? (localStorage.getItem("argus_demo_token") ?? "")
+    : "";
+}
+
 function generateCameraId(): string {
   // Stable per-device ID persisted in localStorage
   const key = "argus_camera_id";
@@ -26,6 +32,7 @@ function generateCameraId(): string {
 
 export function useArgusSession() {
   const [connected, setConnected]       = useState(false);
+  const [unauthorized, setUnauthorized] = useState(false);
   const [isInspecting, setIsInspecting] = useState(false);
   const [hazards, setHazards]           = useState<Hazard[]>([]);
   const [overlays, setOverlays]         = useState<Overlay[]>([]);
@@ -41,7 +48,10 @@ export function useArgusSession() {
     if (wsRef.current?.readyState === WebSocket.OPEN) return;
 
     const cameraId = generateCameraId();
-    const url = WS_URL + (WS_URL.includes("?") ? "&" : "?") + "camera_id=" + cameraId;
+    const token = getDemoToken();
+    const url = WS_URL +
+      (WS_URL.includes("?") ? "&" : "?") + "camera_id=" + cameraId +
+      (token ? "&token=" + encodeURIComponent(token) : "");
     const ws = new WebSocket(url);
 
     ws.onopen = () => {
@@ -58,13 +68,21 @@ export function useArgusSession() {
       }
     };
 
-    ws.onclose = () => {
+    ws.onclose = (ev) => {
       setConnected(false);
-      reconnectTimer.current = setTimeout(connect, 3000);
+      // Code 1006 with no open = server rejected before upgrade (e.g. 401)
+      // Don't retry in that case — show the gate again
+      if (!unauthorized && ev.code !== 1006) {
+        reconnectTimer.current = setTimeout(connect, 3000);
+      }
     };
 
-    ws.onerror = (err) => {
-      console.error("[ARGUS] WebSocket error:", err);
+    ws.onerror = () => {
+      // If we never opened, treat as auth failure so the gate re-appears
+      if (ws.readyState !== WebSocket.OPEN) {
+        setUnauthorized(true);
+        localStorage.removeItem("argus_demo_token");
+      }
       ws.close();
     };
 
@@ -173,8 +191,14 @@ export function useArgusSession() {
     sendCommand("generate_report", { format: "json" });
   }, [sendCommand]);
 
+  const resetAuth = useCallback(() => {
+    setUnauthorized(false);
+    connect();
+  }, [connect]);
+
   return {
     connected,
+    unauthorized,
     isInspecting,
     hazards,
     overlays,
@@ -187,5 +211,6 @@ export function useArgusSession() {
     stopInspection,
     switchMode,
     generateReport,
+    resetAuth,
   };
 }
