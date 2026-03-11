@@ -12,7 +12,7 @@ import { ARSession } from "@/components/session-ar/ARSession";
 import type { CameraContext } from "@/lib/cameraContext";
 
 export default function SessionPage() {
-  const [inspectionMode, setInspectionMode] = useState("general");
+  const [inspectionMode, setInspectionMode] = useState("construction");
   const session = useArgusSession();
   const { context, detecting } = useCameraContext();
   const [manualContext, setManualContext] = useState<CameraContext | null>(null);

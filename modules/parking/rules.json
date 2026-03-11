@@ -1,0 +1,72 @@
+[
+  {
+    "rule_id": "park_001",
+    "description": "Concrete barrier or metal guardrail visibly cracked, bent, or displaced from anchor points",
+    "severity": "high",
+    "visual_signals": ["bent metal railing", "cracked concrete jersey barrier", "exposed rebar at barrier base"],
+    "category": "structural_barrier"
+  },
+  {
+    "rule_id": "park_002",
+    "description": "Burned-out or missing light fixtures in stairwells or driving lanes creating dark zones",
+    "severity": "high",
+    "visual_signals": ["dark patches in driving lane", "non-illuminated stairwell fixture", "broken light lens on ceiling"],
+    "category": "lighting"
+  },
+  {
+    "rule_id": "park_003",
+    "description": "Faded or absent lane markings and directional arrows causing navigation confusion",
+    "severity": "medium",
+    "visual_signals": ["barely visible yellow lane stripe", "missing directional arrow on pavement", "worn crosswalk lines"],
+    "category": "markings"
+  },
+  {
+    "rule_id": "park_004",
+    "description": "Speed bump missing, broken, or lacking reflective paint for visibility",
+    "severity": "medium",
+    "visual_signals": ["gap where speed bump was removed", "crumbled rubber speed bump segments", "speed bump without yellow paint"],
+    "category": "traffic_calming"
+  },
+  {
+    "rule_id": "park_005",
+    "description": "Fire extinguisher cabinet blocked by parked vehicles or stored materials",
+    "severity": "critical",
+    "visual_signals": ["objects stacked in front of red cabinet", "vehicle parked against fire equipment niche", "extinguisher missing from wall bracket"],
+    "category": "fire_safety"
+  },
+  {
+    "rule_id": "park_006",
+    "description": "Pedestrian walkway not physically separated from vehicle traffic with bollards or curbing",
+    "severity": "high",
+    "visual_signals": ["pedestrians walking in driving lane", "missing bollard posts along walkway", "no painted pedestrian path"],
+    "category": "pedestrian_safety"
+  },
+  {
+    "rule_id": "park_007",
+    "description": "Standing water pooling on driving surface or ramp indicating drainage failure",
+    "severity": "medium",
+    "visual_signals": ["puddle spanning full lane width", "water streaming down ramp surface", "stained concrete from chronic pooling"],
+    "category": "drainage"
+  },
+  {
+    "rule_id": "park_008",
+    "description": "Carbon monoxide detector absent or visibly non-functional in enclosed parking level",
+    "severity": "critical",
+    "visual_signals": ["no CO detector on ceiling of enclosed level", "detector with dangling wires", "detector indicator light off"],
+    "category": "air_quality"
+  },
+  {
+    "rule_id": "park_009",
+    "description": "EV charging station with damaged cables, cracked housing, or scorch marks",
+    "severity": "high",
+    "visual_signals": ["frayed charging cable insulation", "cracked charger housing", "black scorch marks on charger unit"],
+    "category": "ev_charging"
+  },
+  {
+    "rule_id": "park_010",
+    "description": "Elevator lobby or stairwell emergency lighting non-functional or missing battery backup",
+    "severity": "high",
+    "visual_signals": ["dark emergency light fixture", "emergency light with no test button glow", "missing exit sign above stairwell door"],
+    "category": "emergency_lighting"
+  }
+]

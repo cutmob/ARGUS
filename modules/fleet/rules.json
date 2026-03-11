@@ -1,0 +1,72 @@
+[
+  {
+    "rule_id": "flt_001",
+    "description": "Tire tread depth below safe minimum or tread wear indicators are flush with surface",
+    "severity": "critical",
+    "visual_signals": ["visible wear bars level with tread", "bald spots on tire surface", "tread depth visibly below 2/32 inch"],
+    "category": "tire_condition"
+  },
+  {
+    "rule_id": "flt_002",
+    "description": "Tire sidewall shows bulging, cracking, cuts, or exposed cord indicating structural failure risk",
+    "severity": "critical",
+    "visual_signals": ["bulge protruding from sidewall", "deep crack lines on tire side", "fabric or cord visible through rubber"],
+    "category": "tire_condition"
+  },
+  {
+    "rule_id": "flt_003",
+    "description": "One or more required lights are broken, missing, or visibly non-functional on the vehicle",
+    "severity": "high",
+    "visual_signals": ["shattered light lens", "missing bulb socket visible", "darkened light while others are illuminated", "condensation inside light housing"],
+    "category": "lighting"
+  },
+  {
+    "rule_id": "flt_004",
+    "description": "Windshield has cracks, chips, or shattering in the driver primary viewing area",
+    "severity": "high",
+    "visual_signals": ["spider crack pattern on windshield", "chip with radiating fracture lines", "long crack spanning windshield width"],
+    "category": "windshield"
+  },
+  {
+    "rule_id": "flt_005",
+    "description": "Side mirror is cracked, missing, or visibly misaligned reducing driver rearward visibility",
+    "severity": "high",
+    "visual_signals": ["broken mirror glass with fragments", "empty mirror housing", "mirror angled away from usable position"],
+    "category": "mirror"
+  },
+  {
+    "rule_id": "flt_006",
+    "description": "Fluid leak visible under or around the vehicle indicating engine, transmission, or hydraulic failure",
+    "severity": "high",
+    "visual_signals": ["dark puddle beneath engine area", "wet streak along undercarriage", "dripping fluid from hose or fitting", "oily residue on pavement under vehicle"],
+    "category": "fluid_leak"
+  },
+  {
+    "rule_id": "flt_007",
+    "description": "Body panel damage with sharp protruding edges creating laceration hazard for personnel",
+    "severity": "medium",
+    "visual_signals": ["torn metal edge on fender or panel", "protruding bent sheet metal", "jagged edge from collision damage"],
+    "category": "body_damage"
+  },
+  {
+    "rule_id": "flt_008",
+    "description": "Inspection sticker or registration decal is expired, missing, or illegible on the vehicle",
+    "severity": "medium",
+    "visual_signals": ["expired date on inspection sticker", "empty space where sticker should be", "faded and unreadable decal"],
+    "category": "compliance_markings"
+  },
+  {
+    "rule_id": "flt_009",
+    "description": "Load securement is inadequate with loose straps, missing tie-downs, or shifting cargo visible",
+    "severity": "critical",
+    "visual_signals": ["slack strap flapping", "cargo shifted to one side", "fewer tie-downs than load requires", "broken ratchet on strap"],
+    "category": "load_securement"
+  },
+  {
+    "rule_id": "flt_010",
+    "description": "Required reflective conspicuity tape or markings are missing, damaged, or insufficient on trailer",
+    "severity": "medium",
+    "visual_signals": ["gaps in reflective tape along trailer side", "peeling or faded conspicuity markings", "missing rear reflective striping"],
+    "category": "reflective_markings"
+  }
+]

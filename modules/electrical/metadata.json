@@ -1,0 +1,6 @@
+{
+  "author": "ARGUS Core Team",
+  "version": "1",
+  "tags": ["electrical", "panel_room", "switchgear", "nec", "nfpa_70e"],
+  "required_objects": ["panel", "breaker", "wire", "conduit", "label"]
+}

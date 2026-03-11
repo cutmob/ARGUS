@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { FeedGrid } from "./FeedGrid";
 import { ArgusIndicator } from "@/components/ArgusIndicator";
+import { INSPECTION_MODES, modeLabel } from "@/lib/modes";
 import type { Hazard, Overlay } from "@/lib/types";
 
 interface CCTVSessionProps {
@@ -22,8 +23,6 @@ interface CCTVSessionProps {
   mode: string;
   onModeChange: (mode: string) => void;
 }
-
-const MODES = ["general", "construction", "warehouse", "electrical"];
 
 const SEVERITY_COLOR: Record<string, string> = {
   low:      "#22c55e",
@@ -147,26 +146,29 @@ export function CCTVSession({ session, mode, onModeChange }: CCTVSessionProps) {
 
           {/* Mode */}
           <div className="px-5 pt-4 pb-3" style={{ borderBottom: "1px solid #1c1c1c" }}>
-            <p className="font-mono text-xs tracking-[0.2em] uppercase mb-3" style={{ color: "#4a4a4a" }}>
+            <p className="font-mono text-xs tracking-[0.2em] uppercase mb-2" style={{ color: "#4a4a4a" }}>
               Mode
             </p>
-            <div className="flex flex-col gap-2">
-              {MODES.map((m) => (
-                <button
+            <select
+              value={mode}
+              onChange={(e) => onModeChange(e.target.value)}
+              className="w-full font-mono text-xs tracking-wider uppercase py-2 px-2.5 bg-transparent appearance-none cursor-pointer transition-colors duration-100 focus:outline-none"
+              style={{
+                color: "#f0f0f0",
+                border: "1px solid #1c1c1c",
+                borderRadius: 0,
+              }}
+            >
+              {INSPECTION_MODES.map((m) => (
+                <option
                   key={m}
-                  onClick={() => onModeChange(m)}
-                  className="flex items-center gap-2 text-left transition-colors duration-100"
+                  value={m}
+                  style={{ background: "#080808", color: m === mode ? "#FF5F1F" : "#f0f0f0" }}
                 >
-                  <span style={{ color: mode === m ? "#FF5F1F" : "transparent", fontSize: 10 }}>›</span>
-                  <span
-                    className="font-mono text-xs tracking-wider uppercase"
-                    style={{ color: mode === m ? "#f0f0f0" : "#4a4a4a" }}
-                  >
-                    {m}
-                  </span>
-                </button>
+                  {modeLabel(m)}
+                </option>
               ))}
-            </div>
+            </select>
           </div>
 
           {/* Actions */}

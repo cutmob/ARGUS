@@ -1,0 +1,72 @@
+[
+  {
+    "rule_id": "rt_001",
+    "description": "Parapet wall or guardrail at roof edge is missing, damaged, or below required 42-inch height",
+    "severity": "critical",
+    "visual_signals": ["low or crumbling parapet wall", "missing guardrail sections", "bent or leaning railing posts"],
+    "category": "edge_protection"
+  },
+  {
+    "rule_id": "rt_002",
+    "description": "Roof hatch is open and unattended without surrounding guardrail protection",
+    "severity": "critical",
+    "visual_signals": ["hatch lid in open position", "no guardrails around hatch opening", "hatch propped open with no barrier"],
+    "category": "opening_protection"
+  },
+  {
+    "rule_id": "rt_003",
+    "description": "HVAC equipment lacks required service clearance or access panels are obstructed by stored materials",
+    "severity": "medium",
+    "visual_signals": ["materials stacked against equipment housing", "less than 36 inches clearance around unit", "access panel blocked by adjacent equipment"],
+    "category": "equipment_access"
+  },
+  {
+    "rule_id": "rt_004",
+    "description": "Tripping hazards from unsecured conduit runs, pipe supports, or abandoned materials on roof surface",
+    "severity": "medium",
+    "visual_signals": ["cables or conduit crossing walkway", "raised pipe supports without marking", "debris and abandoned materials on roof"],
+    "category": "tripping_hazard"
+  },
+  {
+    "rule_id": "rt_005",
+    "description": "Ponding water on roof surface indicating blocked drains or inadequate slope for drainage",
+    "severity": "medium",
+    "visual_signals": ["standing water pool on membrane", "dark water stain ring pattern", "debris blocking roof drain"],
+    "category": "drainage"
+  },
+  {
+    "rule_id": "rt_006",
+    "description": "Roofing membrane shows visible tears, blisters, or punctures exposing underlying substrate",
+    "severity": "high",
+    "visual_signals": ["torn membrane flap", "raised blister bubbles on roof surface", "exposed insulation or decking through membrane"],
+    "category": "membrane_damage"
+  },
+  {
+    "rule_id": "rt_007",
+    "description": "Equipment covers or panels are unsecured and could become wind-borne projectiles",
+    "severity": "high",
+    "visual_signals": ["loose panel lifted at corner", "missing fasteners on equipment cover", "sheet metal flapping or displaced"],
+    "category": "unsecured_equipment"
+  },
+  {
+    "rule_id": "rt_008",
+    "description": "Lightning protection system components are damaged, disconnected, or missing conductors",
+    "severity": "high",
+    "visual_signals": ["severed lightning conductor cable", "corroded or missing air terminal", "disconnected bonding jumper"],
+    "category": "lightning_protection"
+  },
+  {
+    "rule_id": "rt_009",
+    "description": "Fall protection anchor point appears corroded, loose, or improperly mounted to structure",
+    "severity": "critical",
+    "visual_signals": ["rust on anchor base plate", "anchor post wobbling or leaning", "missing bolts in anchor mounting"],
+    "category": "fall_arrest_anchor"
+  },
+  {
+    "rule_id": "rt_010",
+    "description": "Roof access ladder is missing safety cage, has damaged rungs, or lacks anti-climb device when required",
+    "severity": "high",
+    "visual_signals": ["fixed ladder without cage above 24 feet", "bent or missing ladder rungs", "no anti-climb plate or locked cover"],
+    "category": "ladder_access"
+  }
+]

@@ -1,0 +1,86 @@
+[
+  {
+    "rule_id": "kit_001",
+    "description": "Hood vents and exhaust filters must be free of excessive grease buildup",
+    "severity": "critical",
+    "visual_signals": ["hood", "vent", "grease", "filter", "buildup"],
+    "category": "fire_safety"
+  },
+  {
+    "rule_id": "kit_002",
+    "description": "Fire suppression system must have current inspection tags and accessible pull stations",
+    "severity": "critical",
+    "visual_signals": ["ansul", "suppression", "tag", "expired", "pull_station"],
+    "category": "fire_safety"
+  },
+  {
+    "rule_id": "kit_003",
+    "description": "K-class fire extinguisher must be present and charged near cooking line",
+    "severity": "high",
+    "visual_signals": ["extinguisher", "missing", "gauge", "cooking_line"],
+    "category": "fire_safety"
+  },
+  {
+    "rule_id": "kit_004",
+    "description": "Floors must be free of grease and water — wet floor signs required for spills",
+    "severity": "high",
+    "visual_signals": ["floor", "grease", "wet", "spill", "sign"],
+    "category": "slip_trip"
+  },
+  {
+    "rule_id": "kit_005",
+    "description": "Food in walk-in coolers must be covered, labeled, and stored at proper height",
+    "severity": "high",
+    "visual_signals": ["food", "uncovered", "cooler", "shelving", "raw_meat"],
+    "category": "food_safety"
+  },
+  {
+    "rule_id": "kit_006",
+    "description": "Raw and cooked foods must be separated — raw meat stored below ready-to-eat items",
+    "severity": "high",
+    "visual_signals": ["raw", "cooked", "cross_contamination", "refrigerator"],
+    "category": "food_safety"
+  },
+  {
+    "rule_id": "kit_007",
+    "description": "Kitchen staff must wear hair nets, gloves, and proper attire in prep areas",
+    "severity": "medium",
+    "visual_signals": ["person", "hair_net", "gloves", "attire", "prep"],
+    "category": "hygiene"
+  },
+  {
+    "rule_id": "kit_008",
+    "description": "Light covers must be intact over food prep areas (shatter protection)",
+    "severity": "medium",
+    "visual_signals": ["light", "cover", "broken", "missing", "prep_area"],
+    "category": "equipment"
+  },
+  {
+    "rule_id": "kit_009",
+    "description": "Kitchen exit doors must not be propped open or obstructed",
+    "severity": "high",
+    "visual_signals": ["door", "exit", "propped", "blocked"],
+    "category": "egress"
+  },
+  {
+    "rule_id": "kit_010",
+    "description": "No evidence of pests — droppings, nesting material, or visible insects",
+    "severity": "critical",
+    "visual_signals": ["droppings", "pest", "insect", "rodent", "nesting"],
+    "category": "sanitation"
+  },
+  {
+    "rule_id": "kit_011",
+    "description": "Electrical outlets near water sources must not be overloaded",
+    "severity": "high",
+    "visual_signals": ["outlet", "overloaded", "power_strip", "water", "sink"],
+    "category": "electrical"
+  },
+  {
+    "rule_id": "kit_012",
+    "description": "Dumpster area must have closed lids with no overflow or grease spills",
+    "severity": "medium",
+    "visual_signals": ["dumpster", "open", "overflow", "grease", "spill"],
+    "category": "sanitation"
+  }
+]

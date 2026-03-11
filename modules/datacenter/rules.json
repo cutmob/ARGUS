@@ -1,0 +1,86 @@
+[
+  {
+    "rule_id": "dc_001",
+    "description": "Cables routed across raised floor walkways or aisle paths creating trip hazards",
+    "severity": "high",
+    "visual_signals": ["cable draped across aisle floor", "patch cord running between racks over walkway", "bundle crossing walking path without protection"],
+    "category": "physical_safety"
+  },
+  {
+    "rule_id": "dc_002",
+    "description": "Tangled or disorganized cable management restricting airflow through racks or cable trays",
+    "severity": "medium",
+    "visual_signals": ["dense cable spaghetti behind rack", "cables blocking rack ventilation holes", "overfilled cable tray"],
+    "category": "cable_management"
+  },
+  {
+    "rule_id": "dc_003",
+    "description": "Raised floor tile displaced, cracked, or not properly seated in grid allowing air bypass",
+    "severity": "high",
+    "visual_signals": ["floor tile shifted out of grid", "visible crack across tile surface", "tile corner lifted or rocking"],
+    "category": "raised_floor"
+  },
+  {
+    "rule_id": "dc_004",
+    "description": "Visible dust accumulation on server air intake vents reducing cooling efficiency",
+    "severity": "medium",
+    "visual_signals": ["gray dust layer on front bezels", "clogged mesh filter on intake", "dust bunnies near rack base"],
+    "category": "environmental"
+  },
+  {
+    "rule_id": "dc_005",
+    "description": "Water pooling, dripping, or condensation detected near electrical equipment or under raised floor",
+    "severity": "critical",
+    "visual_signals": ["water puddle on floor", "drip stain on ceiling tile above rack", "condensation on cold pipe near servers"],
+    "category": "environmental"
+  },
+  {
+    "rule_id": "dc_006",
+    "description": "UPS battery showing signs of swelling, leaking electrolyte, or corrosion on terminals",
+    "severity": "critical",
+    "visual_signals": ["bulging battery case", "white crystalline corrosion on terminals", "wet residue around battery base"],
+    "category": "power_systems"
+  },
+  {
+    "rule_id": "dc_007",
+    "description": "Fire suppression panel displaying fault, alarm, or trouble indicator",
+    "severity": "critical",
+    "visual_signals": ["amber or red fault LED on panel", "trouble message on suppression display", "suppression system in bypass mode"],
+    "category": "fire_safety"
+  },
+  {
+    "rule_id": "dc_008",
+    "description": "Combustible materials such as cardboard boxes or packing materials stored inside data hall",
+    "severity": "high",
+    "visual_signals": ["cardboard boxes on floor near racks", "packing foam or paper in server room", "wooden pallets inside data hall"],
+    "category": "fire_safety"
+  },
+  {
+    "rule_id": "dc_009",
+    "description": "Hot aisle or cold aisle containment compromised by missing blanking panels or open rack positions",
+    "severity": "medium",
+    "visual_signals": ["open U-space in rack without blanking panel", "curtain detached from containment frame", "gap between rack tops and ceiling"],
+    "category": "thermal_management"
+  },
+  {
+    "rule_id": "dc_010",
+    "description": "Server or network equipment displaying amber or red fault LEDs indicating hardware failure",
+    "severity": "high",
+    "visual_signals": ["amber LED lit on drive bay", "red fault indicator on power supply", "blinking error light on switch module"],
+    "category": "equipment_status"
+  },
+  {
+    "rule_id": "dc_011",
+    "description": "Cable runs sagging between racks or from overhead trays due to insufficient support",
+    "severity": "low",
+    "visual_signals": ["cable bundle drooping between ladder rungs", "weight pulling tray downward", "unsupported span longer than support interval"],
+    "category": "cable_management"
+  },
+  {
+    "rule_id": "dc_012",
+    "description": "Emergency Power Off button obstructed, unlabeled, or missing protective cover",
+    "severity": "critical",
+    "visual_signals": ["EPO button blocked by equipment", "no label on red mushroom button", "missing flip cover on EPO switch"],
+    "category": "emergency_systems"
+  }
+]

@@ -1,0 +1,72 @@
+[
+  {
+    "rule_id": "ret_001",
+    "description": "Merchandise stacked above the top shelf or exceeding safe height limits risking topple onto customers",
+    "severity": "high",
+    "visual_signals": ["boxes above top shelf line", "leaning product stack", "items touching ceiling or sprinkler heads"],
+    "category": "shelving_safety"
+  },
+  {
+    "rule_id": "ret_002",
+    "description": "Floor mat edges curled, bunched, or folded creating a trip hazard in walkways",
+    "severity": "medium",
+    "visual_signals": ["mat corner flipped up", "wrinkled mat surface", "gap between mat and floor"],
+    "category": "slip_trip_fall"
+  },
+  {
+    "rule_id": "ret_003",
+    "description": "Electrical cords or cables routed across customer walkways without protective covers",
+    "severity": "high",
+    "visual_signals": ["cord lying across floor", "cable crossing aisle without ramp", "taped-down wire in walking path"],
+    "category": "slip_trip_fall"
+  },
+  {
+    "rule_id": "ret_004",
+    "description": "Emergency exit door blocked by merchandise, carts, or display fixtures",
+    "severity": "critical",
+    "visual_signals": ["boxes stacked in front of exit door", "shopping carts blocking exit path", "display unit obstructing emergency door"],
+    "category": "egress"
+  },
+  {
+    "rule_id": "ret_005",
+    "description": "Wet floor area without caution signage or barriers in place",
+    "severity": "high",
+    "visual_signals": ["visible liquid on floor surface", "shiny wet patch on tile", "spill with no yellow sign nearby"],
+    "category": "slip_trip_fall"
+  },
+  {
+    "rule_id": "ret_006",
+    "description": "Electrical outlet overloaded with multiple adapters or daisy-chained power strips",
+    "severity": "high",
+    "visual_signals": ["multiple adapters plugged into one outlet", "power strip plugged into another strip", "outlet cover plate warm or discolored"],
+    "category": "electrical_safety"
+  },
+  {
+    "rule_id": "ret_007",
+    "description": "Electrical panel in stockroom blocked by pallets, boxes, or stored inventory within 36-inch clearance zone",
+    "severity": "critical",
+    "visual_signals": ["boxes stacked against panel door", "pallet placed in front of breaker box", "panel door unable to open fully"],
+    "category": "electrical_safety"
+  },
+  {
+    "rule_id": "ret_008",
+    "description": "Fire extinguisher missing from designated mounting location or access obstructed",
+    "severity": "critical",
+    "visual_signals": ["empty extinguisher bracket on wall", "extinguisher hidden behind stock", "missing inspection tag"],
+    "category": "fire_safety"
+  },
+  {
+    "rule_id": "ret_009",
+    "description": "Ladder or step stool left unattended and accessible in customer-facing area",
+    "severity": "medium",
+    "visual_signals": ["open ladder in aisle", "step stool near shelving in sales floor", "unattended climbing equipment"],
+    "category": "customer_safety"
+  },
+  {
+    "rule_id": "ret_010",
+    "description": "Damaged shelving unit with bent, cracked, or missing support brackets",
+    "severity": "high",
+    "visual_signals": ["bent metal shelf bracket", "shelf visibly bowing under weight", "missing support clip or pin"],
+    "category": "shelving_safety"
+  }
+]

@@ -25,7 +25,7 @@ ARGUS makes inspection continuous, conversational, and immediate. Point any came
 | Interruption handling | Mid-response user speech immediately cancels the current output |
 | Wake word activation | Say **"argus"** to start or stop an inspection hands-free |
 | AR hazard overlays | Severity-coloured rings rendered over the live camera feed |
-| Swappable rule modules | Construction, warehouse, electrical, facility — hot-switchable mid-session |
+| Swappable rule modules | 20 industry-specific inspection rule sets — hot-switchable mid-session |
 | Voice commands | `inspect` · `stop` · `status` · `report` |
 | Report generation | Full inspection reports exported as JSON or PDF |
 | Adaptive interface | Auto-detects context and renders the right UI: Smartphone / CCTV / AR |
@@ -203,7 +203,9 @@ Modules live in `./modules/`. Each is a self-contained directory:
 | `rules.json` | Hazard detection rules with severity levels |
 | `prompt.txt` | System prompt injected into the Gemini Live session on start |
 
-**Built-in:** `construction` · `elevator` · `facility`
+**20 built-in modules:**
+
+`construction` · `facility` · `warehouse` · `manufacturing` · `electrical` · `kitchen` · `healthcare` · `refinery` · `laboratory` · `office` · `retail` · `hotel` · `school` · `datacenter` · `parking` · `elevator` · `loading-dock` · `cold-storage` · `rooftop` · `fleet`
 
 To add a module:
 

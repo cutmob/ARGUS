@@ -1,0 +1,72 @@
+[
+  {
+    "rule_id": "cs_001",
+    "description": "Door gasket shows visible gaps, tears, or deformation allowing warm air infiltration",
+    "severity": "high",
+    "visual_signals": ["torn rubber seal", "visible gap between door and frame", "frost ring around door perimeter"],
+    "category": "door_seal_integrity"
+  },
+  {
+    "rule_id": "cs_002",
+    "description": "Ice accumulation on floor surfaces creating slip and fall hazard for personnel",
+    "severity": "high",
+    "visual_signals": ["ice sheet on floor", "frost buildup near threshold", "glossy wet surface inside freezer"],
+    "category": "slip_hazard"
+  },
+  {
+    "rule_id": "cs_003",
+    "description": "Shelves and racks overpacked obstructing airflow vents and evaporator circulation",
+    "severity": "medium",
+    "visual_signals": ["product pressed against ceiling", "blocked vent openings", "no visible gaps between stacked items and walls"],
+    "category": "air_circulation"
+  },
+  {
+    "rule_id": "cs_004",
+    "description": "Temperature display showing out-of-range reading or unit displaying error code",
+    "severity": "critical",
+    "visual_signals": ["digital display with high temperature value", "flashing warning indicator", "blank or error screen on thermometer"],
+    "category": "temperature_control"
+  },
+  {
+    "rule_id": "cs_005",
+    "description": "Racking uprights bent, beams deformed, or safety clips missing from forklift impact damage",
+    "severity": "high",
+    "visual_signals": ["bent vertical rack column", "deformed horizontal beam", "scrape marks on rack base", "missing beam locking pins"],
+    "category": "racking_damage"
+  },
+  {
+    "rule_id": "cs_006",
+    "description": "Emergency release handle inside walk-in is obstructed, unlabeled, or not visible",
+    "severity": "critical",
+    "visual_signals": ["product stacked in front of release handle", "missing glow-in-the-dark label", "handle obscured by ice buildup"],
+    "category": "emergency_egress"
+  },
+  {
+    "rule_id": "cs_007",
+    "description": "Lighting inside cold storage unit is failed, flickering, or insufficient for safe operations",
+    "severity": "medium",
+    "visual_signals": ["dark areas inside unit", "flickering light fixture", "broken light cover"],
+    "category": "lighting"
+  },
+  {
+    "rule_id": "cs_008",
+    "description": "Condensation or water pooling at door threshold creating slip hazard and ice formation risk",
+    "severity": "medium",
+    "visual_signals": ["standing water at door base", "wet floor extending from entrance", "drip marks on floor surface"],
+    "category": "water_pooling"
+  },
+  {
+    "rule_id": "cs_009",
+    "description": "Raw food products stored above cooked or ready-to-eat items risking cross-contamination",
+    "severity": "critical",
+    "visual_signals": ["raw meat on upper shelf above prepared food", "uncovered raw product dripping onto items below", "improper vertical storage order"],
+    "category": "food_safety"
+  },
+  {
+    "rule_id": "cs_010",
+    "description": "Personnel inside cold storage without required PPE such as thermal gloves or insulated clothing",
+    "severity": "medium",
+    "visual_signals": ["bare hands handling frozen product", "worker in short sleeves inside freezer", "missing insulated footwear"],
+    "category": "ppe_compliance"
+  }
+]

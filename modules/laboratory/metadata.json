@@ -1,0 +1,6 @@
+{
+  "author": "ARGUS Core Team",
+  "version": "1",
+  "tags": ["laboratory", "research", "chemical", "biosafety"],
+  "required_objects": ["fume_hood", "cabinet", "container", "goggles", "sign"]
+}

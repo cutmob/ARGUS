@@ -1,0 +1,72 @@
+[
+  {
+    "rule_id": "off_001",
+    "description": "Extension cords daisy-chained together or used as permanent wiring in place of fixed outlets",
+    "severity": "high",
+    "visual_signals": ["one power strip plugged into another", "extension cord running along baseboard as permanent fixture", "multiple adapters chained from single outlet"],
+    "category": "electrical"
+  },
+  {
+    "rule_id": "off_002",
+    "description": "Electrical panel front access blocked by furniture, boxes, or equipment within required 36-inch clearance",
+    "severity": "critical",
+    "visual_signals": ["file cabinet positioned against panel door", "stacked boxes within three feet of panel", "desk pushed against electrical panel wall"],
+    "category": "electrical_panel"
+  },
+  {
+    "rule_id": "off_003",
+    "description": "Emergency exit door obstructed by stored materials, locked from inside, or signage missing",
+    "severity": "critical",
+    "visual_signals": ["boxes stacked against exit door", "chain or padlock on exit door push bar", "no exit sign above emergency door"],
+    "category": "egress"
+  },
+  {
+    "rule_id": "off_004",
+    "description": "Fire extinguisher blocked from access, mounted too high, or showing expired inspection tag",
+    "severity": "high",
+    "visual_signals": ["furniture blocking extinguisher on wall", "extinguisher mounted above 5-foot reach height", "inspection tag with overdue date"],
+    "category": "fire_extinguisher"
+  },
+  {
+    "rule_id": "off_005",
+    "description": "Loose cables or cords crossing walkway floor without protective cable covers or ramps",
+    "severity": "medium",
+    "visual_signals": ["power cord stretched across walkway", "network cables lying on floor in traffic path", "tangled cords between desks crossing aisle"],
+    "category": "trip_hazard"
+  },
+  {
+    "rule_id": "off_006",
+    "description": "Shelving unit visibly overloaded, leaning, or not anchored to the wall",
+    "severity": "high",
+    "visual_signals": ["shelf bowing under weight of binders", "bookcase leaning away from wall", "tall shelving unit with no visible wall anchor"],
+    "category": "shelving"
+  },
+  {
+    "rule_id": "off_007",
+    "description": "Portable space heater positioned near paper, curtains, or other combustible materials",
+    "severity": "critical",
+    "visual_signals": ["space heater under desk near paper stack", "heater within 3 feet of fabric curtain", "space heater sitting on carpeted floor beside cardboard boxes"],
+    "category": "fire_risk"
+  },
+  {
+    "rule_id": "off_008",
+    "description": "Ceiling tiles damaged, sagging, or missing exposing plenum space above",
+    "severity": "medium",
+    "visual_signals": ["water-stained ceiling tile bowing downward", "gap in ceiling grid with missing tile", "crumbled tile edge with visible ductwork above"],
+    "category": "building_envelope"
+  },
+  {
+    "rule_id": "off_009",
+    "description": "AED cabinet blocked from view or access by furniture, signage, or stored items",
+    "severity": "high",
+    "visual_signals": ["poster hung over AED wall cabinet", "vending machine positioned in front of AED", "AED cabinet door blocked by stacked chairs"],
+    "category": "emergency_medical"
+  },
+  {
+    "rule_id": "off_010",
+    "description": "Wet floor area in corridor or break room without visible caution signage or barriers",
+    "severity": "medium",
+    "visual_signals": ["water on break room floor with no sign", "mopped hallway without wet floor cone", "spill near water cooler with no caution marker"],
+    "category": "slip_hazard"
+  }
+]

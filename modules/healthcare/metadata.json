@@ -1,0 +1,6 @@
+{
+  "author": "ARGUS Core Team",
+  "version": "1",
+  "tags": ["healthcare", "hospital", "joint_commission", "life_safety"],
+  "required_objects": ["door", "sign", "exit", "cylinder", "container"]
+}

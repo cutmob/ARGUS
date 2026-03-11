@@ -1,0 +1,86 @@
+[
+  {
+    "rule_id": "mfg_001",
+    "description": "Machine guards must be in place at all point-of-operation and nip points",
+    "severity": "critical",
+    "visual_signals": ["machine", "guard", "missing", "removed", "rotating"],
+    "category": "machine_guarding"
+  },
+  {
+    "rule_id": "mfg_002",
+    "description": "Lockout/tagout devices must be visible during maintenance (OSHA 1910.147)",
+    "severity": "critical",
+    "visual_signals": ["lock", "tag", "maintenance", "energy_isolation"],
+    "category": "loto"
+  },
+  {
+    "rule_id": "mfg_003",
+    "description": "Compressed gas cylinders must be chained upright and capped when not in use",
+    "severity": "high",
+    "visual_signals": ["cylinder", "gas", "unsecured", "chain", "cap"],
+    "category": "storage"
+  },
+  {
+    "rule_id": "mfg_004",
+    "description": "Oil, coolant, and hydraulic fluid spills must be cleaned immediately",
+    "severity": "high",
+    "visual_signals": ["spill", "oil", "coolant", "fluid", "floor"],
+    "category": "housekeeping"
+  },
+  {
+    "rule_id": "mfg_005",
+    "description": "Workers must wear required PPE near operating machinery",
+    "severity": "high",
+    "visual_signals": ["person", "goggles", "gloves", "ear_protection", "machine"],
+    "category": "ppe"
+  },
+  {
+    "rule_id": "mfg_006",
+    "description": "Emergency stop buttons must be visible, accessible, and undamaged",
+    "severity": "critical",
+    "visual_signals": ["e_stop", "button", "obscured", "damaged", "missing"],
+    "category": "controls"
+  },
+  {
+    "rule_id": "mfg_007",
+    "description": "Fire exits and aisles must not be blocked by materials or WIP",
+    "severity": "high",
+    "visual_signals": ["exit", "aisle", "blocked", "materials", "obstruction"],
+    "category": "egress"
+  },
+  {
+    "rule_id": "mfg_008",
+    "description": "Conveyor guards and pinch-point covers must be in place",
+    "severity": "critical",
+    "visual_signals": ["conveyor", "guard", "pinch_point", "cover", "missing"],
+    "category": "machine_guarding"
+  },
+  {
+    "rule_id": "mfg_009",
+    "description": "Hoses and cables across walkways must have ramp covers",
+    "severity": "medium",
+    "visual_signals": ["hose", "cable", "walkway", "ramp", "trip"],
+    "category": "housekeeping"
+  },
+  {
+    "rule_id": "mfg_010",
+    "description": "Raw materials must be stacked safely without leaning or overloading",
+    "severity": "high",
+    "visual_signals": ["stack", "leaning", "overloaded", "materials", "lumber"],
+    "category": "storage"
+  },
+  {
+    "rule_id": "mfg_011",
+    "description": "Chemical containers must have legible hazard labels (GHS compliant)",
+    "severity": "medium",
+    "visual_signals": ["container", "label", "chemical", "illegible", "missing"],
+    "category": "hazcom"
+  },
+  {
+    "rule_id": "mfg_012",
+    "description": "Overhead crane hooks must have safety latches and wire rope must be undamaged",
+    "severity": "critical",
+    "visual_signals": ["crane", "hook", "latch", "wire_rope", "frayed"],
+    "category": "equipment"
+  }
+]

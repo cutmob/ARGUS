@@ -1,0 +1,6 @@
+{
+  "author": "ARGUS Core Team",
+  "version": "1",
+  "tags": ["rooftop", "hvac", "mechanical", "fall_protection"],
+  "required_objects": ["parapet", "equipment", "duct", "anchor", "guardrail"]
+}

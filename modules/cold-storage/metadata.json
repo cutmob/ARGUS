@@ -1,0 +1,6 @@
+{
+  "author": "ARGUS Core Team",
+  "version": "1",
+  "tags": ["cold_storage", "freezer", "refrigeration", "cold_chain", "food_safety"],
+  "required_objects": ["door", "seal", "ice", "rack", "thermometer"]
+}

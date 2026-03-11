@@ -1,0 +1,86 @@
+[
+  {
+    "rule_id": "hc_001",
+    "description": "Fire-rated door propped open with wedge or device, defeating smoke compartment integrity",
+    "severity": "critical",
+    "visual_signals": ["door wedge visible", "fire door held open at an angle", "self-closing device bypassed"],
+    "category": "fire_safety"
+  },
+  {
+    "rule_id": "hc_002",
+    "description": "Corridor width reduced below 8 feet by stored equipment or furniture",
+    "severity": "high",
+    "visual_signals": ["equipment lining hallway walls", "narrowed walking path", "beds or carts parked along corridor"],
+    "category": "egress"
+  },
+  {
+    "rule_id": "hc_003",
+    "description": "Ceiling tiles displaced, missing, or showing water stains indicating breach above firewall",
+    "severity": "high",
+    "visual_signals": ["gap in ceiling grid", "brown water stain on tile", "tile sagging or pushed up"],
+    "category": "building_integrity"
+  },
+  {
+    "rule_id": "hc_004",
+    "description": "Sharps disposal container filled beyond the designated fill line",
+    "severity": "high",
+    "visual_signals": ["needles visible above fill mark", "container lid not closing fully", "overstuffed red container"],
+    "category": "infection_control"
+  },
+  {
+    "rule_id": "hc_005",
+    "description": "Oxygen cylinders stored upright without being chained or secured to a wall or rack",
+    "severity": "critical",
+    "visual_signals": ["free-standing gas cylinder", "cylinder leaning against wall unsecured", "missing chain or bracket"],
+    "category": "medical_gas_safety"
+  },
+  {
+    "rule_id": "hc_006",
+    "description": "Extension cord used as permanent wiring in a patient care area",
+    "severity": "high",
+    "visual_signals": ["multi-outlet strip on floor", "extension cord running under equipment", "daisy-chained power strips"],
+    "category": "electrical_safety"
+  },
+  {
+    "rule_id": "hc_007",
+    "description": "Fire alarm pull station obstructed by furniture, equipment, or signage",
+    "severity": "critical",
+    "visual_signals": ["object placed in front of red pull station", "pull station not visible from corridor", "furniture blocking wall-mounted alarm"],
+    "category": "fire_safety"
+  },
+  {
+    "rule_id": "hc_008",
+    "description": "Combustible materials such as boxes or linen stored in corridors",
+    "severity": "medium",
+    "visual_signals": ["cardboard boxes stacked in hallway", "linen carts left in corridor", "paper products outside storage room"],
+    "category": "fire_safety"
+  },
+  {
+    "rule_id": "hc_009",
+    "description": "Smoke detector visibly damaged, painted over, or covered",
+    "severity": "critical",
+    "visual_signals": ["detector housing cracked", "paint or tape on detector", "plastic bag over smoke detector"],
+    "category": "fire_safety"
+  },
+  {
+    "rule_id": "hc_010",
+    "description": "Biohazard waste bag or container left outside designated storage area",
+    "severity": "high",
+    "visual_signals": ["red biohazard bag on floor", "waste container in public area", "unlabeled infectious waste"],
+    "category": "infection_control"
+  },
+  {
+    "rule_id": "hc_011",
+    "description": "Medical gas valve box obstructed or not clearly labeled",
+    "severity": "medium",
+    "visual_signals": ["equipment blocking wall valve box", "missing label on gas shutoff", "valve box cover removed"],
+    "category": "medical_gas_safety"
+  },
+  {
+    "rule_id": "hc_012",
+    "description": "Exit sign not illuminated or missing from required location above egress door",
+    "severity": "high",
+    "visual_signals": ["dark exit sign", "missing sign above doorway", "flickering exit sign letters"],
+    "category": "egress"
+  }
+]

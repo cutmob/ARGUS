@@ -1,0 +1,86 @@
+[
+  {
+    "rule_id": "ref_001",
+    "description": "No visible hydrocarbon leaks — drips, pooling, or sheen on surfaces",
+    "severity": "critical",
+    "visual_signals": ["leak", "drip", "pool", "sheen", "stain"],
+    "category": "leak_detection"
+  },
+  {
+    "rule_id": "ref_002",
+    "description": "Piping, flanges, and vessels must be free of visible corrosion",
+    "severity": "high",
+    "visual_signals": ["pipe", "flange", "corrosion", "rust", "pitting"],
+    "category": "integrity"
+  },
+  {
+    "rule_id": "ref_003",
+    "description": "Hazardous area classification signage must be present and legible",
+    "severity": "high",
+    "visual_signals": ["sign", "zone", "classified", "class_1", "division"],
+    "category": "signage"
+  },
+  {
+    "rule_id": "ref_004",
+    "description": "Personnel must wear FR clothing, hard hats, and H2S monitors in process areas",
+    "severity": "high",
+    "visual_signals": ["person", "fr_clothing", "hard_hat", "monitor", "detector"],
+    "category": "ppe"
+  },
+  {
+    "rule_id": "ref_005",
+    "description": "Emergency showers and eyewash stations must be accessible and unblocked",
+    "severity": "high",
+    "visual_signals": ["shower", "eyewash", "blocked", "obstructed"],
+    "category": "emergency"
+  },
+  {
+    "rule_id": "ref_006",
+    "description": "Scaffolding must have guardrails, toe boards, and be undamaged",
+    "severity": "critical",
+    "visual_signals": ["scaffold", "guardrail", "toe_board", "damaged"],
+    "category": "fall_protection"
+  },
+  {
+    "rule_id": "ref_007",
+    "description": "No uncontrolled ignition sources in classified hazardous areas",
+    "severity": "critical",
+    "visual_signals": ["ignition", "non_ex", "equipment", "sparks"],
+    "category": "fire_safety"
+  },
+  {
+    "rule_id": "ref_008",
+    "description": "Open hatches and platform openings must be guarded or barricaded",
+    "severity": "critical",
+    "visual_signals": ["hatch", "opening", "platform", "unguarded"],
+    "category": "fall_protection"
+  },
+  {
+    "rule_id": "ref_009",
+    "description": "Fire and gas detection heads must be present and undamaged",
+    "severity": "high",
+    "visual_signals": ["detector", "flame", "gas", "missing", "damaged"],
+    "category": "detection"
+  },
+  {
+    "rule_id": "ref_010",
+    "description": "Flammable material storage must be within containment with grounding",
+    "severity": "high",
+    "visual_signals": ["drum", "container", "containment", "grounding", "flammable"],
+    "category": "storage"
+  },
+  {
+    "rule_id": "ref_011",
+    "description": "Wind socks for H2S direction indication must be visible",
+    "severity": "medium",
+    "visual_signals": ["windsock", "wind", "direction", "indicator"],
+    "category": "emergency"
+  },
+  {
+    "rule_id": "ref_012",
+    "description": "Temporary hoses and bypasses must not be left in place unattended",
+    "severity": "medium",
+    "visual_signals": ["hose", "bypass", "temporary", "unattended"],
+    "category": "maintenance"
+  }
+]

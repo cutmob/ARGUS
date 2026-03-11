@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { CameraView } from "@/components/CameraView";
 import { ArgusIndicator } from "@/components/ArgusIndicator";
+import { INSPECTION_MODES, modeLabel } from "@/lib/modes";
 import type { Hazard, Overlay } from "@/lib/types";
 
 interface SmartphoneSessionProps {
@@ -22,8 +23,6 @@ interface SmartphoneSessionProps {
   mode: string;
   onModeChange: (mode: string) => void;
 }
-
-const MODES = ["general", "construction", "warehouse", "electrical"];
 
 const RISK_COLOR: Record<string, string> = {
   low:      "#22c55e",
@@ -84,7 +83,7 @@ export function SmartphoneSession({ session, mode, onModeChange }: SmartphoneSes
               className="flex gap-6 px-5 py-3 overflow-x-auto"
               style={{ borderBottom: "1px solid #1c1c1c" }}
             >
-              {MODES.map((m) => (
+              {INSPECTION_MODES.map((m) => (
                 <button
                   key={m}
                   onClick={() => onModeChange(m)}
@@ -95,7 +94,7 @@ export function SmartphoneSession({ session, mode, onModeChange }: SmartphoneSes
                       : { color: "#4a4a4a" }
                   }
                 >
-                  {m}
+                  {modeLabel(m)}
                 </button>
               ))}
             </div>

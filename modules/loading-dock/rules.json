@@ -1,0 +1,72 @@
+[
+  {
+    "rule_id": "ld_001",
+    "description": "Wheel chocks missing or not properly placed against tires of docked trailer",
+    "severity": "critical",
+    "visual_signals": ["no chocks visible at trailer wheels", "chocks present but not contacting tire", "single chock on only one side"],
+    "category": "trailer_securement"
+  },
+  {
+    "rule_id": "ld_002",
+    "description": "Dock leveler plate is damaged, bent, or not level with trailer bed creating a trip hazard",
+    "severity": "high",
+    "visual_signals": ["bent leveler lip", "visible gap between plate and trailer floor", "leveler stuck in raised or lowered position"],
+    "category": "dock_leveler"
+  },
+  {
+    "rule_id": "ld_003",
+    "description": "Excessive gap visible between trailer edge and dock face where workers could fall through",
+    "severity": "critical",
+    "visual_signals": ["daylight visible between dock and trailer", "gap wider than six inches", "no bridge plate covering the gap"],
+    "category": "fall_hazard"
+  },
+  {
+    "rule_id": "ld_004",
+    "description": "Overhead dock door has bent tracks, broken panels, or visibly damaged safety sensors",
+    "severity": "high",
+    "visual_signals": ["dented or cracked door panels", "bent guide track", "hanging or disconnected safety sensor wire"],
+    "category": "overhead_door"
+  },
+  {
+    "rule_id": "ld_005",
+    "description": "Insufficient or non-functional lighting at dock position reducing operator visibility",
+    "severity": "medium",
+    "visual_signals": ["dark shadow zones at dock face", "burned-out dock light fixture", "no exterior light illuminating trailer interior"],
+    "category": "lighting"
+  },
+  {
+    "rule_id": "ld_006",
+    "description": "No visible separation between pedestrian walkway and forklift traffic lane in dock area",
+    "severity": "high",
+    "visual_signals": ["faded or missing floor markings", "pedestrians and forklifts sharing same path", "no bollards or barriers between zones"],
+    "category": "traffic_separation"
+  },
+  {
+    "rule_id": "ld_007",
+    "description": "Dock bumpers are deteriorated, missing, or compressed exposing building wall to trailer impact",
+    "severity": "medium",
+    "visual_signals": ["crumbled rubber bumper", "exposed concrete at dock face", "bumper hanging loose from mounting"],
+    "category": "dock_bumper"
+  },
+  {
+    "rule_id": "ld_008",
+    "description": "Trailer ICC bar appears damaged, bent, or missing compromising rear underride protection",
+    "severity": "high",
+    "visual_signals": ["bent or sagging rear impact guard", "missing ICC bar entirely", "guard detached on one side"],
+    "category": "trailer_condition"
+  },
+  {
+    "rule_id": "ld_009",
+    "description": "Dock edge lacks fall protection such as guardrails or safety chains when door is open and no trailer present",
+    "severity": "critical",
+    "visual_signals": ["open dock door with no trailer backed in", "no guardrail or safety bar across opening", "unprotected drop at dock edge"],
+    "category": "fall_protection"
+  },
+  {
+    "rule_id": "ld_010",
+    "description": "Slip hazard from water, oil, snow, or debris accumulation on dock surface or approach ramp",
+    "severity": "medium",
+    "visual_signals": ["wet sheen on dock floor", "oil stain near dock edge", "snow or ice tracked onto dock surface", "loose debris in traffic path"],
+    "category": "slip_hazard"
+  }
+]

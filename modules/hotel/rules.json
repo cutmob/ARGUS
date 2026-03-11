@@ -1,0 +1,72 @@
+[
+  {
+    "rule_id": "htl_001",
+    "description": "Fire-rated door held open with wedge, brick, or disabled self-closing mechanism",
+    "severity": "critical",
+    "visual_signals": ["door wedge at base of fire door", "self-closer arm disconnected", "fire door tied open with cord"],
+    "category": "fire_door"
+  },
+  {
+    "rule_id": "htl_002",
+    "description": "Guest corridor width narrowed below 44 inches by housekeeping carts, furniture, or storage",
+    "severity": "high",
+    "visual_signals": ["cart blocking half of hallway", "stacked linen bins along corridor wall", "furniture reducing walkable width"],
+    "category": "egress_width"
+  },
+  {
+    "rule_id": "htl_003",
+    "description": "Exit sign missing, unlit, or obscured by decorations or signage at egress point",
+    "severity": "critical",
+    "visual_signals": ["dark exit sign above door", "no exit sign at corridor intersection", "banner draped over exit sign"],
+    "category": "exit_signage"
+  },
+  {
+    "rule_id": "htl_004",
+    "description": "Fire extinguisher with expired inspection tag or missing from designated cabinet",
+    "severity": "high",
+    "visual_signals": ["inspection tag date past due", "empty extinguisher bracket on wall", "extinguisher gauge in red zone"],
+    "category": "fire_extinguisher"
+  },
+  {
+    "rule_id": "htl_005",
+    "description": "Pool deck area lacking wet surface warning signs or non-slip treatment",
+    "severity": "high",
+    "visual_signals": ["glossy wet tile without signage", "no caution wet floor sign near pool edge", "smooth deck surface with visible water film"],
+    "category": "pool_safety"
+  },
+  {
+    "rule_id": "htl_006",
+    "description": "Balcony railing with loose posts, wide picket spacing, or height below 42 inches",
+    "severity": "critical",
+    "visual_signals": ["railing wobbling visibly", "gap between balusters wider than 4 inches", "railing noticeably low relative to adult waist"],
+    "category": "balcony_safety"
+  },
+  {
+    "rule_id": "htl_007",
+    "description": "Kitchen grease hood filters showing heavy grease accumulation or physical damage",
+    "severity": "high",
+    "visual_signals": ["yellow-brown grease dripping from filter edge", "bent or warped hood filter panel", "grease buildup on hood interior surface"],
+    "category": "kitchen_fire"
+  },
+  {
+    "rule_id": "htl_008",
+    "description": "Emergency lighting fixture non-functional or missing in stairwell or corridor",
+    "severity": "high",
+    "visual_signals": ["emergency light with no indicator LED", "empty mounting bracket for emergency light", "darkened stairwell landing without backup light"],
+    "category": "emergency_lighting"
+  },
+  {
+    "rule_id": "htl_009",
+    "description": "Stairwell used for storage with boxes, equipment, or debris obstructing egress path",
+    "severity": "critical",
+    "visual_signals": ["cardboard boxes stacked on stairwell landing", "cleaning equipment stored against stair railing", "debris on stairwell treads"],
+    "category": "stairwell_egress"
+  },
+  {
+    "rule_id": "htl_010",
+    "description": "ADA accessible route blocked by furniture, planters, or temporary signage",
+    "severity": "medium",
+    "visual_signals": ["sandwich board sign in accessible ramp path", "planter narrowing accessible doorway", "chair placed in front of accessible entrance"],
+    "category": "ada_compliance"
+  }
+]

@@ -1,0 +1,6 @@
+{
+  "author": "ARGUS Core Team",
+  "version": "1",
+  "tags": ["loading_dock", "receiving", "shipping", "logistics"],
+  "required_objects": ["dock", "truck", "plate", "chock", "door"]
+}

@@ -1,0 +1,6 @@
+{
+  "author": "ARGUS Core Team",
+  "version": "1",
+  "tags": ["hotel", "hospitality", "guest_safety", "fire_code"],
+  "required_objects": ["door", "hallway", "sign", "sprinkler", "extinguisher"]
+}

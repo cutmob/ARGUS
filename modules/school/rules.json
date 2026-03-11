@@ -1,0 +1,79 @@
+[
+  {
+    "rule_id": "sch_001",
+    "description": "Playground equipment with visible cracks, rust holes, or structural deformation",
+    "severity": "critical",
+    "visual_signals": ["rust spots on metal frame", "cracked plastic slide surface", "bent support post"],
+    "category": "playground_safety"
+  },
+  {
+    "rule_id": "sch_002",
+    "description": "Playground protective surfacing degraded, compacted, or displaced below required depth for fall height",
+    "severity": "critical",
+    "visual_signals": ["bare ground visible under equipment", "rubber mulch scattered thin", "hard-packed surface under swings"],
+    "category": "playground_safety"
+  },
+  {
+    "rule_id": "sch_003",
+    "description": "Ceiling tiles showing water stains, sagging, or displacement indicating moisture intrusion",
+    "severity": "medium",
+    "visual_signals": ["brown ring stain on ceiling tile", "tile bowing downward", "gap in ceiling grid"],
+    "category": "building_integrity"
+  },
+  {
+    "rule_id": "sch_004",
+    "description": "Walkway trip hazard from raised concrete joints, cracked pavement, or uneven surfaces",
+    "severity": "high",
+    "visual_signals": ["sidewalk slab offset at joint", "cracked asphalt with raised edge", "tree root lifting pavement"],
+    "category": "slip_trip_fall"
+  },
+  {
+    "rule_id": "sch_005",
+    "description": "Exterior door propped open with wedge or object defeating lockdown and security protocols",
+    "severity": "critical",
+    "visual_signals": ["rock or wedge at door base", "exterior door ajar with no staff present", "door latch taped over"],
+    "category": "security"
+  },
+  {
+    "rule_id": "sch_006",
+    "description": "Exit sign missing, not illuminated, or obscured along required egress path",
+    "severity": "high",
+    "visual_signals": ["dark exit sign above door", "empty mounting bracket", "sign blocked by banner or decoration"],
+    "category": "egress"
+  },
+  {
+    "rule_id": "sch_007",
+    "description": "Science lab chemicals stored outside approved cabinets or without proper segregation",
+    "severity": "high",
+    "visual_signals": ["chemical bottles on open counter", "unlocked cabinet with hazardous labels", "incompatible chemicals stored together"],
+    "category": "chemical_safety"
+  },
+  {
+    "rule_id": "sch_008",
+    "description": "Stairwell handrail loose, detached from wall mount, or missing sections",
+    "severity": "high",
+    "visual_signals": ["handrail wobbling", "mounting bracket pulled from wall", "gap in railing run"],
+    "category": "slip_trip_fall"
+  },
+  {
+    "rule_id": "sch_009",
+    "description": "AED unit inaccessible due to blocked cabinet, missing signage, or location beyond recommended response distance",
+    "severity": "high",
+    "visual_signals": ["AED cabinet blocked by furniture", "no AED sign visible in corridor", "cabinet locked without break-glass option"],
+    "category": "emergency_preparedness"
+  },
+  {
+    "rule_id": "sch_010",
+    "description": "Bus loading zone markings faded, missing, or conflicting with pedestrian walkways",
+    "severity": "medium",
+    "visual_signals": ["faded yellow curb paint", "missing bus zone sign", "pedestrian path crossing unmarked bus lane"],
+    "category": "traffic_safety"
+  },
+  {
+    "rule_id": "sch_011",
+    "description": "Standing water or ice accumulation on walkways creating slip hazard for students and staff",
+    "severity": "high",
+    "visual_signals": ["puddle on sidewalk", "ice sheet on walkway", "water pooling near building entrance"],
+    "category": "slip_trip_fall"
+  }
+]

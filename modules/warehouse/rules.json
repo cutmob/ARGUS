@@ -1,0 +1,86 @@
+[
+  {
+    "rule_id": "wh_001",
+    "description": "Pallet racking must be undamaged — no bent uprights, missing beam pins, or deformed braces",
+    "severity": "critical",
+    "visual_signals": ["rack", "bent", "deformed", "damaged", "upright", "beam"],
+    "category": "structural"
+  },
+  {
+    "rule_id": "wh_002",
+    "description": "Pallets must not be stacked above rack height limits or in unstable configurations",
+    "severity": "high",
+    "visual_signals": ["pallet", "stacked", "overloaded", "leaning", "unstable"],
+    "category": "storage"
+  },
+  {
+    "rule_id": "wh_003",
+    "description": "Forklift aisles must be clear of obstructions, debris, and shrink wrap",
+    "severity": "high",
+    "visual_signals": ["aisle", "blocked", "debris", "pallet", "obstruction"],
+    "category": "traffic"
+  },
+  {
+    "rule_id": "wh_004",
+    "description": "Floor markings for pedestrian walkways and forklift lanes must be visible",
+    "severity": "medium",
+    "visual_signals": ["floor", "markings", "faded", "paint", "line"],
+    "category": "traffic"
+  },
+  {
+    "rule_id": "wh_005",
+    "description": "Loading dock edges must have visual barriers and dock plates properly placed",
+    "severity": "critical",
+    "visual_signals": ["dock", "edge", "barrier", "plate", "gap"],
+    "category": "dock"
+  },
+  {
+    "rule_id": "wh_006",
+    "description": "Forklifts must not travel with raised forks when unloaded",
+    "severity": "high",
+    "visual_signals": ["forklift", "forks", "raised", "traveling"],
+    "category": "equipment"
+  },
+  {
+    "rule_id": "wh_007",
+    "description": "Workers on foot in forklift zones must wear high-visibility vests",
+    "severity": "medium",
+    "visual_signals": ["person", "vest", "high_vis", "forklift", "zone"],
+    "category": "ppe"
+  },
+  {
+    "rule_id": "wh_008",
+    "description": "Sprinkler heads must have minimum 18-inch clearance below (NFPA 13)",
+    "severity": "high",
+    "visual_signals": ["sprinkler", "clearance", "storage", "ceiling"],
+    "category": "fire_safety"
+  },
+  {
+    "rule_id": "wh_009",
+    "description": "Emergency exits must not be blocked by stored inventory",
+    "severity": "critical",
+    "visual_signals": ["exit", "blocked", "inventory", "door"],
+    "category": "egress"
+  },
+  {
+    "rule_id": "wh_010",
+    "description": "Wheel chocks must be in place at loading bays with docked trailers",
+    "severity": "high",
+    "visual_signals": ["wheel", "chock", "trailer", "dock", "bay"],
+    "category": "dock"
+  },
+  {
+    "rule_id": "wh_011",
+    "description": "Charging station areas must be free of spills and properly ventilated",
+    "severity": "medium",
+    "visual_signals": ["charging", "battery", "spill", "ventilation"],
+    "category": "equipment"
+  },
+  {
+    "rule_id": "wh_012",
+    "description": "Aisle and staging area lighting must be adequate and operational",
+    "severity": "medium",
+    "visual_signals": ["lighting", "dark", "burned_out", "aisle"],
+    "category": "lighting"
+  }
+]

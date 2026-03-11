@@ -1,0 +1,86 @@
+[
+  {
+    "rule_id": "elec_001",
+    "description": "Arc flash warning labels must be present on all panels and switchgear",
+    "severity": "high",
+    "visual_signals": ["panel", "label", "arc_flash", "warning", "missing"],
+    "category": "labeling"
+  },
+  {
+    "rule_id": "elec_002",
+    "description": "Panels must have 36-inch clear working space in front (NEC 110.26)",
+    "severity": "high",
+    "visual_signals": ["panel", "clearance", "blocked", "storage", "box"],
+    "category": "access"
+  },
+  {
+    "rule_id": "elec_003",
+    "description": "All knockout openings must be covered — no exposed holes in panels",
+    "severity": "high",
+    "visual_signals": ["panel", "knockout", "hole", "opening", "missing_cover"],
+    "category": "enclosure"
+  },
+  {
+    "rule_id": "elec_004",
+    "description": "No visible signs of overheating — discoloration, melted insulation, or scorch marks",
+    "severity": "critical",
+    "visual_signals": ["discoloration", "melted", "scorch", "burn", "heat"],
+    "category": "thermal"
+  },
+  {
+    "rule_id": "elec_005",
+    "description": "Panel dead-fronts must be in place — no exposed bus bars",
+    "severity": "critical",
+    "visual_signals": ["panel", "open", "bus_bar", "exposed", "cover_missing"],
+    "category": "enclosure"
+  },
+  {
+    "rule_id": "elec_006",
+    "description": "Extension cords must not be used as permanent wiring",
+    "severity": "medium",
+    "visual_signals": ["extension_cord", "permanent", "taped", "routed"],
+    "category": "wiring"
+  },
+  {
+    "rule_id": "elec_007",
+    "description": "No water or moisture near electrical equipment",
+    "severity": "critical",
+    "visual_signals": ["water", "puddle", "condensation", "stain", "drip"],
+    "category": "environment"
+  },
+  {
+    "rule_id": "elec_008",
+    "description": "Circuit breakers and panels must be labeled with directory",
+    "severity": "medium",
+    "visual_signals": ["breaker", "label", "directory", "unlabeled", "blank"],
+    "category": "labeling"
+  },
+  {
+    "rule_id": "elec_009",
+    "description": "Cable trays must not be overfilled and cables must be supported",
+    "severity": "medium",
+    "visual_signals": ["cable_tray", "overfilled", "sagging", "unsupported"],
+    "category": "wiring"
+  },
+  {
+    "rule_id": "elec_010",
+    "description": "Conduit must be intact — no exposed wiring runs",
+    "severity": "high",
+    "visual_signals": ["conduit", "damaged", "exposed_wire", "missing"],
+    "category": "wiring"
+  },
+  {
+    "rule_id": "elec_011",
+    "description": "Emergency disconnects must be accessible and unobstructed",
+    "severity": "critical",
+    "visual_signals": ["disconnect", "emergency", "blocked", "shutoff"],
+    "category": "access"
+  },
+  {
+    "rule_id": "elec_012",
+    "description": "No combustible materials stored in dedicated electrical rooms",
+    "severity": "high",
+    "visual_signals": ["cardboard", "paper", "combustible", "storage", "electrical_room"],
+    "category": "fire_safety"
+  }
+]

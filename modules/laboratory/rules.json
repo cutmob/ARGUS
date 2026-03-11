@@ -1,0 +1,72 @@
+[
+  {
+    "rule_id": "lab_001",
+    "description": "Fume hood sash raised above the indicated maximum safe operating height",
+    "severity": "high",
+    "visual_signals": ["sash above arrow marking on hood frame", "fully open fume hood during chemical work", "sash height well above 18-inch line"],
+    "category": "fume_hood"
+  },
+  {
+    "rule_id": "lab_002",
+    "description": "Incompatible chemicals stored together such as acids next to bases or oxidizers near flammables",
+    "severity": "critical",
+    "visual_signals": ["acid bottle adjacent to base bottle on same shelf", "oxidizer container beside flammable solvent", "mixed color-coded chemical bins in single cabinet"],
+    "category": "chemical_storage"
+  },
+  {
+    "rule_id": "lab_003",
+    "description": "Chemical container missing GHS-compliant hazard label or label too degraded to read",
+    "severity": "high",
+    "visual_signals": ["unlabeled bottle on bench", "container with faded or peeling label", "handwritten label lacking GHS pictograms"],
+    "category": "labeling"
+  },
+  {
+    "rule_id": "lab_004",
+    "description": "Emergency shower or eyewash station access blocked by equipment, carts, or storage",
+    "severity": "critical",
+    "visual_signals": ["cart parked in front of eyewash station", "boxes stacked under emergency shower pull", "equipment obstructing the marked floor clearance zone"],
+    "category": "emergency_equipment"
+  },
+  {
+    "rule_id": "lab_005",
+    "description": "Personnel performing active lab work without required PPE such as goggles, gloves, or lab coat",
+    "severity": "high",
+    "visual_signals": ["person handling chemicals without gloves", "researcher at bench with no safety goggles", "lab occupant lacking lab coat near open chemicals"],
+    "category": "ppe_compliance"
+  },
+  {
+    "rule_id": "lab_006",
+    "description": "Sharps disposal container filled above the maximum fill line or overflowing",
+    "severity": "critical",
+    "visual_signals": ["needles protruding from sharps container opening", "container contents visible above fill line", "sharps bin with lid unable to close"],
+    "category": "sharps_disposal"
+  },
+  {
+    "rule_id": "lab_007",
+    "description": "Spill kit missing from designated location, inaccessible behind clutter, or visibly depleted",
+    "severity": "medium",
+    "visual_signals": ["empty spill kit bucket on wall mount", "spill kit buried behind stacked boxes", "open spill kit with absorbent pads missing"],
+    "category": "spill_response"
+  },
+  {
+    "rule_id": "lab_008",
+    "description": "Laboratory exit path blocked by furniture, equipment, or stored materials",
+    "severity": "critical",
+    "visual_signals": ["equipment cart blocking lab exit door", "boxes stacked in doorway path", "exit door obstructed by shelving unit"],
+    "category": "egress"
+  },
+  {
+    "rule_id": "lab_009",
+    "description": "Compressed gas cylinder standing unsecured without chain, strap, or wall bracket",
+    "severity": "critical",
+    "visual_signals": ["free-standing gas cylinder with no restraint", "cylinder chain hanging loose and unattached", "gas tank leaning against bench without bracket"],
+    "category": "compressed_gas"
+  },
+  {
+    "rule_id": "lab_010",
+    "description": "Biosafety cabinet missing current certification tag or tag showing expired date",
+    "severity": "high",
+    "visual_signals": ["no certification sticker on BSC exterior", "certification tag with date older than one year", "BSC with peeling or blank certification label"],
+    "category": "biosafety_cabinet"
+  }
+]
