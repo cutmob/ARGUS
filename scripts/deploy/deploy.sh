@@ -137,7 +137,7 @@ gcloud run deploy "$SERVICE_NAME" \
   --min-instances=0 \
   --max-instances=10 \
   --set-secrets="GEMINI_API_KEY=GEMINI_API_KEY:latest" \
-  --set-env-vars="PORT=8080,ARGUS_MODULES_DIR=/app/modules" \
+  --set-env-vars="ARGUS_MODULES_DIR=/app/modules" \
   --quiet
 
 # ─── Done ────────────────────────────────────────────────────────────────────
