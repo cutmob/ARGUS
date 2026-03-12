@@ -1,11 +1,14 @@
 "use client";
 
 import { CameraView } from "@/components/CameraView";
+import type { GlassMode } from "@/components/HazardOverlay";
 import type { Overlay } from "@/lib/types";
 
 interface FeedGridProps {
   overlays: Overlay[];
   overlaysVisible?: boolean;
+  glassMode?: GlassMode;
+  videoSource?: string | null;
   onFrame: (blob: Blob) => void;
   activeFeed: number;
   onSelectFeed: (index: number) => void;
@@ -18,7 +21,15 @@ const FEED_LABELS = [
   "CAM-04  ROOF ACCESS",
 ];
 
-export function FeedGrid({ overlays, overlaysVisible = true, onFrame, activeFeed, onSelectFeed }: FeedGridProps) {
+export function FeedGrid({
+  overlays,
+  overlaysVisible = true,
+  glassMode = "dark",
+  videoSource,
+  onFrame,
+  activeFeed,
+  onSelectFeed,
+}: FeedGridProps) {
   return (
     <div className="grid grid-cols-2 gap-px h-full" style={{ background: "#1c1c1c" }}>
       {FEED_LABELS.map((label, i) => (
@@ -33,7 +44,13 @@ export function FeedGrid({ overlays, overlaysVisible = true, onFrame, activeFeed
           )}
 
           {i === 0 ? (
-            <CameraView overlays={overlays} overlaysVisible={overlaysVisible} onFrame={onFrame} />
+            <CameraView
+              overlays={overlays}
+              overlaysVisible={overlaysVisible}
+              glassMode={glassMode}
+              videoSource={videoSource}
+              onFrame={onFrame}
+            />
           ) : (
             <div className="w-full h-full flex items-center justify-center" style={{ background: "#080808" }}>
               <span className="font-mono text-xs" style={{ color: "#1c1c1c" }}>—</span>

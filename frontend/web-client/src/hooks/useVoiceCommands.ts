@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useCallback, useState } from "react";
+import { stopSpeaking } from "@/lib/tts";
 
 interface UseVoiceCommandsOptions {
   onCommand: (transcript: string) => void;
@@ -19,6 +20,7 @@ export function useVoiceCommands({
   enabled = false,
 }: UseVoiceCommandsOptions): UseVoiceCommandsReturn {
   const recognitionRef = useRef<SpeechRecognition | null>(null);
+  const enabledRef = useRef(enabled);
   const [listening, setListening] = useState(false);
 
   const supported =
@@ -43,17 +45,40 @@ export function useVoiceCommands({
     recognition.onresult = (event) => {
       const last = event.results[event.results.length - 1];
       if (last.isFinal) {
+        stopSpeaking();
         onCommand(last[0].transcript.trim().toLowerCase());
       }
     };
 
-    recognition.onend = () => setListening(false);
-    recognition.onerror = () => setListening(false);
+    recognition.onend = () => {
+      setListening(false);
+      recognitionRef.current = null;
+      if (enabledRef.current) {
+        setTimeout(() => start(), 250);
+      }
+    };
+    recognition.onerror = (event: SpeechRecognitionErrorEvent) => {
+      setListening(false);
+      recognitionRef.current = null;
+      if (event.error === "not-allowed" || event.error === "service-not-allowed") return;
+      if (enabledRef.current) {
+        setTimeout(() => start(), 500);
+      }
+    };
 
     recognitionRef.current = recognition;
-    recognition.start();
-    setListening(true);
+    try {
+      recognition.start();
+      setListening(true);
+    } catch {
+      recognitionRef.current = null;
+      setListening(false);
+    }
   }, [supported, onCommand]);
+
+  useEffect(() => {
+    enabledRef.current = enabled;
+  }, [enabled]);
 
   useEffect(() => {
     if (enabled) start();

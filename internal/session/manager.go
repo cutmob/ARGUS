@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"log/slog"
 	"net/http"
+	"strings"
 	"sync"
 	"time"
 
@@ -95,9 +96,86 @@ func (m *Manager) AddHazard(sessionID string, hazard types.Hazard) {
 	m.mu.Lock()
 	defer m.mu.Unlock()
 	if s, ok := m.sessions[sessionID]; ok {
-		hazard.DetectedAt = time.Now()
-		s.Hazards = append(s.Hazards, hazard)
+		now := time.Now()
+		hazard.DetectedAt = now
+		if hazard.FirstSeenAt.IsZero() {
+			hazard.FirstSeenAt = now
+		}
+		if hazard.LastSeenAt.IsZero() {
+			hazard.LastSeenAt = now
+		}
+		if hazard.Occurrences == 0 {
+			hazard.Occurrences = 1
+		}
+
+		if idx := findMatchingHazardIndex(s.Hazards, hazard); idx >= 0 {
+			existing := &s.Hazards[idx]
+			existing.LastSeenAt = now
+			existing.DetectedAt = now
+			existing.Occurrences++
+			if existing.FirstSeenAt.IsZero() {
+				existing.FirstSeenAt = now
+			}
+			existing.PersistenceSeconds = int(now.Sub(existing.FirstSeenAt).Seconds())
+			if hazard.Confidence > existing.Confidence {
+				existing.Confidence = hazard.Confidence
+			}
+			if severityRank(hazard.Severity) > severityRank(existing.Severity) {
+				existing.Severity = hazard.Severity
+				existing.RiskTrend = "rising"
+			} else if severityRank(hazard.Severity) < severityRank(existing.Severity) {
+				existing.RiskTrend = "falling"
+			} else {
+				existing.RiskTrend = "stable"
+			}
+			if hazard.RuleID != "" {
+				existing.RuleID = hazard.RuleID
+			}
+			if hazard.CameraID != "" {
+				existing.CameraID = hazard.CameraID
+			}
+			if hazard.Location != "" {
+				existing.Location = hazard.Location
+			}
+			if hazard.BBox != nil {
+				existing.BBox = hazard.BBox
+			}
+		} else {
+			hazard.PersistenceSeconds = int(now.Sub(hazard.FirstSeenAt).Seconds())
+			hazard.RiskTrend = "new"
+			s.Hazards = append(s.Hazards, hazard)
+		}
 		s.UpdatedAt = time.Now()
+	}
+}
+
+func findMatchingHazardIndex(hazards []types.Hazard, target types.Hazard) int {
+	sig := hazardSignature(target)
+	for i := range hazards {
+		if hazardSignature(hazards[i]) == sig {
+			return i
+		}
+	}
+	return -1
+}
+
+func hazardSignature(h types.Hazard) string {
+	key := strings.ToLower(strings.TrimSpace(h.Description))
+	return strings.Join([]string{h.RuleID, h.CameraID, key}, "|")
+}
+
+func severityRank(s types.Severity) int {
+	switch s {
+	case types.SeverityLow:
+		return 1
+	case types.SeverityMedium:
+		return 2
+	case types.SeverityHigh:
+		return 3
+	case types.SeverityCritical:
+		return 4
+	default:
+		return 0
 	}
 }
 

@@ -1,10 +1,13 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { FeedGrid } from "./FeedGrid";
 import { ArgusIndicator } from "@/components/ArgusIndicator";
+import { useVoiceCommands } from "@/hooks/useVoiceCommands";
 import { INSPECTION_MODES, modeLabel } from "@/lib/modes";
-import type { Hazard, Overlay } from "@/lib/types";
+import { resolveVoiceIntent } from "@/lib/voiceIntent";
+import type { GlassMode } from "@/components/HazardOverlay";
+import type { ActionCard, Hazard, Overlay } from "@/lib/types";
 
 interface CCTVSessionProps {
   session: {
@@ -12,6 +15,7 @@ interface CCTVSessionProps {
     isInspecting: boolean;
     hazards: Hazard[];
     overlays: Overlay[];
+    actionCards: ActionCard[];
     riskLevel: string;
     processing: boolean;
     speaking: boolean;
@@ -19,10 +23,19 @@ interface CCTVSessionProps {
     startInspection: (mode: string) => void;
     stopInspection: () => void;
     generateReport: () => void;
+    requestActions: () => void;
+    sendNaturalLanguageCommand?: (text: string) => void;
   };
   mode: string;
   onModeChange: (mode: string) => void;
   overlaysVisible?: boolean;
+  videoSource?: string | null;
+  glassMode?: GlassMode;
+  onGlassModeChange?: (mode: GlassMode) => void;
+  voiceInputEnabled: boolean;
+  voiceOutputEnabled: boolean;
+  onVoiceInputChange: (enabled: boolean) => void;
+  onVoiceOutputChange: (enabled: boolean) => void;
 }
 
 const SEVERITY_COLOR: Record<string, string> = {
@@ -39,9 +52,31 @@ const RISK_COLOR: Record<string, string> = {
   critical: "#ef4444",
 };
 
-export function CCTVSession({ session, mode, onModeChange, overlaysVisible = true }: CCTVSessionProps) {
+export function CCTVSession({
+  session,
+  mode,
+  onModeChange,
+  overlaysVisible = true,
+  videoSource,
+  glassMode: externalGlassMode,
+  onGlassModeChange,
+  voiceInputEnabled,
+  voiceOutputEnabled,
+  onVoiceInputChange,
+  onVoiceOutputChange,
+}: CCTVSessionProps) {
   const [activeFeed, setActiveFeed] = useState(0);
   const [time, setTime]             = useState("");
+  const [localGlassMode, setLocalGlassMode] = useState<GlassMode>("dark");
+  const glassMode = externalGlassMode ?? localGlassMode;
+
+  const setGlassMode = useCallback(
+    (next: GlassMode) => {
+      if (onGlassModeChange) onGlassModeChange(next);
+      else setLocalGlassMode(next);
+    },
+    [onGlassModeChange]
+  );
 
   const indicatorState = session.speaking
     ? "speaking"
@@ -71,6 +106,47 @@ export function CCTVSession({ session, mode, onModeChange, overlaysVisible = tru
     return () => window.removeEventListener("keydown", onKey);
   }, [session, mode]);
 
+  const handleVoiceCommand = useCallback(
+    (transcript: string) => {
+      const intent = resolveVoiceIntent(transcript);
+      switch (intent.type) {
+        case "start_inspection":
+          session.startInspection(mode);
+          break;
+        case "stop_inspection":
+          session.stopInspection();
+          break;
+        case "generate_report":
+          session.generateReport();
+          break;
+        case "operator_actions":
+          session.requestActions();
+          break;
+        case "switch_mode":
+          if (intent.mode) {
+            const matched = INSPECTION_MODES.find((m) => m === intent.mode);
+            if (matched) onModeChange(matched);
+          }
+          break;
+        case "set_glass_light":
+          setGlassMode("light");
+          break;
+        case "set_glass_dark":
+          setGlassMode("dark");
+          break;
+        default:
+          session.sendNaturalLanguageCommand?.(transcript);
+          break;
+      }
+    },
+    [session, mode, onModeChange, setGlassMode]
+  );
+
+  const { supported: voiceInputSupported } = useVoiceCommands({
+    onCommand: handleVoiceCommand,
+    enabled: voiceInputEnabled,
+  });
+
   const riskColor = RISK_COLOR[session.riskLevel] ?? "#4a4a4a";
   const hazardStr = session.hazards.length.toString().padStart(2, "0");
 
@@ -78,15 +154,15 @@ export function CCTVSession({ session, mode, onModeChange, overlaysVisible = tru
     <div className="h-screen w-screen flex flex-col overflow-hidden" style={{ background: "#000" }}>
       {/* Top bar — single line */}
       <header
-        className="h-9 flex items-center justify-between px-5 shrink-0"
+        className="h-9 flex items-center justify-between px-5 shrink-0 liquid-glass"
         style={{ borderBottom: "1px solid #1c1c1c" }}
       >
         <div className="flex items-center gap-3">
-          <span className="font-display text-xs font-bold tracking-[0.25em] uppercase text-white">
+          <span className="font-display text-xs font-bold tracking-[0.25em] uppercase liquid-title">
             ARGUS
           </span>
-          <span style={{ color: "#1c1c1c", fontSize: 10 }}>|</span>
-          <span className="font-mono text-xs tracking-[0.15em] uppercase" style={{ color: "#4a4a4a" }}>
+          <span className="liquid-meta" style={{ fontSize: 10 }}>|</span>
+          <span className="font-mono text-xs tracking-[0.15em] uppercase liquid-meta">
             CCTV
           </span>
         </div>
@@ -101,7 +177,7 @@ export function CCTVSession({ session, mode, onModeChange, overlaysVisible = tru
               {session.connected ? "LIVE" : "OFFLINE"}
             </span>
           </div>
-          <span className="font-mono text-xs" style={{ color: "#4a4a4a" }}>{time}</span>
+          <span className="font-mono text-xs liquid-meta">{time}</span>
         </div>
       </header>
 
@@ -112,6 +188,8 @@ export function CCTVSession({ session, mode, onModeChange, overlaysVisible = tru
           <FeedGrid
             overlays={session.overlays}
             overlaysVisible={overlaysVisible}
+            glassMode={glassMode}
+            videoSource={videoSource}
             onFrame={session.sendFrame}
             activeFeed={activeFeed}
             onSelectFeed={setActiveFeed}
@@ -120,12 +198,12 @@ export function CCTVSession({ session, mode, onModeChange, overlaysVisible = tru
 
         {/* Sidebar */}
         <aside
-          className="w-52 flex flex-col overflow-hidden shrink-0"
+          className="w-52 flex flex-col overflow-hidden shrink-0 liquid-glass"
           style={{ background: "#080808", borderLeft: "1px solid #1c1c1c" }}
         >
           {/* Risk */}
-          <div className="px-5 pt-5 pb-4" style={{ borderBottom: "1px solid #1c1c1c" }}>
-            <p className="font-mono text-xs tracking-[0.2em] uppercase mb-2" style={{ color: "#4a4a4a" }}>
+          <div className="px-5 pt-6 pb-4" style={{ borderBottom: "1px solid #1c1c1c" }}>
+            <p className="font-mono text-xs tracking-[0.2em] uppercase mb-2 liquid-meta">
               Risk Level
             </p>
             <p
@@ -138,28 +216,23 @@ export function CCTVSession({ session, mode, onModeChange, overlaysVisible = tru
 
           {/* Hazard count */}
           <div className="px-5 pt-4 pb-4" style={{ borderBottom: "1px solid #1c1c1c" }}>
-            <p className="font-mono text-xs tracking-[0.2em] uppercase mb-1" style={{ color: "#4a4a4a" }}>
+            <p className="font-mono text-xs tracking-[0.2em] uppercase mb-1 liquid-meta">
               Hazards
             </p>
-            <p className="font-mono font-normal leading-none text-white" style={{ fontSize: 36 }}>
+            <p className="font-mono font-normal leading-none liquid-title" style={{ fontSize: 36 }}>
               {hazardStr}
             </p>
           </div>
 
           {/* Mode */}
           <div className="px-5 pt-4 pb-3" style={{ borderBottom: "1px solid #1c1c1c" }}>
-            <p className="font-mono text-xs tracking-[0.2em] uppercase mb-2" style={{ color: "#4a4a4a" }}>
+            <p className="font-mono text-xs tracking-[0.2em] uppercase mb-2 liquid-meta">
               Mode
             </p>
             <select
               value={mode}
               onChange={(e) => onModeChange(e.target.value)}
-              className="w-full font-mono text-xs tracking-wider uppercase py-2 px-2.5 bg-transparent appearance-none cursor-pointer transition-colors duration-100 focus:outline-none"
-              style={{
-                color: "#f0f0f0",
-                border: "1px solid #1c1c1c",
-                borderRadius: 0,
-              }}
+              className="w-full liquid-glass liquid-float liquid-pill font-mono text-xs tracking-wider uppercase py-2 px-2.5 bg-transparent appearance-none cursor-pointer transition-colors duration-100 focus:outline-none liquid-title"
             >
               {INSPECTION_MODES.map((m) => (
                 <option
@@ -175,25 +248,56 @@ export function CCTVSession({ session, mode, onModeChange, overlaysVisible = tru
 
           {/* Actions */}
           <div className="px-5 py-4" style={{ borderBottom: "1px solid #1c1c1c" }}>
+            <div className="grid grid-cols-2 gap-1.5 mb-1.5">
+              <button
+                onClick={() => onVoiceInputChange(!voiceInputEnabled)}
+                disabled={!voiceInputSupported}
+                className="liquid-glass liquid-float liquid-pill font-display text-[10px] font-medium tracking-[0.12em] uppercase py-2 transition-colors duration-100"
+                style={{
+                  color: !voiceInputSupported
+                    ? "#2a2a2a"
+                    : voiceInputEnabled
+                    ? "#FF5F1F"
+                    : "#4a4a4a",
+                  opacity: voiceInputSupported ? 1 : 0.6,
+                }}
+              >
+                IN {voiceInputEnabled ? "ON" : "OFF"}
+              </button>
+              <button
+                onClick={() => onVoiceOutputChange(!voiceOutputEnabled)}
+                className="liquid-glass liquid-float liquid-pill font-display text-[10px] font-medium tracking-[0.12em] uppercase py-2 transition-colors duration-100"
+                style={{
+                  color: voiceOutputEnabled ? "#FF5F1F" : "#4a4a4a",
+                }}
+              >
+                OUT {voiceOutputEnabled ? "ON" : "OFF"}
+              </button>
+            </div>
             <button
               onClick={() =>
                 session.isInspecting ? session.stopInspection() : session.startInspection(mode)
               }
-              className="w-full font-display text-xs font-bold tracking-[0.2em] uppercase py-3 transition-colors duration-100"
+              className="w-full liquid-glass liquid-float liquid-pill font-display text-xs font-bold tracking-[0.2em] uppercase py-3 transition-colors duration-100"
               style={
                 session.isInspecting
-                  ? { border: "1px solid rgba(239,68,68,0.4)", color: "#ef4444" }
-                  : { background: "#FF5F1F", color: "#000" }
+                  ? { color: "#ef4444" }
+                  : { color: "#FF5F1F" }
               }
             >
               {session.isInspecting ? "■  STOP" : "INSPECT"}
             </button>
             <button
               onClick={session.generateReport}
-              className="w-full font-display text-xs font-medium tracking-[0.15em] uppercase py-2 mt-1.5 transition-colors duration-100"
-              style={{ border: "1px solid #1c1c1c", color: "#4a4a4a" }}
+              className="w-full liquid-glass liquid-float liquid-pill font-display text-xs font-medium tracking-[0.15em] uppercase py-2 mt-1.5 transition-colors duration-100 liquid-meta"
             >
               REPORT
+            </button>
+            <button
+              onClick={session.requestActions}
+              className="w-full liquid-glass liquid-float liquid-pill font-display text-xs font-medium tracking-[0.15em] uppercase py-2 mt-1.5 transition-colors duration-100 liquid-meta"
+            >
+              TOP 3 ACTIONS
             </button>
           </div>
 
@@ -201,24 +305,47 @@ export function CCTVSession({ session, mode, onModeChange, overlaysVisible = tru
           <div className="flex-1 overflow-y-auto">
             {session.hazards.length === 0 ? (
               <div className="px-5 py-4">
-                <span className="font-mono text-xs" style={{ color: "#1c1c1c" }}>—</span>
+                <span className="font-mono text-xs liquid-meta">—</span>
               </div>
             ) : (
               session.hazards.map((h) => (
                 <div key={h.id} className="px-5 py-3" style={{ borderBottom: "1px solid #1c1c1c" }}>
-                  <p className="font-sans text-xs font-light leading-relaxed" style={{ color: "#7a7a7a" }}>
+                  <p className="font-sans text-xs font-light leading-relaxed liquid-title">
                     {h.description}
                   </p>
                   <span
                     className="font-mono text-xs uppercase tracking-widest"
                     style={{ color: SEVERITY_COLOR[h.severity] ?? "#4a4a4a" }}
                   >
-                    {h.severity}
+                    {h.severity} • {Math.round(h.confidence * 100)}%
                   </span>
+                  <p className="font-mono text-[10px] mt-1 liquid-meta">
+                    {h.rule_id || "rule:n/a"} • {h.camera_id || "camera:n/a"} • {h.persistence_seconds ?? 0}s • {h.risk_trend || "new"}
+                  </p>
                 </div>
               ))
             )}
           </div>
+
+          {session.actionCards.length > 0 && (
+            <div className="px-5 py-3 liquid-glass">
+              <p className="font-mono text-[9px] tracking-[0.16em] uppercase mb-1.5 liquid-meta">
+                ACTION CARDS
+              </p>
+              <div className="space-y-1.5">
+                {session.actionCards.slice(0, 3).map((card, idx) => (
+                  <div key={`${card.hazard_ref_id ?? card.title}-${idx}`} className="px-2 py-1.5 liquid-glass">
+                    <p className="font-mono text-[9px] uppercase tracking-[0.14em] liquid-meta">
+                      {card.priority}
+                    </p>
+                    <p className="font-sans text-xs mt-0.5 liquid-title">
+                      {card.title}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
 
           {/* Keyboard shortcuts */}
           <div className="px-5 py-3" style={{ borderTop: "1px solid #1c1c1c" }}>

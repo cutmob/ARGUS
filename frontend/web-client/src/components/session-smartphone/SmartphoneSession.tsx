@@ -5,7 +5,7 @@ import { CameraView } from "@/components/CameraView";
 import { ArgusIndicator } from "@/components/ArgusIndicator";
 import { INSPECTION_MODES, modeLabel } from "@/lib/modes";
 import type { GlassMode } from "@/components/HazardOverlay";
-import type { Hazard, Overlay } from "@/lib/types";
+import type { ActionCard, Hazard, Overlay } from "@/lib/types";
 
 interface SmartphoneSessionProps {
   session: {
@@ -13,6 +13,7 @@ interface SmartphoneSessionProps {
     isInspecting: boolean;
     hazards: Hazard[];
     overlays: Overlay[];
+    actionCards: ActionCard[];
     riskLevel: string;
     processing: boolean;
     speaking: boolean;
@@ -20,10 +21,14 @@ interface SmartphoneSessionProps {
     startInspection: (mode: string) => void;
     stopInspection: () => void;
     generateReport: () => void;
+    requestActions: () => void;
   };
   mode: string;
   onModeChange: (mode: string) => void;
   overlaysVisible?: boolean;
+  videoSource?: string | null;
+  glassMode?: GlassMode;
+  onGlassModeChange?: (mode: GlassMode) => void;
 }
 
 const RISK_COLOR: Record<string, string> = {
@@ -33,9 +38,22 @@ const RISK_COLOR: Record<string, string> = {
   critical: "#ef4444",
 };
 
-export function SmartphoneSession({ session, mode, onModeChange, overlaysVisible = true }: SmartphoneSessionProps) {
+export function SmartphoneSession({
+  session,
+  mode,
+  onModeChange,
+  overlaysVisible = true,
+  videoSource,
+  glassMode: externalGlassMode,
+  onGlassModeChange,
+}: SmartphoneSessionProps) {
   const [sheetOpen, setSheetOpen] = useState(false);
-  const [glassMode, setGlassMode] = useState<GlassMode>("dark");
+  const [localGlassMode, setLocalGlassMode] = useState<GlassMode>("dark");
+  const glassMode = externalGlassMode ?? localGlassMode;
+  const setGlassMode = (next: GlassMode) => {
+    if (onGlassModeChange) onGlassModeChange(next);
+    else setLocalGlassMode(next);
+  };
   const indicatorState = session.speaking ? "speaking" : session.processing ? "processing" : "idle";
   const riskColor = RISK_COLOR[session.riskLevel] ?? "#4a4a4a";
 
@@ -43,7 +61,13 @@ export function SmartphoneSession({ session, mode, onModeChange, overlaysVisible
     <div className="h-screen w-screen bg-black relative overflow-hidden">
       {/* Camera */}
       <div className="absolute inset-0">
-        <CameraView overlays={session.overlays} overlaysVisible={overlaysVisible} glassMode={glassMode} onFrame={session.sendFrame} />
+        <CameraView
+          overlays={session.overlays}
+          overlaysVisible={overlaysVisible}
+          glassMode={glassMode}
+          videoSource={videoSource}
+          onFrame={session.sendFrame}
+        />
       </div>
 
       {/* Top status */}
@@ -80,7 +104,7 @@ export function SmartphoneSession({ session, mode, onModeChange, overlaysVisible
         </button>
 
         {sheetOpen && (
-          <div style={{ background: "rgba(0,0,0,0.97)", backdropFilter: "blur(20px)", borderTop: "1px solid #1c1c1c" }}>
+          <div className="liquid-glass liquid-float" style={{ borderTop: "1px solid #1c1c1c" }}>
             {/* Mode */}
             <div
               className="flex gap-6 px-5 py-3 overflow-x-auto"
@@ -108,26 +132,30 @@ export function SmartphoneSession({ session, mode, onModeChange, overlaysVisible
                 onClick={() =>
                   session.isInspecting ? session.stopInspection() : session.startInspection(mode)
                 }
-                className="flex-1 font-display text-xs font-bold tracking-[0.2em] uppercase py-3.5 transition-colors duration-100"
+                className="flex-1 liquid-glass liquid-float liquid-pill font-display text-xs font-bold tracking-[0.2em] uppercase py-3.5 transition-colors duration-100"
                 style={
                   session.isInspecting
-                    ? { border: "1px solid rgba(239,68,68,0.4)", color: "#ef4444" }
-                    : { background: "#FF5F1F", color: "#000" }
+                    ? { color: "#ef4444" }
+                    : { color: "#FF5F1F" }
                 }
               >
                 {session.isInspecting ? "■  STOP" : "INSPECT"}
               </button>
               <button
                 onClick={session.generateReport}
-                className="font-display text-xs font-medium px-5 tracking-[0.15em] uppercase transition-colors duration-100"
-                style={{ border: "1px solid #1c1c1c", color: "#4a4a4a" }}
+                className="liquid-glass liquid-float liquid-pill font-display text-xs font-medium px-5 tracking-[0.15em] uppercase transition-colors duration-100 liquid-meta"
               >
                 REPORT
               </button>
               <button
-                onClick={() => setGlassMode((m) => m === "dark" ? "light" : "dark")}
-                className="font-display text-xs font-medium px-4 tracking-[0.15em] uppercase transition-colors duration-100"
-                style={{ border: "1px solid #1c1c1c", color: "#4a4a4a" }}
+                onClick={session.requestActions}
+                className="liquid-glass liquid-float liquid-pill font-display text-xs font-medium px-3 tracking-[0.12em] uppercase transition-colors duration-100 liquid-meta"
+              >
+                TOP 3
+              </button>
+              <button
+                onClick={() => setGlassMode(glassMode === "dark" ? "light" : "dark")}
+                className="liquid-glass liquid-float liquid-pill font-display text-xs font-medium px-4 tracking-[0.15em] uppercase transition-colors duration-100 liquid-title"
                 title="Toggle overlay style"
               >
                 {glassMode === "dark" ? "◑" : "○"}
@@ -141,12 +169,15 @@ export function SmartphoneSession({ session, mode, onModeChange, overlaysVisible
               ) : (
                 session.hazards.slice(0, 12).map((h) => (
                   <div key={h.id} className="px-5 py-3" style={{ borderBottom: "1px solid #0f0f0f" }}>
-                    <p className="font-sans text-xs font-light leading-relaxed" style={{ color: "#7a7a7a" }}>
+                    <p className="font-sans text-xs font-light leading-relaxed liquid-title">
                       {h.description}
                     </p>
                     <span className="font-mono text-xs tracking-widest uppercase" style={{ color: "#4a4a4a" }}>
-                      {h.severity}
+                      {h.severity} • {Math.round(h.confidence * 100)}%
                     </span>
+                    <p className="font-mono text-[10px] mt-1 liquid-meta">
+                      {h.rule_id || "rule:n/a"} • {h.camera_id || "camera:n/a"} • {h.persistence_seconds ?? 0}s • {h.risk_trend || "new"}
+                    </p>
                   </div>
                 ))
               )}

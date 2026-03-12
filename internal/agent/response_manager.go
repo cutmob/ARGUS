@@ -6,13 +6,14 @@ import (
 
 // AgentResponse wraps the agent's output to the client.
 type AgentResponse struct {
-	Type       string          `json:"type"` // "voice", "overlay", "report", "audio", "error"
-	Text       string          `json:"text"`
-	Voice      string          `json:"voice,omitempty"`
-	AudioData  []byte          `json:"audio_data,omitempty"` // Raw PCM audio from Gemini (24kHz)
-	Overlays   []types.Overlay `json:"overlays,omitempty"`
-	ReportID   string          `json:"report_id,omitempty"`
-	Hazards    []types.Hazard  `json:"hazards,omitempty"`
+	Type      string             `json:"type"` // "voice", "overlay", "report", "audio", "error"
+	Text      string             `json:"text"`
+	Voice     string             `json:"voice,omitempty"`
+	AudioData []byte             `json:"audio_data,omitempty"` // Raw PCM audio from Gemini (24kHz)
+	Overlays  []types.Overlay    `json:"overlays,omitempty"`
+	ReportID  string             `json:"report_id,omitempty"`
+	Hazards   []types.Hazard     `json:"hazards,omitempty"`
+	Actions   []types.ActionCard `json:"actions,omitempty"`
 }
 
 // ResponseManager constructs agent responses for the client.
@@ -87,5 +88,14 @@ func (rm *ResponseManager) ReportReady(reportID string, summary string) *AgentRe
 		Text:     summary,
 		Voice:    summary,
 		ReportID: reportID,
+	}
+}
+
+func (rm *ResponseManager) OperatorActions(text string, actions []types.ActionCard) *AgentResponse {
+	return &AgentResponse{
+		Type:    "voice",
+		Text:    text,
+		Voice:   text,
+		Actions: actions,
 	}
 }

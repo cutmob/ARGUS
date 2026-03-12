@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"encoding/json"
 	"log/slog"
 	"net/http"
 	"os"
@@ -18,6 +19,7 @@ import (
 	"github.com/cutmob/argus/internal/session"
 	"github.com/cutmob/argus/internal/streaming"
 	"github.com/cutmob/argus/internal/vision"
+	"github.com/cutmob/argus/pkg/types"
 )
 
 func main() {
@@ -51,6 +53,11 @@ func main() {
 	webhookClient := integrations.NewWebhookClient()
 	exportRegistry := reporting.NewExportRegistry()
 	exportRegistry.Register("json", reporting.NewJSONExporter())
+	exportRegistry.Register("txt", reporting.NewTXTExporter())
+	exportRegistry.Register("csv", reporting.NewCSVExporter())
+	exportRegistry.Register("html", reporting.NewHTMLExporter())
+	exportRegistry.Register("word", reporting.NewWordExporter())
+	exportRegistry.Register("doc", reporting.NewWordExporter())
 	exportRegistry.Register("pdf", reporting.NewPDFExporter())
 	exportRegistry.Register("webhook", reporting.NewWebhookExporter(webhookClient))
 
@@ -85,9 +92,59 @@ func main() {
 
 	// WebSocket streaming server
 	wsServer = streaming.NewWebSocketServer(streaming.Config{
-		OnFrame:        agentCtrl.HandleFrame,
-		OnAudio:        agentCtrl.HandleAudio,
-		OnEvent:        agentCtrl.HandleEvent,
+		OnFrame: agentCtrl.HandleFrame,
+		OnAudio: agentCtrl.HandleAudio,
+		OnEvent: agentCtrl.HandleEvent,
+		OnCommand: func(sessionID string, msg types.WebSocketMessage) {
+			intent := types.AgentIntent{RawText: msg.Type, Parameters: map[string]string{}}
+			var payload map[string]any
+			if msg.Payload != nil {
+				if raw, err := json.Marshal(msg.Payload); err == nil {
+					_ = json.Unmarshal(raw, &payload)
+				}
+			}
+			switch msg.Type {
+			case "start_inspection":
+				intent.Type = types.IntentStartInspection
+				if mode, ok := payload["mode"].(string); ok {
+					intent.Mode = mode
+				}
+			case "stop_inspection":
+				intent.Type = types.IntentStopInspection
+			case "switch_mode":
+				intent.Type = types.IntentSwitchMode
+				if mode, ok := payload["mode"].(string); ok {
+					intent.Mode = mode
+				}
+			case "generate_report":
+				intent.Type = types.IntentGenerateReport
+				if format, ok := payload["format"].(string); ok {
+					intent.Format = format
+				}
+			case "operator_actions":
+				intent.Type = types.IntentOperatorActions
+			case "voice_command":
+				if text, ok := payload["text"].(string); ok && text != "" {
+					resp := agentCtrl.HandleRawText(sessionID, text)
+					if resp != nil {
+						msg := streaming.AgentResponseToWSMessage(sessionID, resp)
+						if err := wsServer.Send(sessionID, msg); err != nil {
+							slog.Error("failed to send natural language response", "session_id", sessionID, "error", err)
+						}
+					}
+				}
+				return
+			default:
+				return
+			}
+			resp := agentCtrl.HandleIntent(sessionID, intent)
+			if resp != nil {
+				msg := streaming.AgentResponseToWSMessage(sessionID, resp)
+				if err := wsServer.Send(sessionID, msg); err != nil {
+					slog.Error("failed to send command response", "session_id", sessionID, "error", err)
+				}
+			}
+		},
 		SessionManager: sessionMgr,
 		DemoTokens:     cfg.DemoTokens,
 	})
@@ -232,4 +289,3 @@ func validateConfig(cfg Config) {
 		"gemini_key_set", cfg.GeminiKey != "",
 	)
 }
-

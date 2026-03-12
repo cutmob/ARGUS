@@ -8,16 +8,34 @@ interface CameraViewProps {
   overlays: Overlay[];
   overlaysVisible?: boolean;
   glassMode?: GlassMode;
+  videoSource?: string | null;
   onFrame: (data: Blob) => void;
 }
 
-export function CameraView({ overlays, overlaysVisible = true, glassMode = "dark", onFrame }: CameraViewProps) {
+export function CameraView({
+  overlays,
+  overlaysVisible = true,
+  glassMode = "dark",
+  videoSource,
+  onFrame,
+}: CameraViewProps) {
   const videoRef  = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const streamRef = useRef<MediaStream | null>(null);
 
   useEffect(() => {
     async function startCamera() {
+      if (videoSource) {
+        if (videoRef.current) {
+          videoRef.current.srcObject = null;
+          videoRef.current.src = videoSource;
+          videoRef.current.loop = true;
+          videoRef.current.muted = true;
+          void videoRef.current.play().catch(() => {});
+        }
+        return;
+      }
+
       try {
         const stream = await navigator.mediaDevices.getUserMedia({
           video: { width: 1280, height: 720, facingMode: "environment" },
@@ -30,8 +48,15 @@ export function CameraView({ overlays, overlaysVisible = true, glassMode = "dark
       }
     }
     startCamera();
-    return () => { streamRef.current?.getTracks().forEach((t) => t.stop()); };
-  }, []);
+    return () => {
+      streamRef.current?.getTracks().forEach((t) => t.stop());
+      if (videoRef.current) {
+        videoRef.current.pause();
+        videoRef.current.removeAttribute("src");
+        videoRef.current.load();
+      }
+    };
+  }, [videoSource]);
 
   useEffect(() => {
     const interval = setInterval(() => {

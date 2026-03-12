@@ -2,13 +2,30 @@
 
 import { useState, useRef, useCallback, useEffect } from "react";
 import { speakResponse } from "@/lib/tts";
-import type { Hazard, Overlay } from "@/lib/types";
+import type { ActionCard, Hazard, Overlay } from "@/lib/types";
 
 interface WebSocketMessage {
   type: string;
   session_id: string;
   payload: unknown;
   timestamp: string;
+}
+
+interface AgentResponsePayload {
+  type: string;
+  text?: string;
+  voice?: string;
+  report_id?: string;
+  hazards?: Hazard[];
+  overlays?: Overlay[];
+  actions?: ActionCard[];
+}
+
+interface SessionAgentResponse {
+  type: string;
+  text: string;
+  reportId?: string;
+  at: number;
 }
 
 const WS_URL = process.env.NEXT_PUBLIC_WS_URL || "ws://localhost:8080/ws";
@@ -37,20 +54,29 @@ export function useArgusSession() {
   const [hazards, setHazards]           = useState<Hazard[]>([]);
   const [overlays, setOverlays]         = useState<Overlay[]>([]);
   const [riskLevel, setRiskLevel]       = useState<string>("low");
+  const [actionCards, setActionCards]   = useState<ActionCard[]>([]);
   const [sessionId, setSessionId]       = useState<string>("");
   const [processing, setProcessing]     = useState(false);
   const [speaking, setSpeaking]         = useState(false);
+  const [voiceOutputEnabled, setVoiceOutputEnabled] = useState(true);
+  const [lastAgentResponse, setLastAgentResponse] = useState<SessionAgentResponse | null>(null);
 
   const wsRef          = useRef<WebSocket | null>(null);
   const reconnectTimer = useRef<NodeJS.Timeout>();
+  const voiceOutputEnabledRef = useRef(true);
+  voiceOutputEnabledRef.current = voiceOutputEnabled;
 
   const connect = useCallback(() => {
     if (wsRef.current?.readyState === WebSocket.OPEN) return;
 
     const cameraId = generateCameraId();
     const token = getDemoToken();
+    const existingSessionId = typeof window !== "undefined"
+      ? localStorage.getItem("argus_session_id")
+      : "";
     const url = WS_URL +
       (WS_URL.includes("?") ? "&" : "?") + "camera_id=" + cameraId +
+      (existingSessionId ? "&session_id=" + encodeURIComponent(existingSessionId) : "") +
       (token ? "&token=" + encodeURIComponent(token) : "");
     const ws = new WebSocket(url);
 
@@ -95,6 +121,7 @@ export function useArgusSession() {
     switch (msg.type) {
       case "session_created":
         setSessionId(msg.session_id);
+        localStorage.setItem("argus_session_id", msg.session_id);
         break;
 
       case "hazard_detected": {
@@ -117,8 +144,50 @@ export function useArgusSession() {
 
       case "voice_response": {
         const data = msg.payload as { text: string };
+        if (!voiceOutputEnabledRef.current) {
+          setSpeaking(false);
+          break;
+        }
         setSpeaking(true);
         speakResponse(data.text, () => setSpeaking(false));
+        break;
+      }
+
+      case "agent_response": {
+        const data = msg.payload as AgentResponsePayload;
+        if (Array.isArray(data.hazards) && data.hazards.length > 0) {
+          setHazards((prev) => {
+            const next = [...prev];
+            for (const h of data.hazards ?? []) {
+              const idx = next.findIndex((x) => x.id === h.id);
+              if (idx >= 0) next[idx] = h;
+              else next.unshift(h);
+            }
+            return next;
+          });
+        }
+        if (Array.isArray(data.overlays)) {
+          setOverlays(data.overlays);
+        }
+        if (Array.isArray(data.actions)) {
+          setActionCards(data.actions);
+        }
+        const text = (data.text || data.voice || "").trim();
+        if (text || data.type === "report" || data.report_id) {
+          setLastAgentResponse({
+            type: data.type || "voice",
+            text,
+            reportId: data.report_id,
+            at: Date.now(),
+          });
+        }
+        const spoken = data.voice || data.text;
+        if (spoken && voiceOutputEnabledRef.current) {
+          setSpeaking(true);
+          speakResponse(spoken, () => setSpeaking(false));
+        } else if (spoken) {
+          setSpeaking(false);
+        }
         break;
       }
 
@@ -173,6 +242,7 @@ export function useArgusSession() {
       setIsInspecting(true);
       setHazards([]);
       setOverlays([]);
+      setActionCards([]);
     },
     [sendCommand]
   );
@@ -187,13 +257,27 @@ export function useArgusSession() {
     [sendCommand]
   );
 
-  const generateReport = useCallback(() => {
-    sendCommand("generate_report", { format: "json" });
+  const generateReport = useCallback((format = "json") => {
+    sendCommand("generate_report", { format });
   }, [sendCommand]);
+
+  const requestActions = useCallback(() => {
+    sendCommand("operator_actions", { limit: 3 });
+  }, [sendCommand]);
+
+  const sendNaturalLanguageCommand = useCallback(
+    (text: string) => {
+      const trimmed = text.trim();
+      if (!trimmed) return;
+      sendCommand("voice_command", { text: trimmed });
+    },
+    [sendCommand]
+  );
 
   const clearHazards = useCallback(() => {
     setHazards([]);
     setOverlays([]);
+    setActionCards([]);
     setRiskLevel("low");
   }, []);
 
@@ -208,16 +292,22 @@ export function useArgusSession() {
     isInspecting,
     hazards,
     overlays,
+    actionCards,
     riskLevel,
     sessionId,
     processing,
     speaking,
+    voiceOutputEnabled,
+    lastAgentResponse,
     sendFrame,
     startInspection,
     stopInspection,
     switchMode,
     generateReport,
+    requestActions,
+    sendNaturalLanguageCommand,
     clearHazards,
+    setVoiceOutputEnabled,
     resetAuth,
   };
 }

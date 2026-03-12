@@ -23,6 +23,7 @@ type Config struct {
 	OnFrame        func(sessionID string, frame types.Frame)
 	OnAudio        func(sessionID string, chunk types.AudioChunk)
 	OnEvent        func(sessionID string, event types.VisionEvent)
+	OnCommand      func(sessionID string, msg types.WebSocketMessage)
 	SessionManager *session.Manager
 	DemoTokens     map[string]bool // allowed access tokens; nil = no gate
 }
@@ -247,6 +248,9 @@ func (ws *WebSocketServer) handleTextMessage(sessionID string, data []byte) {
 		return
 	}
 	msg.SessionID = sessionID
+	if ws.cfg.OnCommand != nil {
+		ws.cfg.OnCommand(sessionID, msg)
+	}
 
 	if ws.cfg.OnEvent != nil {
 		event := types.VisionEvent{

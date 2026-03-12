@@ -68,7 +68,7 @@ func ArgusTools() []*genai.Tool {
 					Parameters: &genai.Schema{
 						Type: "object",
 						Properties: map[string]*genai.Schema{
-							"format": {Type: "string", Description: "Export format: json, pdf, or webhook"},
+							"format": {Type: "string", Description: "Export format: json, pdf, txt, csv, html, word, doc, or webhook"},
 						},
 						Required: []string{"format"},
 					},
@@ -91,7 +91,7 @@ func ArgusTools() []*genai.Tool {
 					Name:        "get_inspection_status",
 					Description: "Get the current inspection status including hazard count, risk level, and active mode. Call when user asks about status or progress.",
 					Parameters: &genai.Schema{
-						Type: "object",
+						Type:       "object",
 						Properties: map[string]*genai.Schema{},
 					},
 				},

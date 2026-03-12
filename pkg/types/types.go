@@ -43,17 +43,31 @@ type BBox struct {
 
 // Hazard represents a detected safety issue.
 type Hazard struct {
-	ID          string    `json:"id"`
-	RuleID      string    `json:"rule_id"`
-	Description string    `json:"description"`
-	Severity    Severity  `json:"severity"`
-	Confidence  float64   `json:"confidence"`
-	Location    string    `json:"location,omitempty"`
-	BBox        *BBox     `json:"bbox,omitempty"`
-	FrameID     string    `json:"frame_id,omitempty"`
-	ImageURL    string    `json:"image_url,omitempty"`
-	CameraID    string    `json:"camera_id,omitempty"`
-	DetectedAt  time.Time `json:"detected_at"`
+	ID                 string    `json:"id"`
+	RuleID             string    `json:"rule_id"`
+	Description        string    `json:"description"`
+	Severity           Severity  `json:"severity"`
+	Confidence         float64   `json:"confidence"`
+	Occurrences        int       `json:"occurrences,omitempty"`
+	FirstSeenAt        time.Time `json:"first_seen_at,omitempty"`
+	LastSeenAt         time.Time `json:"last_seen_at,omitempty"`
+	PersistenceSeconds int       `json:"persistence_seconds,omitempty"`
+	RiskTrend          string    `json:"risk_trend,omitempty"`
+	Location           string    `json:"location,omitempty"`
+	BBox               *BBox     `json:"bbox,omitempty"`
+	FrameID            string    `json:"frame_id,omitempty"`
+	ImageURL           string    `json:"image_url,omitempty"`
+	CameraID           string    `json:"camera_id,omitempty"`
+	DetectedAt         time.Time `json:"detected_at"`
+}
+
+type ActionCard struct {
+	Title       string   `json:"title"`
+	Priority    string   `json:"priority"`
+	Reason      string   `json:"reason"`
+	Actions     []string `json:"actions"`
+	CameraID    string   `json:"camera_id,omitempty"`
+	HazardRefID string   `json:"hazard_ref_id,omitempty"`
 }
 
 // Severity levels for hazard classification.
@@ -104,18 +118,18 @@ const (
 
 // InspectionReport holds the complete report data.
 type InspectionReport struct {
-	ID             string            `json:"id"`
-	SessionID      string            `json:"session_id"`
-	InspectionMode string            `json:"inspection_mode"`
-	Location       string            `json:"location"`
-	Inspector      string            `json:"inspector"`
-	Hazards        []Hazard          `json:"hazards"`
-	RiskLevel      Severity          `json:"risk_level"`
-	RiskScore      float64           `json:"risk_score"`
-	Summary        string            `json:"summary"`
-	Recommendations []string         `json:"recommendations"`
-	CreatedAt      time.Time         `json:"created_at"`
-	Metadata       map[string]string `json:"metadata,omitempty"`
+	ID              string            `json:"id"`
+	SessionID       string            `json:"session_id"`
+	InspectionMode  string            `json:"inspection_mode"`
+	Location        string            `json:"location"`
+	Inspector       string            `json:"inspector"`
+	Hazards         []Hazard          `json:"hazards"`
+	RiskLevel       Severity          `json:"risk_level"`
+	RiskScore       float64           `json:"risk_score"`
+	Summary         string            `json:"summary"`
+	Recommendations []string          `json:"recommendations"`
+	CreatedAt       time.Time         `json:"created_at"`
+	Metadata        map[string]string `json:"metadata,omitempty"`
 }
 
 // AgentIntent represents a parsed user intent from voice/text.
@@ -138,25 +152,26 @@ const (
 	IntentQueryStatus     IntentType = "query_status"
 	IntentQueryHazards    IntentType = "query_hazards"
 	IntentGenerateReport  IntentType = "generate_report"
+	IntentOperatorActions IntentType = "operator_actions"
 	IntentConversation    IntentType = "conversation"
 )
 
 // GeminiRequest holds data sent to the Gemini reasoning layer.
 type GeminiRequest struct {
-	SessionID  string           `json:"session_id"`
-	Frame      *Frame           `json:"frame,omitempty"`
-	Objects    []DetectedObject `json:"objects,omitempty"`
-	Rules      []InspectionRule `json:"rules,omitempty"`
-	Prompt     string           `json:"prompt"`
-	Context    string           `json:"context,omitempty"`
+	SessionID string           `json:"session_id"`
+	Frame     *Frame           `json:"frame,omitempty"`
+	Objects   []DetectedObject `json:"objects,omitempty"`
+	Rules     []InspectionRule `json:"rules,omitempty"`
+	Prompt    string           `json:"prompt"`
+	Context   string           `json:"context,omitempty"`
 }
 
 // GeminiResponse holds Gemini's analysis result.
 type GeminiResponse struct {
-	Hazards         []Hazard `json:"hazards,omitempty"`
-	TextResponse    string   `json:"text_response"`
-	VoiceResponse   string   `json:"voice_response"`
-	Confidence      float64  `json:"confidence"`
+	Hazards       []Hazard `json:"hazards,omitempty"`
+	TextResponse  string   `json:"text_response"`
+	VoiceResponse string   `json:"voice_response"`
+	Confidence    float64  `json:"confidence"`
 }
 
 // InspectionRule defines a single rule within a module.
@@ -182,9 +197,9 @@ type InspectionModule struct {
 
 // ModuleMetadata holds information about the inspection module.
 type ModuleMetadata struct {
-	Author      string   `json:"author"`
-	Version     string   `json:"version"`
-	Tags        []string `json:"tags"`
+	Author          string   `json:"author"`
+	Version         string   `json:"version"`
+	Tags            []string `json:"tags"`
 	RequiredObjects []string `json:"required_objects,omitempty"`
 }
 

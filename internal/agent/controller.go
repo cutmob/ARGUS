@@ -129,9 +129,21 @@ func (c *Controller) HandleIntent(sessionID string, intent types.AgentIntent) *A
 		return c.queryHazards(sessionID)
 	case types.IntentQueryStatus:
 		return c.queryStatus(sessionID)
+	case types.IntentOperatorActions:
+		return c.operatorActions(sessionID)
 	default:
 		return c.responseMgr.Conversation("I'm listening. How can I help with the inspection?")
 	}
+}
+
+// HandleRawText parses natural language and executes the mapped intent.
+func (c *Controller) HandleRawText(sessionID string, text string) *AgentResponse {
+	intent := c.intentParser.Parse(text)
+	intent.RawText = text
+	if intent.Type == types.IntentConversation {
+		return c.responseMgr.Conversation("I'm listening. Say inspect, report, mode switch, status, or top actions.")
+	}
+	return c.HandleIntent(sessionID, intent)
 }
 
 func (c *Controller) startInspection(sessionID string, intent types.AgentIntent) *AgentResponse {
@@ -320,6 +332,13 @@ func (c *Controller) queryHazards(sessionID string) *AgentResponse {
 	if high > 0 {
 		summary += itoa(high) + " are high severity or above."
 	}
+	for _, h := range sess.Hazards {
+		if h.PersistenceSeconds >= 15 {
+			summary += " Persistent hazard: " + h.Description +
+				" for " + itoa(h.PersistenceSeconds) + " seconds, trend " + h.RiskTrend + "."
+			break
+		}
+	}
 
 	return c.responseMgr.Voice(summary)
 }
@@ -334,6 +353,52 @@ func (c *Controller) queryStatus(sessionID string) *AgentResponse {
 		"Active " + sess.InspectionMode + " inspection. " +
 			itoa(len(sess.Hazards)) + " hazards found. " +
 			"Risk score: " + ftoa(sess.RiskScore),
+	)
+}
+
+func (c *Controller) operatorActions(sessionID string) *AgentResponse {
+	sess, ok := c.sessions.Get(sessionID)
+	if !ok {
+		return c.responseMgr.Error("No active inspection session.")
+	}
+	if len(sess.Hazards) == 0 {
+		return c.responseMgr.OperatorActions("No immediate actions. Continue monitoring and keep exits clear.", nil)
+	}
+
+	actions := make([]types.ActionCard, 0, 3)
+	for i := 0; i < len(sess.Hazards) && len(actions) < 3; i++ {
+		h := sess.Hazards[i]
+		priority := "monitor"
+		switch h.Severity {
+		case types.SeverityCritical:
+			priority = "immediate"
+		case types.SeverityHigh:
+			priority = "urgent"
+		case types.SeverityMedium:
+			priority = "high"
+		}
+
+		card := types.ActionCard{
+			Title:       "Mitigate: " + h.Description,
+			Priority:    priority,
+			Reason:      "Rule " + h.RuleID + ", confidence " + ftoa(h.Confidence*100) + "%, camera " + h.CameraID,
+			CameraID:    h.CameraID,
+			HazardRefID: h.ID,
+			Actions: []string{
+				"Secure the area and warn nearby personnel",
+				"Assign a supervisor to verify mitigation now",
+				"Re-scan this zone after corrective action",
+			},
+		}
+		if h.PersistenceSeconds >= 10 {
+			card.Reason += ", persisted " + itoa(h.PersistenceSeconds) + "s (" + h.RiskTrend + ")"
+		}
+		actions = append(actions, card)
+	}
+
+	return c.responseMgr.OperatorActions(
+		"Top "+itoa(len(actions))+" immediate actions generated for this zone.",
+		actions,
 	)
 }
 

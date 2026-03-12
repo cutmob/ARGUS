@@ -68,6 +68,9 @@ func (ip *IntentParser) Parse(text string) types.AgentIntent {
 	case ip.matchesAny(lower, "what hazards", "what issues", "what problems", "findings"):
 		intent.Type = types.IntentQueryHazards
 
+	case ip.matchesAny(lower, "immediate actions", "top 3 actions", "top three actions", "next actions", "what should we do now"):
+		intent.Type = types.IntentOperatorActions
+
 	case ip.matchesAny(lower, "status", "how's it going", "what's happening", "update"):
 		intent.Type = types.IntentQueryStatus
 
@@ -98,6 +101,14 @@ func (ip *IntentParser) extractMode(text string) string {
 
 func (ip *IntentParser) extractFormat(text string) string {
 	switch {
+	case strings.Contains(text, "word"), strings.Contains(text, "docx"), strings.Contains(text, "doc"):
+		return "word"
+	case strings.Contains(text, "text"), strings.Contains(text, "txt"):
+		return "txt"
+	case strings.Contains(text, "csv"), strings.Contains(text, "spreadsheet"), strings.Contains(text, "excel"):
+		return "csv"
+	case strings.Contains(text, "html"), strings.Contains(text, "web page"), strings.Contains(text, "browser"):
+		return "html"
 	case strings.Contains(text, "pdf"):
 		return "pdf"
 	case strings.Contains(text, "json"):
