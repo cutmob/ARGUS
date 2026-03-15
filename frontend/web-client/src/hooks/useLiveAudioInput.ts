@@ -5,6 +5,8 @@ import { useEffect, useRef, useState } from "react";
 interface UseLiveAudioInputOptions {
   enabled: boolean;
   onChunk: (chunk: Uint8Array) => void;
+  /** Called when the audio stream ends (mic muted) so the caller can signal audioStreamEnd. */
+  onStreamEnd?: () => void;
 }
 
 interface UseLiveAudioInputResult {
@@ -13,18 +15,18 @@ interface UseLiveAudioInputResult {
 }
 
 const TARGET_SAMPLE_RATE = 16000;
-// Fallback ScriptProcessor buffer — used only when AudioWorklet unavailable.
 const FALLBACK_BUFFER_SIZE = 1024;
-// RMS energy VAD gate — chunks quieter than this (~-46 dBFS) are silence.
-const VAD_RMS_THRESHOLD = 0.005;
 
 export function useLiveAudioInput({
   enabled,
   onChunk,
+  onStreamEnd,
 }: UseLiveAudioInputOptions): UseLiveAudioInputResult {
   const [active, setActive] = useState(false);
   const onChunkRef = useRef(onChunk);
   onChunkRef.current = onChunk;
+  const onStreamEndRef = useRef(onStreamEnd);
+  onStreamEndRef.current = onStreamEnd;
 
   const streamRef    = useRef<MediaStream | null>(null);
   const contextRef   = useRef<AudioContext | null>(null);
@@ -46,76 +48,113 @@ export function useLiveAudioInput({
 
     let cancelled = false;
 
-    navigator.mediaDevices
-      .getUserMedia({
-        audio: { channelCount: 1, echoCancellation: true, noiseSuppression: true, autoGainControl: true },
-        video: false,
-      })
-      .then(async (stream) => {
-        if (cancelled) { stream.getTracks().forEach((t) => t.stop()); return; }
+    function startPipeline() {
+      navigator.mediaDevices
+        .getUserMedia({
+          audio: { channelCount: 1, echoCancellation: true, noiseSuppression: true, autoGainControl: true },
+          video: false,
+        })
+        .then(async (stream) => {
+          if (cancelled) { stream.getTracks().forEach((t) => t.stop()); return; }
 
-        const AudioCtx =
-          window.AudioContext ||
-          (window as typeof window & { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
-        if (!AudioCtx) { stream.getTracks().forEach((t) => t.stop()); return; }
+          const AudioCtx =
+            window.AudioContext ||
+            (window as typeof window & { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
+          if (!AudioCtx) { stream.getTracks().forEach((t) => t.stop()); return; }
 
-        const context = new AudioCtx();
-        if (context.state === "suspended") await context.resume().catch(() => {});
+          const context = new AudioCtx();
+          if (context.state === "suspended") await context.resume().catch(() => {});
 
-        const source = context.createMediaStreamSource(stream);
-        const sink = context.createGain();
-        sink.gain.value = 0;
-        sink.connect(context.destination);
+          const source = context.createMediaStreamSource(stream);
+          const sink = context.createGain();
+          sink.gain.value = 0;
+          sink.connect(context.destination);
 
-        // --- AudioWorklet path (preferred: 20ms chunks at 16kHz, VAD in worklet) ---
-        let usedWorklet = false;
-        if (context.audioWorklet) {
-          try {
-            await context.audioWorklet.addModule("/argus-audio-worklet.js");
-            const worklet = new AudioWorkletNode(context, "argus-audio-processor");
-            worklet.port.onmessage = (ev: MessageEvent<{ pcm16: Int16Array }>) => {
-              if (cancelled) return;
-              onChunkRef.current(new Uint8Array(ev.data.pcm16.buffer));
-            };
-            source.connect(worklet);
-            worklet.connect(sink);
-            workletRef.current = worklet;
-            usedWorklet = true;
-          } catch {
-            // Worklet unavailable — fall through to ScriptProcessor
+          // --- AudioWorklet path (preferred) ---
+          let usedWorklet = false;
+          if (context.audioWorklet) {
+            try {
+              await context.audioWorklet.addModule("/argus-audio-worklet.js");
+              const worklet = new AudioWorkletNode(context, "argus-audio-processor");
+              worklet.port.onmessage = (ev: MessageEvent<{ pcm16: Int16Array }>) => {
+                if (cancelled) return;
+                onChunkRef.current(new Uint8Array(ev.data.pcm16.buffer));
+              };
+              // Auto-restart on worklet crash
+              worklet.onprocessorerror = () => {
+                if (!cancelled) restart();
+              };
+              source.connect(worklet);
+              worklet.connect(sink);
+              workletRef.current = worklet;
+              usedWorklet = true;
+            } catch {
+              // Worklet unavailable — fall through to ScriptProcessor
+            }
           }
-        }
 
-        // --- ScriptProcessor fallback with client-side VAD gate ---
-        if (!usedWorklet) {
-          const processor = context.createScriptProcessor(FALLBACK_BUFFER_SIZE, 1, 1);
-          processor.onaudioprocess = (ev) => {
-            if (cancelled) return;
-            const input = ev.inputBuffer.getChannelData(0);
-            let sumSq = 0;
-            for (let i = 0; i < input.length; i++) sumSq += input[i] * input[i];
-            if (Math.sqrt(sumSq / input.length) < VAD_RMS_THRESHOLD) return;
-            const pcm16 = downsampleToPCM16(input, ev.inputBuffer.sampleRate, TARGET_SAMPLE_RATE);
-            if (pcm16.byteLength > 0) onChunkRef.current(new Uint8Array(pcm16.buffer));
-          };
-          source.connect(processor);
-          processor.connect(sink);
-          processorRef.current = processor;
-        }
+          // --- ScriptProcessor fallback (no VAD — let Gemini handle silence) ---
+          if (!usedWorklet) {
+            const processor = context.createScriptProcessor(FALLBACK_BUFFER_SIZE, 1, 1);
+            processor.onaudioprocess = (ev) => {
+              if (cancelled) return;
+              const input = ev.inputBuffer.getChannelData(0);
+              const pcm16 = downsampleToPCM16(input, ev.inputBuffer.sampleRate, TARGET_SAMPLE_RATE);
+              if (pcm16.byteLength > 0) onChunkRef.current(new Uint8Array(pcm16.buffer));
+            };
+            source.connect(processor);
+            processor.connect(sink);
+            processorRef.current = processor;
+          }
 
-        streamRef.current  = stream;
-        contextRef.current = context;
-        sourceRef.current  = source;
-        sinkRef.current    = sink;
-        setActive(true);
-      })
-      .catch(() => setActive(false));
+          streamRef.current  = stream;
+          contextRef.current = context;
+          sourceRef.current  = source;
+          sinkRef.current    = sink;
+          setActive(true);
+        })
+        .catch(() => setActive(false));
+    }
 
-    return () => { cancelled = true; teardown(); };
+    function restart() {
+      teardown();
+      if (!cancelled) startPipeline();
+    }
+
+    startPipeline();
+
+    // Watchdog: auto-resume suspended AudioContext and restart dead streams.
+    const watchdog = setInterval(() => {
+      const ctx = contextRef.current;
+      const tracks = streamRef.current?.getAudioTracks();
+      if (cancelled) return;
+
+      // No context means pipeline hasn't started or was torn down — restart
+      if (!ctx) { restart(); return; }
+
+      // Resume suspended context
+      if (ctx.state === "suspended") {
+        void ctx.resume().catch(() => {});
+      }
+
+      // Context closed unexpectedly — restart entire pipeline
+      if (ctx.state === "closed") {
+        restart();
+        return;
+      }
+
+      // MediaStream track ended (browser revoked permission, device lost) — restart
+      if (tracks && tracks.length > 0 && tracks[0].readyState === "ended") {
+        restart();
+      }
+    }, 2000);
+
+    return () => { cancelled = true; clearInterval(watchdog); teardown(); };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [enabled]);
 
   function teardown() {
+    const wasActive = !!streamRef.current;
     workletRef.current?.port.close();
     workletRef.current?.disconnect();
     processorRef.current?.disconnect();
@@ -128,6 +167,10 @@ export function useLiveAudioInput({
     }
     contextRef.current = null;
     setActive(false);
+    // Signal audioStreamEnd so Gemini flushes buffered audio
+    if (wasActive) {
+      onStreamEndRef.current?.();
+    }
   }
 
   return {

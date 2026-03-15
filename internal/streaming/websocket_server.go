@@ -42,12 +42,14 @@ func newUpgrader() *websocket.Upgrader {
 
 // Config holds callbacks and dependencies for the WebSocket server.
 type Config struct {
-	OnFrame        func(sessionID string, frame types.Frame)
-	OnAudio        func(sessionID string, chunk types.AudioChunk)
-	OnEvent        func(sessionID string, event types.VisionEvent)
-	OnCommand      func(sessionID string, msg types.WebSocketMessage)
-	SessionManager *session.Manager
-	DemoTokens     map[string]bool // allowed access tokens; nil = no gate
+	OnFrame          func(sessionID string, frame types.Frame)
+	OnAudio          func(sessionID string, chunk types.AudioChunk)
+	OnAudioStreamEnd func(sessionID string)
+	OnEvent          func(sessionID string, event types.VisionEvent)
+	OnCommand        func(sessionID string, msg types.WebSocketMessage)
+	OnDisconnect     func(sessionID string) // called when the last WS for a session closes
+	SessionManager   *session.Manager
+	DemoTokens       map[string]bool // allowed access tokens; nil = no gate
 }
 
 // WebSocketServer manages real-time bidirectional connections.
@@ -162,6 +164,7 @@ func (ws *WebSocketServer) Send(sessionID string, msg types.WebSocketMessage) er
 	client, ok := ws.clients[sessionID]
 	ws.mu.RUnlock()
 	if !ok {
+		slog.Warn("send failed — no client in map", "session_id", sessionID, "msg_type", msg.Type)
 		return nil
 	}
 	data, err := json.Marshal(msg)
@@ -195,7 +198,7 @@ func (ws *WebSocketServer) Broadcast(msg types.WebSocketMessage) {
 
 func (ws *WebSocketServer) readPump(c *Client) {
 	defer func() {
-		ws.removeClient(c.sessionID)
+		ws.removeClient(c.sessionID, c)
 		c.conn.Close()
 	}()
 
@@ -286,6 +289,10 @@ func (ws *WebSocketServer) handleBinaryMessage(sessionID string, cameraID string
 		if ws.cfg.OnAudio != nil {
 			ws.cfg.OnAudio(sessionID, chunk)
 		}
+	case 0x03: // Audio stream end (mic muted)
+		if ws.cfg.OnAudioStreamEnd != nil {
+			ws.cfg.OnAudioStreamEnd(sessionID)
+		}
 	}
 }
 
@@ -310,12 +317,23 @@ func (ws *WebSocketServer) handleTextMessage(sessionID string, data []byte) {
 	}
 }
 
-func (ws *WebSocketServer) removeClient(sessionID string) {
+func (ws *WebSocketServer) removeClient(sessionID string, caller *Client) {
 	ws.mu.Lock()
-	defer ws.mu.Unlock()
-	if client, ok := ws.clients[sessionID]; ok {
-		close(client.done)
+	current, isCurrent := ws.clients[sessionID]
+	if isCurrent && current == caller {
+		close(caller.done)
 		delete(ws.clients, sessionID)
 		slog.Info("client disconnected", "session_id", sessionID)
+	} else {
+		// A newer connection replaced us — just clean up our goroutines
+		close(caller.done)
+		slog.Debug("stale client cleanup (replaced by newer connection)", "session_id", sessionID)
+	}
+	ws.mu.Unlock()
+
+	// If this was the active connection (not a stale replacement), tear down
+	// the inspection so the Gemini live session stops processing.
+	if isCurrent && current == caller && ws.cfg.OnDisconnect != nil {
+		ws.cfg.OnDisconnect(sessionID)
 	}
 }

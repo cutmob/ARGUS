@@ -77,18 +77,19 @@ func buildPrompt(
 	forLive bool,
 ) string {
 	corePolicyLines := []string{
+		"- YOUR #1 JOB: Proactively scan every video frame for hazards and IMMEDIATELY call inspect_frame + highlight_hazard when you spot anything. Do NOT wait for the operator to ask. Act the moment you see it.",
+		"- Tool calls are your PRIMARY output. Speaking is secondary. When you see a hazard: FIRST call the tools, THEN briefly tell the operator what you found.",
+		"- When the session starts, greet the operator briefly (e.g. 'ARGUS online, ready to inspect.') then immediately begin scanning.",
+		"- Always respond to the operator when they speak to you.",
 		"- Ground every finding in visible evidence from the current scene.",
-		"- Do not invent unseen hazards, hidden causes, or standards that cannot be reasonably inferred.",
-		"- If evidence is ambiguous, reduce confidence and say what needs physical verification.",
-		"- Prefer precision over recall when evidence is weak.",
-		"- Default to silence. Speak only when there is a new actionable hazard at or above the spoken threshold, when the operator explicitly asks a question, or when confirming a direct operator command.",
+		"- Do not invent unseen hazards, but be thorough — flag anything that looks like a safety concern.",
 		"- Keep spoken responses short, single-turn, non-repetitive, and operationally useful.",
-		"- If the scene appears unchanged or only low-value observations are available, stay silent.",
 	}
 
 	if forLive {
 		corePolicyLines = append(corePolicyLines,
-			"- Report every confirmed hazard by calling inspect_frame. Call highlight_hazard to draw a bounding box overlay for any hazard you can spatially localize.",
+			"- For EVERY hazard: call inspect_frame to log it AND call highlight_hazard with box_2d to draw the overlay. Always do both.",
+			"- SILENT MONITORING: You will periodically receive messages tagged [MONITORING_SCAN]. These are automatic system prompts — NOT from the operator. When you receive one: (1) analyze the current video frame, (2) if you see NEW unreported hazards, call inspect_frame + highlight_hazard and briefly tell the operator, (3) if the scene is unchanged or safe, produce NO output at all — no speech, no text, no acknowledgment. NEVER say 'scanning', 'checking', 'let me look', or similar. Just silently act or stay silent.",
 			"- Do not repeat previously reported hazards unless risk has materially increased or the operator asks for a recap.",
 		)
 	} else {
@@ -115,7 +116,7 @@ func buildPrompt(
 		runtimeLines = append(runtimeLines, "Camera: "+cameraID)
 	}
 	if alertThreshold != "" {
-		runtimeLines = append(runtimeLines, "Spoken findings threshold: "+alertThreshold+" and above. Stay silent unless a new actionable finding meets this threshold or the operator explicitly engages you.")
+		runtimeLines = append(runtimeLines, "Spoken alert threshold: "+alertThreshold+". Always call inspect_frame and highlight_hazard for ALL hazards regardless of severity. But only SPEAK aloud about findings at "+alertThreshold+" severity or above — log lower-severity findings silently via tools.")
 	}
 	runtimeLines = append(runtimeLines,
 		"Describe hazard locations spatially (for example: left side, near exit, overhead, ground level, foreground/background).",

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useCallback, useEffect } from "react";
-import { playAudioResponse, speakResponse, stopSpeaking } from "@/lib/tts";
+import { ensureAudioContext, playAudioResponse, speakResponse, stopSpeaking } from "@/lib/tts";
 import type { ActionCard, AlertThreshold, Hazard, Incident, Overlay, Severity } from "@/lib/types";
 
 interface WebSocketMessage {
@@ -18,6 +18,7 @@ interface AgentResponsePayload {
   audio_data?: string;
   speaker?: string;
   report_id?: string;
+  download_url?: string;
   hazards?: Hazard[];
   overlays?: Overlay[];
   actions?: ActionCard[];
@@ -27,6 +28,7 @@ interface SessionAgentResponse {
   type: string;
   text: string;
   reportId?: string;
+  downloadUrl?: string;
   at: number;
 }
 
@@ -54,6 +56,16 @@ const SEVERITY_RANK: Record<Severity, number> = {
   high: 3,
   critical: 4,
 };
+
+// Overlay visible duration (before fade-out starts) scales by max severity.
+const OVERLAY_DURATION: Record<Severity, number> = {
+  low:      3000,
+  medium:   3100,
+  high:     3300,
+  critical: 3500,
+};
+// How long the CSS fade-out animation lasts (must match .overlay-exit in globals.css)
+const OVERLAY_FADE_OUT_MS = 400;
 const ALERT_THRESHOLD_RANK: Record<AlertThreshold, number> = {
   off: Number.POSITIVE_INFINITY,
   low: 1,
@@ -84,12 +96,27 @@ function generateCameraId(): string {
   return id;
 }
 
+/** Resolve a relative backend path (e.g. /api/v1/reports/files/foo.pdf)
+ *  into a full URL pointing at the backend, not the frontend dev server. */
+function resolveBackendUrl(path: string): string {
+  if (!path) return path;
+  if (path.startsWith("http")) return path;
+  const wsUrl = getWsUrl();
+  // Convert ws(s)://host/ws → http(s)://host
+  const httpBase = wsUrl
+    .replace(/^wss:/, "https:")
+    .replace(/^ws:/, "http:")
+    .replace(/\/ws$/, "");
+  return httpBase + path;
+}
+
 export function useArgusSession() {
   const [connected, setConnected]       = useState(false);
   const [unauthorized, setUnauthorized] = useState(false);
   const [isInspecting, setIsInspecting] = useState(false);
   const [hazards, setHazards]           = useState<Hazard[]>([]);
   const [overlays, setOverlays]         = useState<Overlay[]>([]);
+  const [overlaysFading, setOverlaysFading] = useState(false);
   const [riskLevel, setRiskLevel]       = useState<string>("low");
   const [actionCards, setActionCards]   = useState<ActionCard[]>([]);
   const [sessionId, setSessionId]       = useState<string>("");
@@ -103,11 +130,15 @@ export function useArgusSession() {
 
   const wsRef          = useRef<WebSocket | null>(null);
   const reconnectTimer = useRef<NodeJS.Timeout>();
+  const overlayFadeTimer = useRef<NodeJS.Timeout>();
+  const overlayDismissTimer = useRef<NodeJS.Timeout>();
   const voiceOutputEnabledRef = useRef(true);
   const alertThresholdRef = useRef<AlertThreshold>("high");
+  const isInspectingRef = useRef(false);
   const lastSpokenRef = useRef<{ text: string; at: number } | null>(null);
   voiceOutputEnabledRef.current = voiceOutputEnabled;
   alertThresholdRef.current = alertThreshold;
+  isInspectingRef.current = isInspecting;
 
   const speakIfAllowed = useCallback((text: string) => {
     const trimmed = text.trim();
@@ -191,6 +222,30 @@ export function useArgusSession() {
     wsRef.current = ws;
   }, []);
 
+  const setOverlaysWithAutoDismiss = useCallback((newOverlays: Overlay[]) => {
+    clearTimeout(overlayFadeTimer.current);
+    clearTimeout(overlayDismissTimer.current);
+    setOverlays(newOverlays);
+    setOverlaysFading(false);
+    if (newOverlays.length > 0) {
+      // Pick the longest duration based on the highest severity in the batch
+      const maxSev = newOverlays.reduce<Severity>((acc, o) => {
+        const s = o.severity as Severity;
+        return (SEVERITY_RANK[s] ?? 0) > (SEVERITY_RANK[acc] ?? 0) ? s : acc;
+      }, "low");
+      const visibleMs = OVERLAY_DURATION[maxSev] ?? 3000;
+      // After the visible period, start the CSS fade-out
+      overlayFadeTimer.current = setTimeout(() => {
+        setOverlaysFading(true);
+        // After fade-out animation completes, remove overlays from DOM
+        overlayDismissTimer.current = setTimeout(() => {
+          setOverlays([]);
+          setOverlaysFading(false);
+        }, OVERLAY_FADE_OUT_MS);
+      }, visibleMs);
+    }
+  }, []);
+
   const handleMessage = useCallback((msg: WebSocketMessage) => {
     setProcessing(false);
 
@@ -208,7 +263,7 @@ export function useArgusSession() {
 
       case "overlays_update": {
         const newOverlays = msg.payload as Overlay[];
-        setOverlays(newOverlays);
+        setOverlaysWithAutoDismiss(newOverlays);
         break;
       }
 
@@ -219,13 +274,31 @@ export function useArgusSession() {
       }
 
       case "voice_response": {
-        const data = msg.payload as { text: string };
-        speakIfAllowed(data.text);
+        // Only use browser TTS when Gemini Live is NOT active
+        if (!isInspectingRef.current) {
+          const data = msg.payload as { text: string };
+          speakIfAllowed(data.text);
+        }
         break;
       }
 
       case "agent_response": {
         const data = msg.payload as AgentResponsePayload;
+        // Gemini interruption: user spoke during model output — clear audio queue
+        if (data.type === "interrupted") {
+          stopSpeaking();
+          setSpeaking(false);
+          break;
+        }
+        // Gemini session error — log it but do NOT reset isInspecting.
+        // The backend handles Gemini reconnection automatically; resetting
+        // the flag here causes the Start button to flicker.
+        if (data.type === "session_error") {
+          console.warn("[ARGUS] Gemini session error:", data.text);
+          stopSpeaking();
+          setSpeaking(false);
+          break;
+        }
         if (data.type === "transcript" && data.text) {
           setLastTranscript({
             speaker: data.speaker || "model",
@@ -247,7 +320,7 @@ export function useArgusSession() {
           });
         }
         if (Array.isArray(data.overlays)) {
-          setOverlays(data.overlays);
+          setOverlaysWithAutoDismiss(data.overlays);
         }
         if (Array.isArray(data.actions)) {
           setActionCards(data.actions);
@@ -258,17 +331,21 @@ export function useArgusSession() {
             type: data.type || "voice",
             text,
             reportId: data.report_id,
+            downloadUrl: data.download_url ? resolveBackendUrl(data.download_url) : undefined,
             at: Date.now(),
           });
         }
-        const spoken = data.voice || data.text;
+        // Only trigger browser TTS for explicit voice responses.
+        // text-only payloads are display-only — native audio comes via audio_data.
+        const spoken = data.voice;
         const audioData = typeof data.audio_data === "string" ? data.audio_data.trim() : "";
         const findingsAllowed =
           hazardPayload.length === 0 || shouldSpeakFinding(hazardPayload, alertThresholdRef.current);
         if (audioData && voiceOutputEnabledRef.current && findingsAllowed) {
           setSpeaking(true);
           playAudioResponse(audioData, () => setSpeaking(false));
-        } else if (spoken && voiceOutputEnabledRef.current && findingsAllowed) {
+        } else if (spoken && voiceOutputEnabledRef.current && findingsAllowed && !isInspectingRef.current) {
+          // Browser TTS fallback — only when Gemini Live is NOT active
           speakIfAllowed(spoken);
         } else if (spoken || audioData) {
           stopSpeaking();
@@ -325,6 +402,13 @@ export function useArgusSession() {
     wsRef.current.send(message.buffer);
   }, []);
 
+  /** Signal that the audio stream has ended (mic muted). Gemini flushes buffered audio. */
+  const sendAudioStreamEnd = useCallback(() => {
+    if (!wsRef.current || wsRef.current.readyState !== WebSocket.OPEN) return;
+    const signal = new Uint8Array([0x03]);
+    wsRef.current.send(signal.buffer);
+  }, []);
+
   const sendCommand = useCallback(
     (type: string, payload: Record<string, unknown> = {}) => {
       if (!wsRef.current || wsRef.current.readyState !== WebSocket.OPEN) return;
@@ -342,6 +426,9 @@ export function useArgusSession() {
 
   const startInspection = useCallback(
     (mode: string) => {
+      // Resume the shared TTS AudioContext on this user gesture — browsers
+      // block audio playback until a user interaction unlocks it.
+      ensureAudioContext();
       sendCommand("start_inspection", {
         mode,
         camera_id: generateCameraId(),
@@ -361,7 +448,13 @@ export function useArgusSession() {
   }, [sendCommand]);
 
   const switchMode = useCallback(
-    (mode: string) => { sendCommand("switch_mode", { mode }); },
+    (mode: string) => {
+      sendCommand("switch_mode", { mode });
+      setHazards([]);
+      setOverlays([]);
+      setActionCards([]);
+      setIncidents([]);
+    },
     [sendCommand]
   );
 
@@ -436,8 +529,10 @@ export function useArgusSession() {
     lastAgentResponse,
     lastTranscript,
     incidents,
+    overlaysFading,
     sendFrame,
     sendAudio,
+    sendAudioStreamEnd,
     startInspection,
     stopInspection,
     switchMode,

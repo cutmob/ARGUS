@@ -9,8 +9,13 @@ interface CameraViewProps {
   hazards: Hazard[];
   overlays: Overlay[];
   overlaysVisible?: boolean;
+  overlaysFading?: boolean;
   glassMode?: GlassMode;
   videoSource?: string | null;
+  /** Original File object — used to recreate blob URL if revoked */
+  videoFile?: File | null;
+  /** Specific camera deviceId to use (from useCameraDevices). Empty/undefined = default. */
+  deviceId?: string;
   onFrame: (data: Blob) => void;
   pillExpandMode?: "click" | "tap" | "none";
   pillPlacementMode?: "follow" | "stack-top-left";
@@ -20,8 +25,11 @@ export function CameraView({
   hazards,
   overlays,
   overlaysVisible = true,
+  overlaysFading = false,
   glassMode = "dark",
   videoSource,
+  videoFile,
+  deviceId,
   onFrame,
   pillExpandMode = "click",
   pillPlacementMode = "follow",
@@ -35,19 +43,68 @@ export function CameraView({
   useEffect(() => {
     async function startCamera() {
       if (videoSource) {
-        if (videoRef.current) {
-          videoRef.current.srcObject = null;
-          videoRef.current.src = videoSource;
-          videoRef.current.loop = true;
-          videoRef.current.muted = true;
-          void videoRef.current.play().catch(() => {});
+        // Stop any active camera stream first
+        streamRef.current?.getTracks().forEach((t) => t.stop());
+        streamRef.current = null;
+
+        const vid = videoRef.current;
+        if (vid) {
+          vid.srcObject = null;
+          vid.src = videoSource;
+          vid.loop = true;
+          vid.muted = true;
+          vid.playsInline = true;
+          // Try multiple events — canplay doesn't always fire for blob URLs
+          const tryPlay = () => {
+            vid.removeEventListener("canplay", tryPlay);
+            vid.removeEventListener("loadeddata", tryPlay);
+            void vid.play().catch((err) => {
+              console.warn("[ARGUS] Video play failed:", err);
+            });
+          };
+          const handleError = () => {
+            vid.removeEventListener("error", handleError);
+            // Blob URL may have been revoked (React StrictMode, HMR, etc.)
+            // Try recreating from the original File object before falling back to webcam
+            if (videoFile) {
+              console.warn("[ARGUS] Video blob URL failed, recreating from File object");
+              const newUrl = URL.createObjectURL(videoFile);
+              vid.src = newUrl;
+              vid.load();
+              return;
+            }
+            console.warn("[ARGUS] Video source failed to load, falling back to camera");
+            vid.removeAttribute("src");
+            vid.srcObject = null;
+            navigator.mediaDevices
+              .getUserMedia({ video: { width: 1280, height: 720, facingMode: "environment" }, audio: false })
+              .then((stream) => {
+                streamRef.current = stream;
+                if (videoRef.current) videoRef.current.srcObject = stream;
+              })
+              .catch(() => {});
+          };
+          vid.addEventListener("canplay", tryPlay);
+          vid.addEventListener("loadeddata", tryPlay);
+          vid.addEventListener("error", handleError);
+          vid.load();
         }
         return;
       }
 
       try {
+        const videoConstraints: MediaTrackConstraints = {
+          width: 1280,
+          height: 720,
+        };
+        // Use specific device if provided, otherwise default to environment camera
+        if (deviceId) {
+          videoConstraints.deviceId = { exact: deviceId };
+        } else {
+          videoConstraints.facingMode = "environment";
+        }
         const stream = await navigator.mediaDevices.getUserMedia({
-          video: { width: 1280, height: 720, facingMode: "environment" },
+          video: videoConstraints,
           audio: false,
         });
         streamRef.current = stream;
@@ -59,13 +116,15 @@ export function CameraView({
     startCamera();
     return () => {
       streamRef.current?.getTracks().forEach((t) => t.stop());
-      if (videoRef.current) {
-        videoRef.current.pause();
-        videoRef.current.removeAttribute("src");
-        videoRef.current.load();
+      const vid = videoRef.current;
+      if (vid) {
+        vid.pause();
+        vid.removeAttribute("src");
+        vid.srcObject = null;
+        vid.load();
       }
     };
-  }, [videoSource]);
+  }, [videoSource, deviceId]);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -145,11 +204,11 @@ export function CameraView({
         autoPlay
         playsInline
         muted
-        className="w-full h-full object-cover"
+        className="absolute inset-0 w-full h-full object-cover"
       />
       <canvas ref={canvasRef} className="hidden" />
 
-      <HazardOverlay overlays={overlays} visible={overlaysVisible} glassMode={glassMode} />
+      <HazardOverlay overlays={overlays} visible={overlaysVisible} glassMode={glassMode} fading={overlaysFading} />
       <EventPillOverlay
         hazards={hazards}
         overlays={overlays}

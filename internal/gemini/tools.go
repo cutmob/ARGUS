@@ -17,7 +17,8 @@ func ArgusTools() []*genai.Tool {
 			FunctionDeclarations: []*genai.FunctionDeclaration{
 				{
 					Name:        "inspect_frame",
-					Description: "Log confirmed safety hazards from the current camera frame. Call this once per observation batch with all hazards found. For each hazard also call highlight_hazard to draw the overlay.",
+					Description: "PROACTIVELY call this to log safety hazards you see in the video feed. Do not wait to be asked — call immediately when you spot any hazard. Include all hazards in one call. Always pair with highlight_hazard.",
+					Behavior:    genai.BehaviorNonBlocking,
 					Parameters: &genai.Schema{
 						Type: "object",
 						Properties: map[string]*genai.Schema{
@@ -42,7 +43,7 @@ func ArgusTools() []*genai.Tool {
 				},
 				{
 					Name:        "highlight_hazard",
-					Description: "Draw a bounding box overlay on the camera feed for a detected hazard. Call this alongside inspect_frame for any hazard you can spatially localize.",
+					Description: "Draw a bounding box overlay on the operator's screen for a hazard. ALWAYS call this alongside inspect_frame with box_2d coordinates so the operator can see exactly where the hazard is.",
 					Parameters: &genai.Schema{
 						Type: "object",
 						Properties: map[string]*genai.Schema{

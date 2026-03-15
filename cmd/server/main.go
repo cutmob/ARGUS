@@ -14,8 +14,10 @@ import (
 
 	"github.com/joho/godotenv"
 
+	"google.golang.org/genai"
+
 	"github.com/cutmob/argus/internal/agent"
-	"github.com/cutmob/argus/internal/gemini"
+	geminiPkg "github.com/cutmob/argus/internal/gemini"
 	"github.com/cutmob/argus/internal/inspection"
 	"github.com/cutmob/argus/internal/integrations"
 	"github.com/cutmob/argus/internal/reporting"
@@ -39,7 +41,7 @@ func main() {
 	ctx := context.Background()
 
 	// Initialize Gemini client (official google.golang.org/genai SDK)
-	geminiClient, err := gemini.NewClient(ctx)
+	geminiClient, err := geminiPkg.NewClient(ctx)
 	if err != nil {
 		slog.Error("failed to initialize gemini client", "error", err)
 		os.Exit(1)
@@ -104,9 +106,10 @@ func main() {
 
 	// WebSocket streaming server
 	wsServer = streaming.NewWebSocketServer(streaming.Config{
-		OnFrame: agentCtrl.HandleFrame,
-		OnAudio: agentCtrl.HandleAudio,
-		OnEvent: agentCtrl.HandleEvent,
+		OnFrame:          agentCtrl.HandleFrame,
+		OnAudio:          agentCtrl.HandleAudio,
+		OnAudioStreamEnd: agentCtrl.HandleAudioStreamEnd,
+		OnEvent:          agentCtrl.HandleEvent,
 		OnCommand: func(sessionID string, msg types.WebSocketMessage) {
 			intent := types.AgentIntent{RawText: msg.Type, Parameters: map[string]string{}}
 			var payload map[string]any
@@ -178,6 +181,11 @@ func main() {
 				}
 			}
 		},
+		OnDisconnect: func(sessionID string) {
+			// Tear down the Gemini live session and inspection when the
+			// client disconnects, so we don't keep processing video.
+			agentCtrl.HandleDisconnect(sessionID)
+		},
 		SessionManager: sessionMgr,
 		DemoTokens:     cfg.DemoTokens,
 	})
@@ -193,6 +201,7 @@ func main() {
 	mux.HandleFunc("/api/v1/reports/files/", safeReportFileHandler(cfg.ReportsDir))
 	mux.HandleFunc("/api/v1/reports/", reportBuilder.HandleGetReport)
 	mux.HandleFunc("/api/v1/health", handleHealth)
+	mux.HandleFunc("/api/v1/health/gemini", handleGeminiHealth(geminiClient))
 
 	handler := corsMiddleware(mux)
 
@@ -261,6 +270,43 @@ func handleHealth(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	if _, err := w.Write([]byte(`{"status":"healthy","service":"argus"}`)); err != nil {
 		slog.Error("failed to write health response", "error", err)
+	}
+}
+
+// handleGeminiHealth attempts a short-lived Gemini Live connection to verify
+// the API key, model availability, and session config are all valid.
+func handleGeminiHealth(client *geminiPkg.Client) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
+
+		ctx, cancel := context.WithTimeout(r.Context(), 10*time.Second)
+		defer cancel()
+
+		ls, err := geminiPkg.NewLiveSession(ctx, client, geminiPkg.LiveSessionConfig{
+			SessionID:    "healthcheck",
+			SystemPrompt: "You are a health check. Reply with OK.",
+			OnText:       func(string, string) {},
+			OnAudio:      func(string, []byte) {},
+			OnToolCall:   func(string, []*genai.FunctionCall) {},
+			OnTranscript: func(string, string, string) {},
+		})
+		if err != nil {
+			w.WriteHeader(http.StatusServiceUnavailable)
+			resp, _ := json.Marshal(map[string]string{
+				"status": "unhealthy",
+				"error":  err.Error(),
+				"model":  client.LiveModel(),
+			})
+			_, _ = w.Write(resp)
+			return
+		}
+		ls.Close()
+
+		resp, _ := json.Marshal(map[string]string{
+			"status": "healthy",
+			"model":  client.LiveModel(),
+		})
+		_, _ = w.Write(resp)
 	}
 }
 

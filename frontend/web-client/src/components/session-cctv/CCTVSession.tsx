@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import { FeedGrid } from "./FeedGrid";
 import { ArgusIndicator } from "@/components/ArgusIndicator";
 import { INSPECTION_MODES, modeLabel } from "@/lib/modes";
+import { useCameraDevices } from "@/hooks/useCameraDevices";
 import type { GlassMode } from "@/components/HazardOverlay";
 import type { ActionCard, Hazard, Overlay } from "@/lib/types";
 
@@ -23,18 +24,20 @@ interface CCTVSessionProps {
     generateReport: () => void;
     requestActions: () => void;
     sendNaturalLanguageCommand?: (text: string) => void;
+    clearHazards: () => void;
   };
   mode: string;
   onModeChange: (mode: string) => void;
   overlaysVisible?: boolean;
+  overlaysFading?: boolean;
   videoSource?: string | null;
+  videoFile?: File | null;
   glassMode?: GlassMode;
   onGlassModeChange?: (mode: GlassMode) => void;
-  voiceInputEnabled: boolean;
-  voiceInputSupported: boolean;
   voiceOutputEnabled: boolean;
-  onVoiceInputChange: (enabled: boolean) => void;
   onVoiceOutputChange: (enabled: boolean) => void;
+  /** Whether live audio input is currently active (always-on when inspecting). */
+  audioInputActive: boolean;
 }
 
 const SEVERITY_COLOR: Record<string, string> = {
@@ -51,24 +54,57 @@ const RISK_COLOR: Record<string, string> = {
   critical: "#ef4444",
 };
 
+// Theme tokens keyed by glass mode
+const T = {
+  dark: {
+    pageBg: "#000",
+    sidebarBg: "#080808",
+    border: "#1c1c1c",
+    offlineDot: "#1c1c1c",
+    inactive: "#4a4a4a",
+    optionBg: "#080808",
+    optionText: "#f0f0f0",
+    kbdBg: "#000",
+    kbdBorder: "#1c1c1c",
+    kbdLabel: "#2a2a2a",
+    chevron: "#4a4a4a",
+  },
+  light: {
+    pageBg: "#f5f5f5",
+    sidebarBg: "rgba(255,255,255,0.82)",
+    border: "rgba(0,0,0,0.1)",
+    offlineDot: "#ccc",
+    inactive: "#999",
+    optionBg: "#fff",
+    optionText: "#222",
+    kbdBg: "#fff",
+    kbdBorder: "rgba(0,0,0,0.12)",
+    kbdLabel: "#aaa",
+    chevron: "#999",
+  },
+};
+
 export function CCTVSession({
   session,
   mode,
   onModeChange,
   overlaysVisible = true,
+  overlaysFading = false,
   videoSource,
+  videoFile,
   glassMode: externalGlassMode,
   onGlassModeChange,
-  voiceInputEnabled,
-  voiceInputSupported,
   voiceOutputEnabled,
-  onVoiceInputChange,
   onVoiceOutputChange,
+  audioInputActive,
 }: CCTVSessionProps) {
   const [activeFeed, setActiveFeed] = useState(0);
   const [time, setTime]             = useState("");
   const [localGlassMode, setLocalGlassMode] = useState<GlassMode>("dark");
+  const [expandedHazards, setExpandedHazards] = useState<Set<string>>(new Set());
+  const { devices: cameraDevices, selectedId: selectedCamera, selectDevice: selectCamera } = useCameraDevices();
   const glassMode = externalGlassMode ?? localGlassMode;
+  const t = T[glassMode];
 
   const setGlassMode = useCallback(
     (next: GlassMode) => {
@@ -106,15 +142,15 @@ export function CCTVSession({
     return () => window.removeEventListener("keydown", onKey);
   }, [session, mode]);
 
-  const riskColor = RISK_COLOR[session.riskLevel] ?? "#4a4a4a";
+  const riskColor = RISK_COLOR[session.riskLevel] ?? t.inactive;
   const hazardStr = session.hazards.length.toString().padStart(2, "0");
 
   return (
-    <div className="h-screen w-screen flex flex-col overflow-hidden" style={{ background: "#000" }}>
-      {/* Top bar — single line */}
+    <div className="h-screen w-screen flex flex-col overflow-hidden" style={{ background: t.pageBg }}>
+      {/* Top bar */}
       <header
         className="h-9 flex items-center justify-between px-5 shrink-0 liquid-glass"
-        style={{ borderBottom: "1px solid #1c1c1c" }}
+        style={{ borderBottom: `1px solid ${t.border}` }}
       >
         <div className="flex items-center gap-3">
           <span className="font-display text-xs font-bold tracking-[0.25em] uppercase liquid-title">
@@ -130,9 +166,9 @@ export function CCTVSession({
           <div className="flex items-center gap-1.5">
             <div
               className="w-1.5 h-1.5 rounded-full"
-              style={{ background: session.connected ? "#FF5F1F" : "#1c1c1c" }}
+              style={{ background: session.connected ? "#FF5F1F" : t.offlineDot }}
             />
-            <span className="font-mono text-xs" style={{ color: session.connected ? "#FF5F1F" : "#4a4a4a" }}>
+            <span className="font-mono text-xs" style={{ color: session.connected ? "#FF5F1F" : t.inactive }}>
               {session.connected ? "LIVE" : "OFFLINE"}
             </span>
           </div>
@@ -148,8 +184,11 @@ export function CCTVSession({
             hazards={session.hazards}
             overlays={session.overlays}
             overlaysVisible={overlaysVisible}
+            overlaysFading={overlaysFading}
             glassMode={glassMode}
             videoSource={videoSource}
+            videoFile={videoFile}
+            deviceId={selectedCamera}
             onFrame={session.sendFrame}
             activeFeed={activeFeed}
             onSelectFeed={setActiveFeed}
@@ -159,10 +198,10 @@ export function CCTVSession({
         {/* Sidebar */}
         <aside
           className="w-52 flex flex-col overflow-hidden shrink-0 liquid-glass"
-          style={{ background: "#080808", borderLeft: "1px solid #1c1c1c" }}
+          style={{ background: t.sidebarBg, borderLeft: `1px solid ${t.border}` }}
         >
           {/* Risk */}
-          <div className="px-5 pt-6 pb-4" style={{ borderBottom: "1px solid #1c1c1c" }}>
+          <div className="px-5 pt-6 pb-4" style={{ borderBottom: `1px solid ${t.border}` }}>
             <p className="font-mono text-xs tracking-[0.2em] uppercase mb-2 liquid-meta">
               Risk Level
             </p>
@@ -175,7 +214,7 @@ export function CCTVSession({
           </div>
 
           {/* Hazard count */}
-          <div className="px-5 pt-4 pb-4" style={{ borderBottom: "1px solid #1c1c1c" }}>
+          <div className="px-5 pt-4 pb-4" style={{ borderBottom: `1px solid ${t.border}` }}>
             <p className="font-mono text-xs tracking-[0.2em] uppercase mb-1 liquid-meta">
               Hazards
             </p>
@@ -185,7 +224,7 @@ export function CCTVSession({
           </div>
 
           {/* Mode */}
-          <div className="px-5 pt-4 pb-3" style={{ borderBottom: "1px solid #1c1c1c" }}>
+          <div className="px-5 pt-4 pb-3" style={{ borderBottom: `1px solid ${t.border}` }}>
             <p className="font-mono text-xs tracking-[0.2em] uppercase mb-2 liquid-meta">
               Mode
             </p>
@@ -198,7 +237,7 @@ export function CCTVSession({
                 <option
                   key={m}
                   value={m}
-                  style={{ background: "#080808", color: m === mode ? "#FF5F1F" : "#f0f0f0" }}
+                  style={{ background: t.optionBg, color: m === mode ? "#FF5F1F" : t.optionText }}
                 >
                   {modeLabel(m)}
                 </option>
@@ -206,30 +245,43 @@ export function CCTVSession({
             </select>
           </div>
 
-          {/* Actions */}
-          <div className="px-5 py-4" style={{ borderBottom: "1px solid #1c1c1c" }}>
-            <div className="grid grid-cols-2 gap-1.5 mb-1.5">
-              <button
-                onClick={() => onVoiceInputChange(!voiceInputEnabled)}
-                disabled={!voiceInputSupported}
-                className="liquid-glass liquid-float liquid-pill font-display text-[10px] font-medium tracking-[0.12em] uppercase py-2 transition-colors duration-100"
-                style={{
-                  color: !voiceInputSupported
-                    ? "#2a2a2a"
-                    : voiceInputEnabled
-                    ? "#FF5F1F"
-                    : "#4a4a4a",
-                  opacity: voiceInputSupported ? 1 : 0.6,
-                }}
+          {/* Camera */}
+          {cameraDevices.length > 1 && (
+            <div className="px-5 pt-4 pb-3" style={{ borderBottom: `1px solid ${t.border}` }}>
+              <p className="font-mono text-xs tracking-[0.2em] uppercase mb-2 liquid-meta">
+                Camera
+              </p>
+              <select
+                value={selectedCamera}
+                onChange={(e) => selectCamera(e.target.value)}
+                className="w-full liquid-glass liquid-float liquid-pill font-mono text-xs tracking-wider py-2 px-2.5 bg-transparent appearance-none cursor-pointer transition-colors duration-100 focus:outline-none liquid-title"
               >
-                IN {voiceInputEnabled ? "ON" : "OFF"}
-              </button>
+                {cameraDevices.map((d) => (
+                  <option
+                    key={d.deviceId}
+                    value={d.deviceId}
+                    style={{ background: t.optionBg, color: d.deviceId === selectedCamera ? "#FF5F1F" : t.optionText }}
+                  >
+                    {d.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
+
+          {/* Actions */}
+          <div className="px-5 py-4" style={{ borderBottom: `1px solid ${t.border}` }}>
+            <div className="grid grid-cols-2 gap-1.5 mb-1.5">
+              <span
+                className="liquid-glass liquid-float liquid-pill font-display text-[10px] font-medium tracking-[0.12em] uppercase py-2 text-center"
+                style={{ color: audioInputActive ? "#FF5F1F" : t.inactive }}
+              >
+                MIC {audioInputActive ? "LIVE" : "OFF"}
+              </span>
               <button
                 onClick={() => onVoiceOutputChange(!voiceOutputEnabled)}
                 className="liquid-glass liquid-float liquid-pill font-display text-[10px] font-medium tracking-[0.12em] uppercase py-2 transition-colors duration-100"
-                style={{
-                  color: voiceOutputEnabled ? "#FF5F1F" : "#4a4a4a",
-                }}
+                style={{ color: voiceOutputEnabled ? "#FF5F1F" : t.inactive }}
               >
                 OUT {voiceOutputEnabled ? "ON" : "OFF"}
               </button>
@@ -238,14 +290,14 @@ export function CCTVSession({
               <button
                 onClick={() => setGlassMode("dark")}
                 className="liquid-glass liquid-float liquid-pill font-display text-[10px] font-medium tracking-[0.12em] uppercase py-2 transition-colors duration-100"
-                style={{ color: glassMode === "dark" ? "#FF5F1F" : "#4a4a4a" }}
+                style={{ color: glassMode === "dark" ? "#FF5F1F" : t.inactive }}
               >
                 DARK
               </button>
               <button
                 onClick={() => setGlassMode("light")}
                 className="liquid-glass liquid-float liquid-pill font-display text-[10px] font-medium tracking-[0.12em] uppercase py-2 transition-colors duration-100"
-                style={{ color: glassMode === "light" ? "#FF5F1F" : "#4a4a4a" }}
+                style={{ color: glassMode === "light" ? "#FF5F1F" : t.inactive }}
               >
                 LIGHT
               </button>
@@ -261,7 +313,7 @@ export function CCTVSession({
                   : { color: "#FF5F1F" }
               }
             >
-              {session.isInspecting ? "■  STOP" : "INSPECT"}
+              {session.isInspecting ? "\u25A0  STOP" : "INSPECT"}
             </button>
             <button
               onClick={session.generateReport}
@@ -278,28 +330,78 @@ export function CCTVSession({
           </div>
 
           {/* Hazard log */}
-          <div className="flex-1 overflow-y-auto">
+          <div className="flex-1 overflow-y-auto" style={{ minHeight: 0 }}>
             {session.hazards.length === 0 ? (
               <div className="px-5 py-4">
-                <span className="font-mono text-xs liquid-meta">—</span>
+                <span className="font-mono text-xs liquid-meta">&mdash;</span>
               </div>
             ) : (
-              session.hazards.map((h) => (
-                <div key={h.id} className="px-5 py-3" style={{ borderBottom: "1px solid #1c1c1c" }}>
-                  <p className="font-sans text-xs font-light leading-relaxed liquid-title">
-                    {h.description}
-                  </p>
-                  <span
-                    className="font-mono text-xs uppercase tracking-widest"
-                    style={{ color: SEVERITY_COLOR[h.severity] ?? "#4a4a4a" }}
-                  >
-                    {h.severity} • {Math.round(h.confidence * 100)}%
+              <>
+                <div className="px-5 pt-3 pb-1 flex items-center justify-between">
+                  <span className="font-mono text-[10px] tracking-[0.16em] uppercase liquid-meta">
+                    {session.hazards.length} alert{session.hazards.length !== 1 ? "s" : ""}
                   </span>
-                  <p className="font-mono text-[10px] mt-1 liquid-meta">
-                    {h.rule_id || "rule:n/a"} • {h.camera_id || "camera:n/a"} • {h.persistence_seconds ?? 0}s • {h.risk_trend || "new"}
-                  </p>
+                  <button
+                    onClick={() => { session.clearHazards(); setExpandedHazards(new Set()); }}
+                    className="font-mono text-[10px] tracking-[0.12em] uppercase transition-colors duration-100"
+                    style={{ color: "#ef4444" }}
+                  >
+                    Clear
+                  </button>
                 </div>
-              ))
+                {session.hazards.slice(0, 100).map((h) => {
+                  const isOpen = expandedHazards.has(h.id);
+                  return (
+                    <div key={h.id} style={{ borderBottom: `1px solid ${t.border}` }}>
+                      <button
+                        onClick={() => setExpandedHazards((prev) => {
+                          const next = new Set(prev);
+                          if (next.has(h.id)) next.delete(h.id); else next.add(h.id);
+                          return next;
+                        })}
+                        className="w-full px-5 py-2.5 flex items-center justify-between gap-2 text-left"
+                      >
+                        <span className="flex items-center gap-2 min-w-0">
+                          <span
+                            className="w-1.5 h-1.5 rounded-full shrink-0"
+                            style={{ background: SEVERITY_COLOR[h.severity] ?? t.inactive }}
+                          />
+                          <span className="font-sans text-xs font-light leading-tight liquid-title truncate">
+                            {h.description}
+                          </span>
+                        </span>
+                        <span
+                          className="font-mono text-[10px] shrink-0 transition-transform duration-150"
+                          style={{ color: t.chevron, transform: isOpen ? "rotate(180deg)" : "rotate(0deg)" }}
+                        >
+                          &#x25BE;
+                        </span>
+                      </button>
+                      {isOpen && (
+                        <div className="px-5 pb-3 space-y-1">
+                          <span
+                            className="font-mono text-[10px] uppercase tracking-widest"
+                            style={{ color: SEVERITY_COLOR[h.severity] ?? t.inactive }}
+                          >
+                            {h.severity} &bull; {Math.round(h.confidence * 100)}%
+                          </span>
+                          <p className="font-mono text-[10px] liquid-meta">
+                            {h.rule_id || "rule:n/a"} &bull; {h.camera_id || "camera:n/a"}
+                          </p>
+                          <p className="font-mono text-[10px] liquid-meta">
+                            {h.persistence_seconds ?? 0}s &bull; {h.risk_trend || "new"}
+                          </p>
+                          {h.location && (
+                            <p className="font-mono text-[10px] liquid-meta">
+                              loc: {h.location}
+                            </p>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </>
             )}
           </div>
 
@@ -324,17 +426,17 @@ export function CCTVSession({
           )}
 
           {/* Keyboard shortcuts */}
-          <div className="px-5 py-3" style={{ borderTop: "1px solid #1c1c1c" }}>
+          <div className="px-5 py-3" style={{ borderTop: `1px solid ${t.border}` }}>
             <div className="flex flex-wrap gap-x-4 gap-y-1">
-              {[["I", "inspect"], ["R", "report"], ["O", "overlays"], ["1–4", "feed"]].map(([k, v]) => (
+              {[["I", "inspect"], ["R", "report"], ["O", "overlays"], ["1\u20134", "feed"]].map(([k, v]) => (
                 <div key={k} className="flex items-center gap-1.5">
                   <kbd
                     className="font-mono text-xs px-1 py-px"
-                    style={{ color: "#4a4a4a", border: "1px solid #1c1c1c", background: "#000" }}
+                    style={{ color: t.inactive, border: `1px solid ${t.kbdBorder}`, background: t.kbdBg }}
                   >
                     {k}
                   </kbd>
-                  <span className="font-sans text-xs font-light" style={{ color: "#2a2a2a" }}>{v}</span>
+                  <span className="font-sans text-xs font-light" style={{ color: t.kbdLabel }}>{v}</span>
                 </div>
               ))}
             </div>

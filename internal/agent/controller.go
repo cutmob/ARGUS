@@ -50,15 +50,21 @@ type Controller struct {
 
 	mu             sync.RWMutex
 	liveSessions   map[string]*geminiPkg.LiveSession
-	// resumeHandles stores the last GoAway resumption handle per session so
-	// we can re-establish Gemini Live sessions with temporal state continuity.
-	resumeHandles  map[string]string
 	// lastInspectCall tracks the last inspect_frame call time per session
 	// to enforce a minimum debounce interval between calls.
 	lastInspectCall map[string]time.Time
 	// dismissedHazards tracks operator-dismissed hazard descriptions per session
 	// so they are not re-reported unless conditions materially change.
 	dismissedHazards map[string]map[string]string
+	// audioChunkCount tracks audio chunks sent per session for debug logging.
+	audioChunkCount map[string]int
+	// pendingToolCalls accumulates tool calls per session for batched response.
+	pendingToolCalls map[string][]*genai.FunctionCall
+	// pendingToolTimers tracks the batch flush timer per session.
+	pendingToolTimers map[string]*time.Timer
+	// confidenceThreshold is the minimum confidence (0–1) for a hazard to be
+	// reported. Hazards below this are silently dropped. Default: 0.55.
+	confidenceThreshold float64
 }
 
 func NewController(cfg ControllerConfig) *Controller {
@@ -74,10 +80,13 @@ func NewController(cfg ControllerConfig) *Controller {
 		intentParser: NewIntentParser(),
 		responseMgr:  NewResponseManager(),
 		onResponse:   cfg.OnResponse,
-		liveSessions:     make(map[string]*geminiPkg.LiveSession),
-		resumeHandles:    make(map[string]string),
-		lastInspectCall:  make(map[string]time.Time),
-		dismissedHazards: make(map[string]map[string]string),
+		liveSessions:      make(map[string]*geminiPkg.LiveSession),
+		lastInspectCall:   make(map[string]time.Time),
+		dismissedHazards:  make(map[string]map[string]string),
+		audioChunkCount:   make(map[string]int),
+		pendingToolCalls:    make(map[string][]*genai.FunctionCall),
+		pendingToolTimers:   make(map[string]*time.Timer),
+		confidenceThreshold: 0.65,
 	}
 }
 
@@ -85,16 +94,35 @@ func NewController(cfg ControllerConfig) *Controller {
 func (c *Controller) HandleFrame(sessionID string, frame types.Frame) {
 	sess, ok := c.sessions.Get(sessionID)
 	if !ok {
-		slog.Warn("frame for unknown session", "session_id", sessionID)
+		// Expected when client sends frames before starting inspection — debug only.
+		slog.Debug("frame for unknown session", "session_id", sessionID)
 		return
 	}
 
 	// Store in rolling buffer for temporal reasoning
 	sess.FrameBuffer.Push(frame)
 
-	// Run local vision pipeline (sampling + event detection)
-	events := c.detector.ProcessFrame(sessionID, frame)
+	// Forward video frame to Gemini Live for real-time analysis.
+	// When a live session exists, send frames directly — do NOT also route
+	// through the vision pipeline's sendFrameToGemini, which injects
+	// SendClientContent (text) calls that conflict with audio streaming
+	// and cause session termination.
+	c.mu.RLock()
+	ls, hasLive := c.liveSessions[sessionID]
+	c.mu.RUnlock()
 
+	if hasLive && ls.IsActive() {
+		if err := ls.SendVideoFrame(frame.Data); err != nil {
+			slog.Error("failed to send video frame to gemini",
+				"session_id", sessionID,
+				"error", err,
+			)
+		}
+		return
+	}
+
+	// No live session — fall back to local vision pipeline + one-shot Gemini
+	events := c.detector.ProcessFrame(sessionID, frame)
 	for _, event := range events {
 		c.processVisionEvent(sess, event)
 	}
@@ -114,6 +142,22 @@ func (c *Controller) HandleAudio(sessionID string, chunk types.AudioChunk) {
 
 	if !hasLive || !ls.IsActive() {
 		return
+	}
+
+	// Log first audio chunk per session and then every ~5 seconds (250 chunks @ 20ms)
+	c.mu.Lock()
+	if c.audioChunkCount == nil {
+		c.audioChunkCount = make(map[string]int)
+	}
+	c.audioChunkCount[sessionID]++
+	count := c.audioChunkCount[sessionID]
+	c.mu.Unlock()
+	if count == 1 || count%250 == 0 {
+		slog.Info("audio flowing to gemini",
+			"session_id", sessionID,
+			"chunk_count", count,
+			"bytes", len(chunk.Data),
+		)
 	}
 
 	if err := ls.SendAudio(chunk.Data); err != nil {
@@ -209,15 +253,18 @@ func (c *Controller) startInspection(sessionID string, intent types.AgentIntent)
 
 	// Start Gemini Live session for real-time bidirectional streaming
 	ctx := context.Background()
+
 	liveSession, err := geminiPkg.NewLiveSession(ctx, c.gemini, geminiPkg.LiveSessionConfig{
 		SessionID:    sessionID,
 		SystemPrompt: systemPrompt,
-		Tools:        geminiPkg.ArgusTools(),
-		OnText:       c.handleGeminiText,
-		OnAudio:      c.handleGeminiAudio,
-		OnToolCall:   c.handleGeminiToolCall,
-		OnTranscript: c.handleGeminiTranscript,
-		OnGoAway:     c.handleGeminiGoAway,
+		Tools:         geminiPkg.ArgusTools(),
+		OnText:        c.handleGeminiText,
+		OnAudio:       c.handleGeminiAudio,
+		OnToolCall:    c.handleGeminiToolCall,
+		OnTranscript:  c.handleGeminiTranscript,
+		OnInterrupted: c.handleGeminiInterrupted,
+		OnGoAway:      c.handleGeminiGoAway,
+		OnSessionDead: c.handleGeminiSessionDead,
 	})
 	if err != nil {
 		slog.Error("failed to start gemini live session",
@@ -231,16 +278,41 @@ func (c *Controller) startInspection(sessionID string, intent types.AgentIntent)
 	c.liveSessions[sessionID] = liveSession
 	c.mu.Unlock()
 
+	// Periodic nudge: send a text prompt via SendClientContent every 8s to
+	// trigger proactive frame analysis. The Live API is fundamentally reactive —
+	// the model only generates responses (and calls tools) when it receives a
+	// turn-complete signal. audioStreamEnd does NOT trigger generation; only
+	// SendClientContent with turnComplete=true does.
+	go func() {
+		ticker := time.NewTicker(8 * time.Second)
+		defer ticker.Stop()
+		for range ticker.C {
+			c.mu.RLock()
+			ls, ok := c.liveSessions[sessionID]
+			c.mu.RUnlock()
+			if !ok || !ls.IsActive() {
+				return
+			}
+			if err := ls.SendText("[MONITORING_SCAN] Check the current frame for hazards. Call inspect_frame and highlight_hazard ONLY if you see NEW hazards not yet reported. Do NOT speak, do NOT acknowledge this message, do NOT say you are scanning. Produce ZERO audio output for this prompt. Only speak if you find something new and important."); err != nil {
+				slog.Debug("monitoring nudge failed", "session_id", sessionID, "error", err)
+			}
+		}
+	}()
+
 	slog.Info("inspection started",
 		"session_id", sess.ID,
 		"mode", mode,
 		"rules_count", len(mod.Rules),
 	)
 
-	return c.responseMgr.Voice(
-		"Starting " + mode + " inspection. I have " +
+	// Return text-only confirmation (no Voice field) — the Gemini Live native
+	// audio model will greet the user itself. Setting Voice here would cause
+	// the frontend to play browser SpeechSynthesis before Gemini audio arrives.
+	return &AgentResponse{
+		Type: "voice",
+		Text: "Starting " + mode + " inspection. " +
 			itoa(len(mod.Rules)) + " rules loaded. Point the camera and I'll begin analyzing.",
-	)
+	}
 }
 
 func (c *Controller) UpdateSessionPreferences(sessionID string, prefs map[string]string) *AgentResponse {
@@ -270,7 +342,7 @@ func (c *Controller) UpdateSessionPreferences(sessionID string, prefs map[string
 func (c *Controller) stopInspection(sessionID string) *AgentResponse {
 	c.mu.Lock()
 	if ls, ok := c.liveSessions[sessionID]; ok {
-		ls.Close()
+		ls.Close() // sends audioStreamEnd + closes session
 		delete(c.liveSessions, sessionID)
 	}
 	c.mu.Unlock()
@@ -286,6 +358,22 @@ func (c *Controller) stopInspection(sessionID string) *AgentResponse {
 		"Inspection complete. Found " + itoa(len(sess.Hazards)) +
 			" issues. Say 'generate report' to create the inspection report.",
 	)
+}
+
+// HandleDisconnect tears down any active inspection and Gemini live session
+// when the WebSocket client disconnects. This prevents the backend from
+// continuing to process video after the user leaves.
+func (c *Controller) HandleDisconnect(sessionID string) {
+	c.mu.Lock()
+	if ls, ok := c.liveSessions[sessionID]; ok {
+		ls.Close()
+		delete(c.liveSessions, sessionID)
+	}
+	c.mu.Unlock()
+
+	c.sessions.Close(sessionID)
+	c.rules.ClearSession(sessionID)
+	slog.Info("session torn down on disconnect", "session_id", sessionID)
 }
 
 // resolveModeAlias normalises voice-command mode names to canonical module names.
@@ -305,6 +393,12 @@ func (c *Controller) switchMode(sessionID string, mode string) *AgentResponse {
 	}
 
 	c.rules.LoadRules(sessionID, mod.Rules)
+
+	// Clear hazards from the previous mode so stale detections don't persist.
+	if sess, ok := c.sessions.Get(sessionID); ok {
+		sess.Hazards = sess.Hazards[:0]
+		sess.RiskScore = 0
+	}
 
 	c.mu.RLock()
 	ls, hasLive := c.liveSessions[sessionID]
@@ -570,6 +664,14 @@ func (c *Controller) processGeminiResponse(sessionID string, resp *types.GeminiR
 
 	incidentChanged := false
 	for _, h := range resp.Hazards {
+		if h.Confidence < c.confidenceThreshold {
+			slog.Debug("dropping low-confidence hazard",
+				"description", h.Description,
+				"confidence", h.Confidence,
+				"threshold", c.confidenceThreshold,
+			)
+			continue
+		}
 		c.sessions.AddHazard(sessionID, h)
 		// GAP 5: feed each hazard into the temporal engine with frame evidence so
 		// SPRT accumulation, confidence history, and EvidencePack snapshots are live.
@@ -742,13 +844,8 @@ func (c *Controller) buildEnvironmentFamiliarity(cameraID string) string {
 // handleGeminiGoAway is called when the Gemini Live server signals an imminent
 // disconnection. We store the resumption handle and schedule a transparent
 // reconnect that re-injects temporal state as context.
-func (c *Controller) handleGeminiGoAway(sessionID, handle string) {
+func (c *Controller) handleGeminiGoAway(sessionID, _ string) {
 	slog.Warn("gemini goaway — scheduling reconnect", "session_id", sessionID)
-	c.mu.Lock()
-	if handle != "" {
-		c.resumeHandles[sessionID] = handle
-	}
-	c.mu.Unlock()
 
 	go func() {
 		time.Sleep(500 * time.Millisecond)
@@ -777,14 +874,16 @@ func (c *Controller) handleGeminiGoAway(sessionID, handle string) {
 		)
 		ctx := context.Background()
 		newLS, err := geminiPkg.NewLiveSession(ctx, c.gemini, geminiPkg.LiveSessionConfig{
-			SessionID:    sessionID,
-			SystemPrompt: systemPrompt,
-			Tools:        geminiPkg.ArgusTools(),
-			OnText:       c.handleGeminiText,
-			OnAudio:      c.handleGeminiAudio,
-			OnToolCall:   c.handleGeminiToolCall,
-			OnTranscript: c.handleGeminiTranscript,
-			OnGoAway:     c.handleGeminiGoAway,
+			SessionID:     sessionID,
+			SystemPrompt:  systemPrompt,
+			Tools:         geminiPkg.ArgusTools(),
+			OnText:        c.handleGeminiText,
+			OnAudio:       c.handleGeminiAudio,
+			OnToolCall:    c.handleGeminiToolCall,
+			OnTranscript:  c.handleGeminiTranscript,
+			OnInterrupted: c.handleGeminiInterrupted,
+			OnGoAway:      c.handleGeminiGoAway,
+			OnSessionDead: c.handleGeminiSessionDead,
 		})
 		if err != nil {
 			slog.Error("failed to reconnect gemini live after goaway", "session_id", sessionID, "error", err)
@@ -840,12 +939,19 @@ func (c *Controller) handleGeminiText(sessionID, text string) {
 		return
 	}
 
+	// In native audio mode, Gemini delivers speech via handleGeminiAudio.
+	// Text parts in ModelTurn are metadata/fragments — forward as text-only
+	// so the frontend displays them but does NOT trigger browser TTS fallback.
 	if c.onResponse != nil {
-		c.onResponse(sessionID, c.responseMgr.Voice(text))
+		c.onResponse(sessionID, &AgentResponse{
+			Type: "voice",
+			Text: text,
+		})
 	}
 }
 
 func (c *Controller) handleGeminiAudio(sessionID string, data []byte) {
+	slog.Info("gemini audio received", "session_id", sessionID, "bytes", len(data))
 	if c.onResponse != nil {
 		c.onResponse(sessionID, &AgentResponse{
 			Type:      "audio",
@@ -854,18 +960,102 @@ func (c *Controller) handleGeminiAudio(sessionID string, data []byte) {
 	}
 }
 
+// handleGeminiSessionDead is called when the Gemini Live session terminates
+// unexpectedly (receive loop error, WebSocket closure, etc.). Notifies the
+// frontend so it can display a reconnecting/error state.
+func (c *Controller) handleGeminiSessionDead(sessionID string, reason string) {
+	slog.Warn("gemini session dead", "session_id", sessionID, "reason", reason)
+	if c.onResponse != nil {
+		c.onResponse(sessionID, &AgentResponse{
+			Type: "session_error",
+			Text: "Voice session disconnected: " + reason,
+		})
+	}
+}
+
+// HandleAudioStreamEnd forwards an audioStreamEnd signal to the Gemini Live
+// session when the frontend mic is muted. Per Gemini docs, this flushes
+// buffered audio when the stream pauses for >1 second.
+func (c *Controller) HandleAudioStreamEnd(sessionID string) {
+	c.mu.RLock()
+	ls, hasLive := c.liveSessions[sessionID]
+	c.mu.RUnlock()
+
+	if !hasLive || !ls.IsActive() {
+		return
+	}
+	if err := ls.SendAudioStreamEnd(); err != nil {
+		slog.Error("failed to send audioStreamEnd", "session_id", sessionID, "error", err)
+	}
+}
+
+// handleGeminiInterrupted is called when VAD detects user speech during model
+// output. Per Gemini docs: "discard your client-side audio buffer".
+func (c *Controller) handleGeminiInterrupted(sessionID string) {
+	slog.Debug("model interrupted by user", "session_id", sessionID)
+	if c.onResponse != nil {
+		c.onResponse(sessionID, &AgentResponse{
+			Type: "interrupted",
+		})
+	}
+}
+
+// toolCallBatchWindow is how long to wait for additional tool calls before
+// flushing them all in a single SendToolResponse. Gemini Live sends related
+// tool calls (e.g. highlight_hazard + inspect_frame) as separate messages
+// ~200-300ms apart. Batching them into one response prevents the model from
+// generating a separate follow-up turn for each tool result.
+const toolCallBatchWindow = 500 * time.Millisecond
+
 func (c *Controller) handleGeminiToolCall(sessionID string, calls []*genai.FunctionCall) {
 	slog.Info("gemini tool call", "session_id", sessionID, "count", len(calls))
 
-	responses := make([]*genai.FunctionResponse, 0, len(calls))
+	// toolPending is already gated inside live_session.handleServerMessage
+	// based on whether the calls are BLOCKING or NON_BLOCKING. No need to
+	// set it again here.
 
+	// Accumulate calls and reset the batch timer
+	c.mu.Lock()
+	c.pendingToolCalls[sessionID] = append(c.pendingToolCalls[sessionID], calls...)
+	if t, exists := c.pendingToolTimers[sessionID]; exists {
+		t.Stop()
+	}
+	c.pendingToolTimers[sessionID] = time.AfterFunc(toolCallBatchWindow, func() {
+		c.flushToolCalls(sessionID)
+	})
+	c.mu.Unlock()
+}
+
+func (c *Controller) flushToolCalls(sessionID string) {
+	c.mu.Lock()
+	calls := c.pendingToolCalls[sessionID]
+	delete(c.pendingToolCalls, sessionID)
+	delete(c.pendingToolTimers, sessionID)
+	c.mu.Unlock()
+
+	if len(calls) == 0 {
+		return
+	}
+
+	slog.Info("flushing batched tool calls", "session_id", sessionID, "count", len(calls))
+
+	// nonBlockingToolNames mirrors the set in live_session.go — tool responses
+	// for NON_BLOCKING tools use WHEN_IDLE scheduling so they don't interrupt
+	// the model's ongoing audio output.
+	nonBlockingToolNames := map[string]bool{"inspect_frame": true}
+
+	responses := make([]*genai.FunctionResponse, 0, len(calls))
 	for _, call := range calls {
 		result := c.executeToolCall(sessionID, *call)
-		responses = append(responses, &genai.FunctionResponse{
+		resp := &genai.FunctionResponse{
 			ID:       call.ID,
 			Name:     call.Name,
 			Response: result,
-		})
+		}
+		if nonBlockingToolNames[call.Name] {
+			resp.Scheduling = genai.FunctionResponseSchedulingWhenIdle
+		}
+		responses = append(responses, resp)
 	}
 
 	c.mu.RLock()
@@ -880,6 +1070,11 @@ func (c *Controller) handleGeminiToolCall(sessionID string, calls []*genai.Funct
 }
 
 func (c *Controller) handleGeminiTranscript(sessionID, speaker, text string) {
+	// Native audio model emits control tokens like <ctrl46> — skip them.
+	if strings.HasPrefix(text, "<ctrl") {
+		return
+	}
+
 	slog.Info("transcript",
 		"session_id", sessionID,
 		"speaker", speaker,
@@ -965,7 +1160,7 @@ func (c *Controller) toolGetIncidents(sessionID string) map[string]any {
 	}
 }
 
-const inspectFrameDebounce = 2 * time.Second
+const inspectFrameDebounce = 6 * time.Second
 
 func (c *Controller) toolInspectFrame(sessionID string, args map[string]any) map[string]any {
 	// Debounce: reject calls that arrive faster than the minimum interval
@@ -973,7 +1168,7 @@ func (c *Controller) toolInspectFrame(sessionID string, args map[string]any) map
 	c.mu.Lock()
 	if last, ok := c.lastInspectCall[sessionID]; ok && time.Since(last) < inspectFrameDebounce {
 		c.mu.Unlock()
-		return map[string]any{"status": "debounced", "message": "inspect_frame called too frequently, wait briefly"}
+		return map[string]any{"status": "ok", "message": "logged"}
 	}
 	c.lastInspectCall[sessionID] = time.Now()
 	c.mu.Unlock()
@@ -1010,6 +1205,7 @@ func (c *Controller) toolInspectFrame(sessionID string, args map[string]any) map
 		recentFrames = sess.FrameBuffer.Recent(5)
 	}
 
+	hazards := make([]types.Hazard, 0, len(hazardInputs))
 	for _, h := range hazardInputs {
 		hazard := types.Hazard{
 			ID:          sessionID + "_" + itoa(int(time.Now().UnixMilli())),
@@ -1021,6 +1217,7 @@ func (c *Controller) toolInspectFrame(sessionID string, args map[string]any) map
 			CameraID:    camID,
 			DetectedAt:  time.Now(),
 		}
+		hazards = append(hazards, hazard)
 		c.sessions.AddHazard(sessionID, hazard)
 
 		// Feed into temporal engine for SPRT accumulation and incident tracking
@@ -1029,12 +1226,34 @@ func (c *Controller) toolInspectFrame(sessionID string, args map[string]any) map
 		}
 	}
 
+	// Push hazards to frontend so EventPillOverlay shows them (no overlays —
+	// those come from highlight_hazard with proper bbox data).
+	if len(hazards) > 0 && c.onResponse != nil {
+		c.onResponse(sessionID, &AgentResponse{
+			Type:    "hazard_alert",
+			Hazards: hazards,
+		})
+	}
+
 	// Push incident update so frontend timeline stays current
 	if len(hazardInputs) > 0 && c.temporal != nil {
 		c.pushIncidentsUpdate(sessionID)
 	}
 
-	return map[string]any{"status": "logged", "count": len(hazardInputs)}
+	// Include already-known hazards so the model doesn't re-report them
+	result := map[string]any{"status": "logged", "count": len(hazardInputs)}
+	if sess != nil && len(sess.Hazards) > 0 {
+		known := make([]string, 0, len(sess.Hazards))
+		for _, h := range sess.Hazards {
+			known = append(known, h.Description)
+		}
+		if len(known) > 10 {
+			known = known[:10]
+		}
+		result["already_reported_hazards"] = known
+		result["instruction"] = "Logged. NEVER repeat these findings — you already told the operator. Only report NEW hazards."
+	}
+	return result
 }
 
 func (c *Controller) toolHighlightHazard(sessionID string, args map[string]any) map[string]any {
@@ -1090,6 +1309,13 @@ func (c *Controller) toolHighlightHazard(sessionID string, args map[string]any) 
 		}
 	}
 
+	slog.Info("highlight_hazard overlay",
+		"session_id", sessionID,
+		"label", label,
+		"severity", severity,
+		"has_bbox", overlay.BBox != nil,
+	)
+
 	if c.onResponse != nil {
 		c.onResponse(sessionID, &AgentResponse{
 			Type:     "overlay",
@@ -1097,7 +1323,7 @@ func (c *Controller) toolHighlightHazard(sessionID string, args map[string]any) 
 		})
 	}
 
-	return map[string]any{"status": "highlighted", "label": label}
+	return map[string]any{"status": "highlighted", "label": label, "instruction": "Overlay shown. NEVER repeat this finding — you already told the operator. Move on."}
 }
 
 func (c *Controller) toolSwitchMode(sessionID string, args map[string]any) map[string]any {
@@ -1135,6 +1361,15 @@ func (c *Controller) toolLogIssue(sessionID string, args map[string]any) map[str
 	if logSess != nil {
 		logCamID = logSess.CameraID
 	}
+	if conf < c.confidenceThreshold {
+		slog.Debug("dropping low-confidence tool hazard",
+			"description", desc,
+			"confidence", conf,
+			"threshold", c.confidenceThreshold,
+		)
+		return map[string]any{"status": "below_threshold", "confidence": conf}
+	}
+
 	c.sessions.AddHazard(sessionID, types.Hazard{
 		ID:          sessionID + "_" + itoa(int(time.Now().UnixMilli())),
 		RuleID:      ruleID,

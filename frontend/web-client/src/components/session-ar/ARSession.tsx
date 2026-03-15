@@ -27,10 +27,9 @@ interface ARSessionProps {
   mode: string;
   onModeChange: (mode: string) => void;
   videoSource?: string | null;
-  audioInputEnabled: boolean;
+  /** Whether the live audio input is currently active (always-on when inspecting). */
   audioInputActive: boolean;
-  audioInputSupported: boolean;
-  onAudioInputChange: (enabled: boolean) => void;
+  overlaysFading?: boolean;
   glassMode?: GlassMode;
   onGlassModeChange?: (mode: GlassMode) => void;
   onOpenReportView?: () => void;
@@ -50,10 +49,8 @@ export function ARSession({
   mode,
   onModeChange,
   videoSource,
-  audioInputEnabled,
   audioInputActive,
-  audioInputSupported,
-  onAudioInputChange,
+  overlaysFading = false,
   glassMode: externalGlassMode,
   onGlassModeChange,
   onOpenReportView,
@@ -96,12 +93,21 @@ export function ARSession({
   useEffect(() => {
     let stream: MediaStream;
     if (videoSource) {
-      if (videoRef.current) {
-        videoRef.current.srcObject = null;
-        videoRef.current.src = videoSource;
-        videoRef.current.loop = true;
-        videoRef.current.muted = true;
-        void videoRef.current.play().catch(() => {});
+      const vid = videoRef.current;
+      if (vid) {
+        vid.srcObject = null;
+        vid.src = videoSource;
+        vid.loop = true;
+        vid.muted = true;
+        vid.playsInline = true;
+        const tryPlay = () => {
+          vid.removeEventListener("canplay", tryPlay);
+          vid.removeEventListener("loadeddata", tryPlay);
+          void vid.play().catch((err) => console.warn("[ARGUS] Video play failed:", err));
+        };
+        vid.addEventListener("canplay", tryPlay);
+        vid.addEventListener("loadeddata", tryPlay);
+        vid.load();
       }
       return;
     }
@@ -115,10 +121,12 @@ export function ARSession({
       .catch(() => {});
     return () => {
       stream?.getTracks().forEach((t) => t.stop());
-      if (videoRef.current) {
-        videoRef.current.pause();
-        videoRef.current.removeAttribute("src");
-        videoRef.current.load();
+      const vid = videoRef.current;
+      if (vid) {
+        vid.pause();
+        vid.removeAttribute("src");
+        vid.srcObject = null;
+        vid.load();
       }
     };
   }, [videoSource]);
@@ -169,7 +177,7 @@ export function ARSession({
       />
       <canvas ref={canvasRef} className="hidden" />
 
-      <HazardOverlay overlays={session.overlays} visible={overlaysVisible} glassMode={glassMode} />
+      <HazardOverlay overlays={session.overlays} visible={overlaysVisible} glassMode={glassMode} fading={overlaysFading} />
       <EventPillOverlay
         hazards={session.hazards}
         overlays={session.overlays}
@@ -178,7 +186,7 @@ export function ARSession({
         interactive={false}
         expandMode="none"
         placementMode="stack-top-left"
-        maxItems={1}
+        maxItems={3}
       />
 
       {session.actionCards.length > 0 && (
@@ -210,25 +218,14 @@ export function ARSession({
             </span>
           )}
         </div>
-        <button
-          onClick={() => {
-            if (!audioInputSupported) return;
-            onAudioInputChange(!audioInputEnabled);
-          }}
-          className="liquid-glass liquid-float liquid-pill liquid-enter px-2 py-1 font-mono text-[9px] tracking-[0.2em] uppercase"
-          style={{
-            color: !audioInputSupported
-              ? "rgba(239,68,68,0.9)"
-              : audioInputEnabled && audioInputActive
-              ? "#FF5F1F"
-              : "rgba(255,255,255,0.5)",
-            opacity: audioInputSupported ? 1 : 0.75,
-            cursor: audioInputSupported ? "pointer" : "not-allowed",
-          }}
-          title={audioInputSupported ? "Toggle Live microphone" : "Microphone unsupported in this browser"}
-        >
-          {audioInputSupported ? (audioInputEnabled ? "Mic On" : "Mic Off") : "Mic N/A"}
-        </button>
+        {audioInputActive && (
+          <span
+            className="liquid-glass liquid-float liquid-pill liquid-enter px-2 py-1 font-mono text-[9px] tracking-[0.2em] uppercase"
+            style={{ color: "#FF5F1F" }}
+          >
+            Live
+          </span>
+        )}
       </div>
     </div>
   );

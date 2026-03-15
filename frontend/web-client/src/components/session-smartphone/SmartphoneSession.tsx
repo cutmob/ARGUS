@@ -26,7 +26,9 @@ interface SmartphoneSessionProps {
   mode: string;
   onModeChange: (mode: string) => void;
   overlaysVisible?: boolean;
+  overlaysFading?: boolean;
   videoSource?: string | null;
+  videoFile?: File | null;
   glassMode?: GlassMode;
   onGlassModeChange?: (mode: GlassMode) => void;
 }
@@ -43,7 +45,9 @@ export function SmartphoneSession({
   mode,
   onModeChange,
   overlaysVisible = true,
+  overlaysFading = false,
   videoSource,
+  videoFile,
   glassMode: externalGlassMode,
   onGlassModeChange,
 }: SmartphoneSessionProps) {
@@ -65,8 +69,10 @@ export function SmartphoneSession({
           hazards={session.hazards}
           overlays={session.overlays}
           overlaysVisible={overlaysVisible}
+          overlaysFading={overlaysFading}
           glassMode={glassMode}
           videoSource={videoSource}
+          videoFile={videoFile}
           onFrame={session.sendFrame}
           pillExpandMode="tap"
           pillPlacementMode="stack-top-left"

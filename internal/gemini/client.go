@@ -12,9 +12,15 @@ import (
 )
 
 const (
-	// GA stable model for the Live API (bidirectional streaming, native audio).
-	// Preview variant was deprecated March 19 2026 — GA model is the correct target.
+	// Stable native audio model for the Live API on Vertex AI.
+	// GA model with robust function calling support.
+	// Override via GEMINI_LIVE_MODEL env var if needed.
 	defaultLiveModel = "gemini-live-2.5-flash-native-audio"
+
+	// Live model alias for the Gemini Developer API (AI Studio) backend.
+	// This backend supports NON_BLOCKING function declarations, unlike Vertex AI.
+	// Using the stable "latest" alias — the December preview has known 1008 bugs.
+	defaultLiveModelGeminiAPI = "gemini-2.5-flash-native-audio-latest"
 
 	// Standard content model for one-shot frame analysis.
 	defaultContentModel = "gemini-2.5-flash"
@@ -24,42 +30,119 @@ const (
 // GenerateContent calls and Live API bidirectional streaming sessions.
 type Client struct {
 	inner        *genai.Client
+	// liveInner is a dedicated Gemini API client for Live sessions.
+	// It supports NON_BLOCKING function declarations, which Vertex AI does not.
+	// Falls back to inner if no GEMINI_API_KEY is set.
+	liveInner    *genai.Client
 	liveModel    string
 	contentModel string
 }
 
 // NewClient creates a Gemini client using the official google.golang.org/genai SDK.
+// Supports two backends:
+//   - Vertex AI (default): set GCP_PROJECT_ID and GCP_LOCATION env vars.
+//     Uses Application Default Credentials (ADC) — run `gcloud auth application-default login`
+//     locally, or deploy to Cloud Run with a service account.
+//   - Gemini API (AI Studio): set GEMINI_API_KEY and GEMINI_BACKEND=gemini_api.
 func NewClient(ctx context.Context) (*Client, error) {
-	apiKey := os.Getenv("GEMINI_API_KEY")
-	if apiKey == "" {
-		return nil, fmt.Errorf("GEMINI_API_KEY environment variable is required")
-	}
+	var inner *genai.Client
+	var err error
+	var backendName string
 
-	inner, err := genai.NewClient(ctx, &genai.ClientConfig{
-		APIKey:  apiKey,
-		Backend: genai.BackendGeminiAPI,
-	})
+	if os.Getenv("GEMINI_BACKEND") == "gemini_api" {
+		// Legacy Gemini API (AI Studio) backend
+		apiKey := os.Getenv("GEMINI_API_KEY")
+		if apiKey == "" {
+			return nil, fmt.Errorf("GEMINI_API_KEY is required when GEMINI_BACKEND=gemini_api")
+		}
+		inner, err = genai.NewClient(ctx, &genai.ClientConfig{
+			APIKey:  apiKey,
+			Backend: genai.BackendGeminiAPI,
+			HTTPOptions: genai.HTTPOptions{
+				APIVersion: "v1alpha",
+			},
+		})
+		backendName = "gemini_api"
+	} else {
+		// Vertex AI backend (default) — uses ADC, no API key needed
+		project := os.Getenv("GCP_PROJECT_ID")
+		location := os.Getenv("GCP_LOCATION")
+		if project == "" {
+			return nil, fmt.Errorf("GCP_PROJECT_ID environment variable is required (or set GEMINI_BACKEND=gemini_api to use AI Studio)")
+		}
+		if location == "" {
+			location = "us-central1"
+		}
+		inner, err = genai.NewClient(ctx, &genai.ClientConfig{
+			Project:  project,
+			Location: location,
+			Backend:  genai.BackendVertexAI,
+			HTTPOptions: genai.HTTPOptions{
+				APIVersion: "v1beta1",
+			},
+		})
+		backendName = "vertex_ai"
+	}
 	if err != nil {
 		return nil, fmt.Errorf("creating genai client: %w", err)
 	}
 
 	liveModel := os.Getenv("GEMINI_LIVE_MODEL")
 	if liveModel == "" {
-		liveModel = defaultLiveModel
+		if backendName == "gemini_api" {
+			liveModel = defaultLiveModelGeminiAPI
+		} else {
+			liveModel = defaultLiveModel
+		}
 	}
 	contentModel := os.Getenv("GEMINI_CONTENT_MODEL")
 	if contentModel == "" {
 		contentModel = defaultContentModel
 	}
 
+	// Build a dedicated Gemini Developer API client for Live sessions so we can
+	// use NON_BLOCKING function declarations (not supported on Vertex AI).
+	// If GEMINI_API_KEY is present we always use this for Live, regardless of
+	// which backend is used for GenerateContent.
+	var liveInner *genai.Client
+	liveModel_ := liveModel
+	if apiKey := os.Getenv("GEMINI_API_KEY"); apiKey != "" && backendName != "gemini_api" {
+		liveInner, err = genai.NewClient(ctx, &genai.ClientConfig{
+			APIKey:  apiKey,
+			Backend: genai.BackendGeminiAPI,
+			HTTPOptions: genai.HTTPOptions{
+				APIVersion: "v1alpha",
+			},
+		})
+		if err != nil {
+			slog.Warn("failed to create Gemini API live client, falling back to primary backend",
+				"error", err,
+			)
+			liveInner = nil
+		} else {
+			// Use the Gemini API model alias for this client
+			if os.Getenv("GEMINI_LIVE_MODEL") == "" {
+				liveModel_ = defaultLiveModelGeminiAPI
+			}
+			slog.Info("gemini live client: using Gemini API backend (NON_BLOCKING supported)",
+				"live_model", liveModel_,
+			)
+		}
+	}
+	if liveInner == nil {
+		liveInner = inner
+	}
+
 	slog.Info("gemini client initialized",
-		"live_model", liveModel,
+		"backend", backendName,
+		"live_model", liveModel_,
 		"content_model", contentModel,
 	)
 
 	return &Client{
 		inner:        inner,
-		liveModel:    liveModel,
+		liveInner:    liveInner,
+		liveModel:    liveModel_,
 		contentModel: contentModel,
 	}, nil
 }
@@ -97,7 +180,7 @@ func (c *Client) AnalyzeFrame(ctx context.Context, req types.GeminiRequest) (*ty
 	}
 
 	result, err := c.inner.Models.GenerateContent(ctx, c.contentModel,
-		[]*genai.Content{{Parts: parts}}, config)
+		[]*genai.Content{{Role: "user", Parts: parts}}, config)
 	if err != nil {
 		return nil, fmt.Errorf("gemini GenerateContent: %w", err)
 	}
@@ -124,9 +207,16 @@ func (c *Client) AnalyzeText(ctx context.Context, prompt string, systemContext s
 	return parseGenerateContentResponse(result)
 }
 
-// Inner returns the underlying genai.Client for Live API access.
+// Inner returns the underlying genai.Client for GenerateContent calls.
 func (c *Client) Inner() *genai.Client {
 	return c.inner
+}
+
+// LiveInner returns the genai.Client to use for Live API sessions.
+// This is the Gemini Developer API client when available (supports NON_BLOCKING),
+// falling back to the primary client otherwise.
+func (c *Client) LiveInner() *genai.Client {
+	return c.liveInner
 }
 
 // LiveModel returns the configured Live API model name.

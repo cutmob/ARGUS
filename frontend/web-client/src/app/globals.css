@@ -26,7 +26,7 @@ html, body {
 * { scrollbar-width: thin; scrollbar-color: #1c1c1c transparent; }
 
 @media (prefers-color-scheme: light) {
-  :root {
+  :root:not([data-glass="dark"]) {
     --glass-bg: rgba(255, 255, 255, 0.56);
     --glass-border: rgba(20, 20, 20, 0.12);
     --glass-text: rgba(20, 20, 20, 0.88);
@@ -34,6 +34,29 @@ html, body {
     --glass-shadow: 0 14px 32px rgba(18, 18, 18, 0.12), 0 2px 8px rgba(18, 18, 18, 0.08);
     --glass-shadow-soft: 0 8px 18px rgba(18, 18, 18, 0.09);
   }
+}
+
+/* Manual light glass mode — overrides OS preference */
+:root[data-glass="light"] {
+  --glass-bg: rgba(255, 255, 255, 0.56);
+  --glass-border: rgba(20, 20, 20, 0.12);
+  --glass-text: rgba(20, 20, 20, 0.88);
+  --glass-muted: rgba(30, 30, 30, 0.62);
+  --glass-shadow: 0 14px 32px rgba(18, 18, 18, 0.12), 0 2px 8px rgba(18, 18, 18, 0.08);
+  --glass-shadow-soft: 0 8px 18px rgba(18, 18, 18, 0.09);
+}
+
+:root[data-glass="light"] .liquid-menu-popover {
+  background: rgba(255, 255, 255, 0.72);
+  border-color: rgba(20, 20, 20, 0.12);
+}
+
+:root[data-glass="light"] .liquid-menu-item:hover {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+:root[data-glass="light"] .liquid-menu-item-active {
+  background: rgba(0, 0, 0, 0.1);
 }
 
 .liquid-glass {
@@ -106,6 +129,22 @@ html, body {
 
 .liquid-meta {
   color: var(--glass-muted);
+}
+
+/* Hazard overlay fade-in / fade-out */
+@keyframes overlay-fade-in {
+  from { opacity: 0; transform: scale(0.97); }
+  to   { opacity: 1; transform: scale(1); }
+}
+@keyframes overlay-fade-out {
+  from { opacity: 1; transform: scale(1); }
+  to   { opacity: 0; transform: scale(0.97); }
+}
+.overlay-enter {
+  animation: overlay-fade-in 280ms ease-out both;
+}
+.overlay-exit {
+  animation: overlay-fade-out 400ms ease-in both;
 }
 
 /* Feed corner brackets */

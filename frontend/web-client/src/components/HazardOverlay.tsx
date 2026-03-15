@@ -8,6 +8,7 @@ interface HazardOverlayProps {
   overlays: Overlay[];
   visible: boolean;
   glassMode?: GlassMode;
+  fading?: boolean;
 }
 
 const SEVERITY_COLOR: Record<string, string> = {
@@ -33,13 +34,14 @@ const LIGHT_BG: Record<string, string> = {
   critical: "rgba(255,255,255,0.18)",
 };
 
-export function HazardOverlay({ overlays, visible, glassMode = "dark" }: HazardOverlayProps) {
+export function HazardOverlay({ overlays, visible, glassMode = "dark", fading = false }: HazardOverlayProps) {
   if (!visible || overlays.length === 0) return null;
 
   const isDark = glassMode === "dark";
+  const animClass = fading ? "overlay-exit" : "overlay-enter";
 
   return (
-    <div className="absolute inset-0 pointer-events-none z-10">
+    <div className={`absolute inset-0 pointer-events-none z-10 ${animClass}`}>
       {overlays.map((overlay, i) => {
         if (!overlay.bbox) return null;
         const { x, y, width, height } = overlay.bbox;
@@ -66,11 +68,11 @@ export function HazardOverlay({ overlays, visible, glassMode = "dark" }: HazardO
                 background:              bg,
                 backdropFilter:          isDark ? "blur(2px)" : "blur(6px) saturate(1.4)",
                 WebkitBackdropFilter:    isDark ? "blur(2px)" : "blur(6px) saturate(1.4)",
-                border:                  isDark
-                  ? `1px solid ${color}33`
-                  : `1px solid rgba(255,255,255,0.5)`,
+                borderWidth:             1,
+                borderStyle:             "solid",
+                borderColor:             isDark ? `${color}33` : "rgba(255,255,255,0.5)",
                 // Light mode: faint specular highlight on top edge
-                borderTopColor:          isDark ? undefined : "rgba(255,255,255,0.8)",
+                borderTopColor:          isDark ? `${color}33` : "rgba(255,255,255,0.8)",
                 borderRadius:            3,
                 // Light mode: soft shadow so it lifts off the scene
                 boxShadow:               isDark

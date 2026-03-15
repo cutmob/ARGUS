@@ -43,21 +43,28 @@ export default function SessionPage() {
   const [openSelect, setOpenSelect] = useState<"context" | "mode" | "format" | "threshold" | null>(null);
   const [reportViewOpen, setReportViewOpen] = useState(false);
   const [reportTile, setReportTile] = useState<{ text: string; at: number } | null>(null);
-  const [latestReport, setLatestReport] = useState<{ text: string; reportId?: string; at: number } | null>(null);
-  const [cctvVoiceInputEnabled, setCctvVoiceInputEnabled] = useState(false);
-  const [cctvVoiceOutputEnabled, setCctvVoiceOutputEnabled] = useState(false);
+  const [latestReport, setLatestReport] = useState<{ text: string; reportId?: string; downloadUrl?: string; at: number } | null>(null);
+  const [cctvVoiceInputEnabled, setCctvVoiceInputEnabled] = useState(true);
+  const [cctvVoiceOutputEnabled, setCctvVoiceOutputEnabled] = useState(true);
   const [arVoiceInputEnabled, setArVoiceInputEnabled] = useState(true);
   const [alertThreshold, setAlertThreshold] = useState<AlertThreshold>("high");
   const [glassMode, setGlassMode] = useState<GlassMode>("dark");
   const [demoContext, setDemoContext] = useState<CameraContext>("cctv");
   const [videoSource, setVideoSource] = useState<string | null>(null);
+  const [videoFile, setVideoFile] = useState<File | null>(null);
   const [videoName, setVideoName] = useState("");
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [manualContext, setManualContext] = useState<CameraContext | null>(null);
   const handledUiTranscriptAtRef = useRef(0);
+  const [menuVisible, setMenuVisible] = useState(true);
+  const menuFadeTimer = useRef<NodeJS.Timeout>();
 
   useEffect(() => {
-    setGated(!localStorage.getItem("argus_demo_token"));
+    // Skip the demo gate if no token is required (backend has empty DEMO_TOKENS)
+    // or if the user already has a stored token.
+    const hasToken = !!localStorage.getItem("argus_demo_token");
+    const skipGate = process.env.NEXT_PUBLIC_SKIP_GATE === "true";
+    setGated(!hasToken && !skipGate);
     const savedMode = localStorage.getItem("argus_mode");
     const savedContext = localStorage.getItem("argus_context") as CameraContext | null;
     const savedFormat = localStorage.getItem("argus_report_format");
@@ -100,6 +107,11 @@ export default function SessionPage() {
   const wakeWordEnabled = !session.isInspecting && (manualContext ?? context) === "cctv";
   useWakeWord({ onWake: handleWake, word: "argus", enabled: wakeWordEnabled });
 
+  // Sync glass mode to root element for CSS variable switching
+  useEffect(() => {
+    document.documentElement.setAttribute("data-glass", glassMode);
+  }, [glassMode]);
+
   // Toggle overlays with "O" key (non-AR modes)
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
@@ -110,11 +122,17 @@ export default function SessionPage() {
     return () => window.removeEventListener("keydown", onKey);
   }, []);
 
+  // Revoke blob URL only on unmount — NOT on every videoSource change.
+  // React StrictMode double-invokes effect cleanups, which revokes the URL
+  // before CameraView can use it, causing uploaded videos to silently fail.
+  // handleVideoPick already revokes the previous URL when a new file is picked.
+  const videoSourceRef = useRef(videoSource);
+  videoSourceRef.current = videoSource;
   useEffect(() => {
     return () => {
-      if (videoSource) URL.revokeObjectURL(videoSource);
+      if (videoSourceRef.current) URL.revokeObjectURL(videoSourceRef.current);
     };
-  }, [videoSource]);
+  }, []);
 
   useEffect(() => {
     if (!controlsOpen) setOpenSelect(null);
@@ -134,6 +152,7 @@ export default function SessionPage() {
     const nextReport = {
       text: text || `Report generated (${reportFormat.toUpperCase()}).`,
       reportId: r.reportId,
+      downloadUrl: r.downloadUrl,
       at: r.at,
     };
     setLatestReport(nextReport);
@@ -146,13 +165,13 @@ export default function SessionPage() {
   }, [session.lastAgentResponse, reportFormat]);
 
   const activeContext = manualContext ?? context;
-  const liveAudioEnabled =
-    (activeContext === "ar" && arVoiceInputEnabled) ||
-    activeContext === "smartphone" ||
-    (activeContext === "cctv" && cctvVoiceInputEnabled);
+  // Audio is always on while inspecting — the whole point of Gemini Live
+  // native audio is bidirectional audio + video. No mic toggle needed.
+  const liveAudioEnabled = session.isInspecting;
   const { active: liveAudioActive, supported: liveAudioSupported } = useLiveAudioInput({
     enabled: liveAudioEnabled,
     onChunk: session.sendAudio,
+    onStreamEnd: session.sendAudioStreamEnd,
   });
 
   useEffect(() => {
@@ -167,6 +186,60 @@ export default function SessionPage() {
     session.setAlertThreshold(alertThreshold);
     localStorage.setItem("argus_alert_threshold", alertThreshold);
   }, [alertThreshold, session.setAlertThreshold]);
+
+  // Voice-intent UI handler — must be before early returns to keep hook order stable
+  const setSharedGlassModeRef = useRef((next: GlassMode) => {
+    setGlassMode(next);
+    localStorage.setItem("argus_glass_mode", next);
+  });
+  useEffect(() => {
+    const transcript = session.lastTranscript;
+    if (!transcript || transcript.speaker !== "user") return;
+    if (transcript.at <= handledUiTranscriptAtRef.current) return;
+    handledUiTranscriptAtRef.current = transcript.at;
+
+    const intent = resolveVoiceIntent(transcript.text);
+    switch (intent.type) {
+      case "open_report":
+        setReportViewOpen(true);
+        setReportTile(null);
+        break;
+      case "close_report":
+        setReportViewOpen(false);
+        break;
+      case "toggle_overlays":
+        setOverlaysVisible((v) => !v);
+        break;
+      case "show_incidents":
+        setOverlaysVisible(true);
+        break;
+      case "hide_incidents":
+        setOverlaysVisible(false);
+        break;
+      case "set_glass_light":
+        setSharedGlassModeRef.current("light");
+        break;
+      case "set_glass_dark":
+        setSharedGlassModeRef.current("dark");
+        break;
+      case "mute_voice":
+        if (activeContext === "cctv") {
+          setCctvVoiceOutputEnabled(false);
+          localStorage.setItem("argus_cctv_voice_output", "false");
+        }
+        session.setVoiceOutputEnabled(false);
+        break;
+      case "unmute_voice":
+        if (activeContext === "cctv") {
+          setCctvVoiceOutputEnabled(true);
+          localStorage.setItem("argus_cctv_voice_output", "true");
+        }
+        session.setVoiceOutputEnabled(true);
+        break;
+      default:
+        break;
+    }
+  }, [activeContext, session]);
 
   if (gated || session.unauthorized) {
     return (
@@ -204,6 +277,7 @@ export default function SessionPage() {
     if (videoSource) URL.revokeObjectURL(videoSource);
     const url = URL.createObjectURL(file);
     setVideoSource(url);
+    setVideoFile(file);
     setVideoName(file.name);
   };
 
@@ -211,65 +285,24 @@ export default function SessionPage() {
     setManualContext(demoContext);
     localStorage.setItem("argus_context", demoContext);
     if (!session.isInspecting) session.startInspection(inspectionMode);
+    // In AR mode, auto-hide the menu after 5 seconds
+    if (demoContext === "ar") {
+      clearTimeout(menuFadeTimer.current);
+      menuFadeTimer.current = setTimeout(() => setMenuVisible(false), 5000);
+    }
   };
 
   const stopDemo = () => {
     if (session.isInspecting) session.stopInspection();
+    setMenuVisible(true);
+    clearTimeout(menuFadeTimer.current);
   };
 
   const setSharedGlassMode = (next: GlassMode) => {
     setGlassMode(next);
     localStorage.setItem("argus_glass_mode", next);
   };
-
-  useEffect(() => {
-    const transcript = session.lastTranscript;
-    if (!transcript || transcript.speaker !== "user") return;
-    if (transcript.at <= handledUiTranscriptAtRef.current) return;
-    handledUiTranscriptAtRef.current = transcript.at;
-
-    const intent = resolveVoiceIntent(transcript.text);
-    switch (intent.type) {
-      case "open_report":
-        setReportViewOpen(true);
-        setReportTile(null);
-        break;
-      case "close_report":
-        setReportViewOpen(false);
-        break;
-      case "toggle_overlays":
-        setOverlaysVisible((v) => !v);
-        break;
-      case "show_incidents":
-        setOverlaysVisible(true);
-        break;
-      case "hide_incidents":
-        setOverlaysVisible(false);
-        break;
-      case "set_glass_light":
-        setSharedGlassMode("light");
-        break;
-      case "set_glass_dark":
-        setSharedGlassMode("dark");
-        break;
-      case "mute_voice":
-        if (activeContext === "cctv") {
-          setCctvVoiceOutputEnabled(false);
-          localStorage.setItem("argus_cctv_voice_output", "false");
-        }
-        session.setVoiceOutputEnabled(false);
-        break;
-      case "unmute_voice":
-        if (activeContext === "cctv") {
-          setCctvVoiceOutputEnabled(true);
-          localStorage.setItem("argus_cctv_voice_output", "true");
-        }
-        session.setVoiceOutputEnabled(true);
-        break;
-      default:
-        break;
-    }
-  }, [activeContext, session, setSharedGlassMode]);
+  setSharedGlassModeRef.current = setSharedGlassMode;
 
   const sessionWithFormat = {
     ...session,
@@ -282,7 +315,12 @@ export default function SessionPage() {
   const reportPanelTop = controlsOpen ? "11.25rem" : activeContext === "cctv" ? "6rem" : "7rem";
 
   const controlLauncher = (
-    <div className={`fixed z-50 ${controlAnchorClass}`}>
+    <div
+      className={`fixed z-50 ${controlAnchorClass} transition-opacity duration-500`}
+      style={{ opacity: menuVisible ? 1 : 0, pointerEvents: menuVisible ? "auto" : "none" }}
+      onPointerEnter={() => { if (activeContext === "ar" && session.isInspecting) { clearTimeout(menuFadeTimer.current); setMenuVisible(true); } }}
+      onPointerLeave={() => { if (activeContext === "ar" && session.isInspecting) { menuFadeTimer.current = setTimeout(() => setMenuVisible(false), 3000); } }}
+    >
       <input
         ref={fileInputRef}
         type="file"
@@ -497,10 +535,21 @@ export default function SessionPage() {
             {latestReport.reportId && (
               <p className="font-mono text-[10px] mt-1 liquid-meta">ID {latestReport.reportId}</p>
             )}
+            {latestReport.downloadUrl && (
+              <a
+                href={latestReport.downloadUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block mt-2 liquid-glass liquid-float liquid-pill px-3 py-1.5 font-mono text-[10px] tracking-[0.14em] uppercase"
+                style={{ color: "#FF5F1F" }}
+              >
+                Download {reportFormat.toUpperCase()}
+              </a>
+            )}
           </>
         ) : (
           <p className="font-sans text-xs leading-relaxed liquid-meta">
-            No report yet. Say “generate report”, then “open report view”.
+            No report yet. Say "generate report", then "open report view".
           </p>
         )}
       </div>
@@ -531,7 +580,9 @@ export default function SessionPage() {
           mode={inspectionMode}
           onModeChange={handleModeChange}
           overlaysVisible={overlaysVisible}
+          overlaysFading={session.overlaysFading}
           videoSource={videoSource}
+          videoFile={videoFile}
           glassMode={glassMode}
           onGlassModeChange={setSharedGlassMode}
         />
@@ -543,6 +594,17 @@ export default function SessionPage() {
     return (
       <>
         {controlLauncher}
+        {/* Tap top-right corner to reveal menu in AR mode */}
+        {!menuVisible && (
+          <div
+            className="fixed top-0 right-0 z-40 w-24 h-24"
+            onClick={() => {
+              setMenuVisible(true);
+              clearTimeout(menuFadeTimer.current);
+              menuFadeTimer.current = setTimeout(() => setMenuVisible(false), 5000);
+            }}
+          />
+        )}
         {reportTileView}
         {reportPanelView}
         {incidentTimeline}
@@ -551,13 +613,8 @@ export default function SessionPage() {
           mode={inspectionMode}
           onModeChange={handleModeChange}
           videoSource={videoSource}
-          audioInputEnabled={arVoiceInputEnabled}
-          audioInputActive={liveAudioActive && activeContext === "ar"}
-          audioInputSupported={liveAudioSupported}
-          onAudioInputChange={(enabled: boolean) => {
-            setArVoiceInputEnabled(enabled);
-            localStorage.setItem("argus_ar_voice_input", String(enabled));
-          }}
+          audioInputActive={liveAudioActive}
+          overlaysFading={session.overlaysFading}
           glassMode={glassMode}
           onGlassModeChange={setSharedGlassMode}
           onOpenReportView={() => {
@@ -582,20 +639,17 @@ export default function SessionPage() {
         mode={inspectionMode}
         onModeChange={handleModeChange}
         overlaysVisible={overlaysVisible}
+        overlaysFading={session.overlaysFading}
         videoSource={videoSource}
+        videoFile={videoFile}
         glassMode={glassMode}
         onGlassModeChange={setSharedGlassMode}
-        voiceInputEnabled={cctvVoiceInputEnabled}
-        voiceInputSupported={liveAudioSupported}
         voiceOutputEnabled={cctvVoiceOutputEnabled}
-        onVoiceInputChange={(enabled: boolean) => {
-          setCctvVoiceInputEnabled(enabled);
-          localStorage.setItem("argus_cctv_voice_input", String(enabled));
-        }}
         onVoiceOutputChange={(enabled: boolean) => {
           setCctvVoiceOutputEnabled(enabled);
           localStorage.setItem("argus_cctv_voice_output", String(enabled));
         }}
+        audioInputActive={liveAudioActive}
       />
     </>
   );
